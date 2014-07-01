@@ -17,6 +17,31 @@ class SessionController extends ControllerBase
             Tag::setDefault('email', 'demo@phalconphp.com');
             Tag::setDefault('password', 'phalcon');
         }
+            $user = new Users();
+$user = Users::findById(array('53b266abc4c6b2c007000002','53b2669ac4c6b2cc07000001'));
+/*
+$user = Users::findFirst(array(
+     array(
+		"username" => "vicon",
+		"name" => "lookingatsky"
+	 )
+ ));
+*/ 
+ if($user == false){
+	$this->flash->error('the user didnt exist!');
+ }else{
+ //fb::log($user->name);
+foreach ( $user as $key => $rr){
+	fb::log($rr->name);
+	fb::log($rr->password);
+} 		
+ }
+ /*
+foreach ( $user as $key => $rr){
+	fb::log($rr->name);
+	fb::log($rr->password);
+} 	
+*/		
     }
 
     public function registerAction()
@@ -40,9 +65,22 @@ class SessionController extends ControllerBase
             $user->password = sha1($password);
             $user->name = $name;
             $user->email = $email;
-            $user->created_at = new Phalcon\Db\RawValue('now()');
+            //$user->created_at = new Phalcon\Db\RawValue('now()');
             $user->active = 'Y';
-            if ($user->save() == false) {
+
+			if ($user->save() == false) {
+				echo "Umh, We can't store robots right now ";
+				foreach ($user->getMessages() as $message) {
+					echo $message;
+				}
+			} else {
+                Tag::setDefault('email', '');
+                Tag::setDefault('password', '');
+                $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
+                return $this->forward('session/index');
+			}
+			
+/*            if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
                     $this->flash->error((string) $message);
                 }
@@ -52,6 +90,7 @@ class SessionController extends ControllerBase
                 $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
                 return $this->forward('session/index');
             }
+*/			
         }
     }
 

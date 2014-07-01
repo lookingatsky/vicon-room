@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 
 try {
-
+	require_once 'FirePHP/fb.php';
 	/**
 	 * Read the configuration
 	 */
@@ -97,6 +97,31 @@ try {
 		));
 	});
 
+	$di->set('collectionManager', function() {
+		//$eventsManager = new Phalcon\Events\Manager();
+		/*
+		$eventsManager->attach('collection',function($event,$model){
+			if(get_class($model) == 'Robots'){
+				if($event->getType() == 'beforeSave'){
+					if($model->name == ''){
+						echo '';
+						return false;
+					} 
+				}
+			}
+			return true;	
+		});
+		*/
+		$modelsManager = new Phalcon\Mvc\Collection\Manager();
+		//$modelsManager->setEventsManager($eventsManager);
+		return $modelsManager;
+
+	}, true);
+
+	$di->set('mongo1',function(){
+		$mongo = new Mongo("mongodb://127.0.0.1");
+		return $mongo->selectDb("local");
+	},true);	
 	/**
 	 * If the configuration specify the use of metadata adapter use it or use memory otherwise
 	 */

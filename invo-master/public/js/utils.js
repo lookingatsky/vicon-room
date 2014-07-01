@@ -58,4 +58,5 @@ var SignUp = {
 $(document).ready(function () {
     $("#registerForm .alert").hide();
     $("div.profile .alert").hide();
+	setTimeout("$('.alert').fadeOut(2000)",5000);
 });
