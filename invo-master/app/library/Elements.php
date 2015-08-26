@@ -11,25 +11,25 @@ class Elements extends Phalcon\Mvc\User\Component
     private $_headerMenu = array(
         'pull-left' => array(
             'index' => array(
-                'caption' => 'Home',
+                'caption' => '首页',
                 'action' => 'index'
             ),
             'invoices' => array(
-                'caption' => 'Invoices',
+                'caption' => '系统',
                 'action' => 'index'
             ),
             'about' => array(
-                'caption' => 'About',
+                'caption' => '关于',
                 'action' => 'index'
             ),
             'contact' => array(
-                'caption' => 'Contact',
+                'caption' => '联系我们',
                 'action' => 'index'
             ),
         ),
         'pull-right' => array(
             'session' => array(
-                'caption' => 'Log In/Sign Up',
+                'caption' => '登录/注册',
                 'action' => 'index'
             ),
         )
@@ -41,22 +41,22 @@ class Elements extends Phalcon\Mvc\User\Component
             'action' => 'index',
             'any' => false
         ),
-        'Companies' => array(
+        '部门管理' => array(
             'controller' => 'companies',
             'action' => 'index',
             'any' => true
         ),
-        'Products' => array(
+        '信息录入' => array(
             'controller' => 'products',
             'action' => 'index',
             'any' => true
         ),
-        'Product Types' => array(
+        '类型管理' => array(
             'controller' => 'producttypes',
             'action' => 'index',
             'any' => true
         ),
-        'Your Profile' => array(
+        '账户管理' => array(
             'controller' => 'invoices',
             'action' => 'profile',
             'any' => false
@@ -74,7 +74,7 @@ class Elements extends Phalcon\Mvc\User\Component
         $auth = $this->session->get('auth');
         if ($auth) {
             $this->_headerMenu['pull-right']['session'] = array(
-                'caption' => '�� ��',
+                'caption' => '退 出',
                 'action' => 'end'
             );
         } else {

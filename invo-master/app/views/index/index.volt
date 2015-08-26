@@ -2,8 +2,8 @@
 {{ content() }}
 
 <div class="hero-unit">
-    <h1>欢迎来到百度人才库系统</h1>
-    <p>百度人才库系统是自用系统，如果没有账号，请先联系系统管理员。</p>
+    <h1>欢迎来到viconhouse系统</h1>
+    <p>viconhouse系统是自用系统，如果没有账号，请先联系系统管理员。</p>
     <p>{{ link_to('session/index', '登陆 &raquo;', 'class': 'btn btn-primary btn-large btn-success') }}</p>
 </div>
 

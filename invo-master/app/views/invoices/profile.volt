@@ -4,27 +4,27 @@
 <div class="profile left">
     {{ form('invoices/profile', 'id': 'profileForm', 'onbeforesubmit': 'return false') }}
         <div class="clearfix">
-            <label for="name">Your Full Name:</label>
+            <label for="name">姓 名:</label>
             <div class="input">
                 {{ text_field("name", "size": "30", "class": "span6") }}
                 <div class="alert" id="name_alert">
-                    <strong>Warning!</strong> Please enter your full name
+                    <strong>警告!</strong> 姓名不能为空
                 </div>
             </div>
         </div>
         <div class="clearfix">
-            <label for="email">Email Address:</label>
+            <label for="email">邮箱地址:</label>
             <div class="input">
                 {{ text_field("email", "size": "30", "class": "span6") }}
                 <div class="alert" id="email_alert">
-                    <strong>Warning!</strong> Please enter your email
+                    <strong>警告!</strong> 邮箱不能为空
                 </div>
             </div>
         </div>
         <div class="clearfix">
-            <input type="button" value="Update" class="btn btn-primary btn-large btn-info" onclick="Profile.validate()">
+            <input type="button" value="更新" class="btn btn-primary btn-large btn-info" onclick="Profile.validate()">
             &nbsp;
-            {{ link_to('invoices/index', 'Cancel') }}
+            {{ link_to('invoices/index', '取消') }}
         </div>
     </form>
 </div>

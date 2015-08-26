@@ -1,6 +1,6 @@
 <?php use Phalcon\Tag as Tag ?>
 
-<?php echo Tag::form("producttypes/save") ?>
+<?php echo Tag::form("producttypes/savetypes") ?>
 
 <ul class="pager">
     <li class="previous pull-left">
@@ -14,14 +14,30 @@
 <?php echo $this->getContent() ?>
 
 <div class="center scaffold">
-    <h2>编辑类型</h2>
+    <h2>编辑下级类型</h2>
     
-    <input type="hidden" name="id" id="id" value="<?php echo $id ?>" />
+<!--     <input type="hidden" name="id" id="id" value="<?php echo $id ?>" />
 
     <div class="clearfix">
         <label for="name">名称</label>
         <?php echo Tag::textField(array("name", "size" => 24, "maxlength" => 70)) ?>
-    </div>
+    </div> -->
+		{{ form.render("id") }}
 
+		<div class="clearfix">
+			<label for="name">名称</label>
+			{{ form.render("name") }}
+		</div>
+
+		<div class="clearfix">
+			<label for="limit">限额</label>
+			{{ form.render("limit") }}
+		</div>
+
+		<div class="clearfix">
+			<label for="remark">备注</label>
+			{{ form.render("remark") }}
+		</div>	
+		
     </form>
 </div>

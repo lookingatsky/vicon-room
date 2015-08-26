@@ -18,15 +18,15 @@ class SessionController extends ControllerBase
             Tag::setDefault('password', 'phalcon');
         }
             $user = new Users();
-$user = Users::findById(array('53b266abc4c6b2c007000002','53b2669ac4c6b2cc07000001'));
-/*
+/* $user = Users::findById(array('53b266abc4c6b2c007000002','53b2669ac4c6b2cc07000001'));
+
 $user = Users::findFirst(array(
      array(
 		"username" => "vicon",
 		"name" => "lookingatsky"
 	 )
  ));
-*/ 
+
  if($user == false){
 	$this->flash->error('the user didnt exist!');
  }else{
@@ -35,7 +35,7 @@ foreach ( $user as $key => $rr){
 	fb::log($rr->name);
 	fb::log($rr->password);
 } 		
- }
+ } */
  /*
 foreach ( $user as $key => $rr){
 	fb::log($rr->name);

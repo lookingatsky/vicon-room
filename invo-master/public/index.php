@@ -35,7 +35,7 @@ try {
 
 		$eventsManager = $di->getShared('eventsManager');
 
-		$security = new Security($di);
+		$security = new \Phalcon\Security($di);
 
 		/**
 		 * We listen for events in the dispatcher using the Security plugin
@@ -118,10 +118,13 @@ try {
 
 	}, true);
 
-	$di->set('mongo1',function(){
+/* 	$di->set('mongo1',function(){
 		$mongo = new Mongo("mongodb://127.0.0.1");
 		return $mongo->selectDb("local");
-	},true);	
+	},true);	 */
+	
+	
+	
 	/**
 	 * If the configuration specify the use of metadata adapter use it or use memory otherwise
 	 */
@@ -166,7 +169,7 @@ try {
 	echo $application->handle()->getContent();
 
 } catch (Phalcon\Exception $e) {
-	echo $e->getMessage();
+	echo $e->getMessage();	
 } catch (PDOException $e){
 	echo $e->getMessage();
 }

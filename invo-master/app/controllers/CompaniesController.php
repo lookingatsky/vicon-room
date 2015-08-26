@@ -4,6 +4,7 @@ use Phalcon\Tag,
 	Phalcon\Mvc\Model\Criteria,
 	Phalcon\Forms\Form,
 	Phalcon\Forms\Element\Text,
+	Phalcon\Forms\Element\Textarea,
 	Phalcon\Forms\Element\Hidden;
 
 class CompaniesController extends ControllerBase
@@ -11,7 +12,7 @@ class CompaniesController extends ControllerBase
 	public function initialize()
 	{
 		$this->view->setTemplateAfter('main');
-		Tag::setTitle('Manage your companies');
+		Tag::setTitle('部门管理');
 		parent::initialize();
 	}
 
@@ -30,22 +31,28 @@ class CompaniesController extends ControllerBase
 
 		$form->add(new Text("name", array(
 			"size" => 24,
-			"maxlength" => 70
+			"maxlength" => 50
 		)));
 
 		$form->add(new Text("telephone", array(
 			"size" => 10,
-			"maxlength" => 30
+			"maxlength" => 50
 		)));
-
-		$form->add(new Text("address", array(
-			"size" => 14,
-			"maxlength" => 40
-		)));
-
+		
 		$form->add(new Text("city", array(
 			"size" => 14,
-			"maxlength" => 40
+			"maxlength" => 250		
+		)));
+		
+		$form->add(new Textarea("address", array(
+			"cols" => 14,
+			"rows" => 5,
+			"maxlength" => 50
+		)));
+
+		$form->add(new Text("contacts", array(
+			"size" => 14,
+			"maxlength" => 50
 		)));
 
 		return $form;
@@ -60,6 +67,7 @@ class CompaniesController extends ControllerBase
 	public function searchAction()
 	{
 		$numberPage = 1;
+		
 		if ($this->request->isPost()) {
 			$query = Criteria::fromInput($this->di, "Companies", $_POST);
 			$this->persistent->searchParams = $query->getParams();
@@ -69,15 +77,15 @@ class CompaniesController extends ControllerBase
 				$numberPage = 1;
 			}
 		}
-
+		
 		$parameters = array();
 		if ($this->persistent->searchParams) {
 			$parameters = $this->persistent->searchParams;
 		}
 
-		$companies = Companies::find($parameters);
+		$companies = Department::find($parameters);
 		if (count($companies) == 0) {
-			$this->flash->notice("The search did not find any companies");
+			$this->flash->notice("没有找到对应的部门");
 			return $this->forward("companies/index");
 		}
 
@@ -102,9 +110,9 @@ class CompaniesController extends ControllerBase
 		$request = $this->request;
 		if (!$request->isPost()) {
 
-			$company = Companies::findFirstById($id);
+			$company = Department::findFirstById($id);
 			if (!$company) {
-				$this->flash->error("Company was not found");
+				$this->flash->error("没有找到对应的部门");
 				return $this->forward("companies/index");
 			}
 
@@ -118,21 +126,30 @@ class CompaniesController extends ControllerBase
 			return $this->forward("companies/index");
 		}
 
-		$companies = new Companies();
+		$companies = new Department();
 		$companies->name = $this->request->getPost("name", "striptags");
-		$companies->telephone = $this->request->getPost("telephone", "striptags");
-		$companies->address = $this->request->getPost("address", "striptags");
-		$companies->city = $this->request->getPost("city", "striptags");
-
-		if (!$companies->save()) {
-			foreach ($companies->getMessages() as $message) {
-				$this->flash->error((string) $message);
-			}
+		if($companies->name == ''){
+			$this->flash->error("名称不能为空");
 			return $this->forward("companies/new");
-		}
+		}else{
+			$companies->telephone = $this->request->getPost("telephone", "striptags");
+			$companies->city = $this->request->getPost("city", "striptags");
+			$companies->address = $this->request->getPost("address", "striptags");
+			$companies->contacts = $this->request->getPost("contacts", "striptags");
 
-		$this->flash->success("Company was created successfully");
-		return $this->forward("companies/index");
+			if (!$companies->save()) {
+				foreach ($companies->getMessages() as $message) {
+					$this->flash->error((string) $message);
+				}
+				return $this->forward("companies/new");
+			}
+			
+			/* 
+			$this->flash->success("部门信息保存成功");
+			return $this->forward("companies/search"); */
+			$this->response->redirect("companies/search");			
+			
+		}
 	}
 
 	public function saveAction()
@@ -143,7 +160,7 @@ class CompaniesController extends ControllerBase
 
 		$id = $this->request->getPost("id", "int");
 
-		$companies = Companies::findFirstById($id);
+		$companies = Department::findFirstById($id);
 		if ($companies == false) {
 			$this->flash->error("Company does not exist ".$id);
 			return $this->forward("companies/index");
@@ -152,8 +169,9 @@ class CompaniesController extends ControllerBase
 		$companies->id = $this->request->getPost("id", "int");
 		$companies->name = $this->request->getPost("name", "striptags");
 		$companies->telephone = $this->request->getPost("telephone", "striptags");
-		$companies->address = $this->request->getPost("address", "striptags");
 		$companies->city = $this->request->getPost("city", "striptags");
+		$companies->address = $this->request->getPost("address", "striptags");
+		$companies->contacts = $this->request->getPost("contacts", "striptags");
 
 		if (!$companies->save()) {
 			foreach ($companies->getMessages() as $message) {
@@ -161,17 +179,19 @@ class CompaniesController extends ControllerBase
 			}
 			return $this->forward("companies/edit/".$companies->id);
 		}
-
-		$this->flash->success("Company was updated successfully");
-		return $this->forward("companies/index");
+		
+		/* 
+		$this->flash->success("部门信息更新成功");
+		$this->forward("companies/search"); */
+		$this->response->redirect("companies/search");
 	}
 
 	public function deleteAction($id)
 	{
 
-		$companies = Companies::findFirstById($id);
+		$companies = Department::findFirstById($id);
 		if (!$companies) {
-			$this->flash->error("Company was not found");
+			$this->flash->error("没有找到对应部门");
 			return $this->forward("companies/index");
 		}
 
@@ -181,8 +201,11 @@ class CompaniesController extends ControllerBase
 			}
 			return $this->forward("companies/search");
 		}
-
-		$this->flash->success("Company was deleted");
+		
+		/*
+		$this->flash->success("部门已删除");
 		return $this->forward("companies/index");
+		*/
+		$this->response->redirect("companies/search");
 	}
 }
