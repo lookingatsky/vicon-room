@@ -23,34 +23,26 @@ try {
 		)
 	)->register();
 
-	/**
-	 * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
-	 */
+
 	$di = new \Phalcon\DI\FactoryDefault();
 
-	/**
-	 * We register the events manager
-	 */
 	$di->set('dispatcher', function() use ($di) {
 
 		$eventsManager = $di->getShared('eventsManager');
-
-		$security = new \Phalcon\Security($di);
-
-		/**
-		 * We listen for events in the dispatcher using the Security plugin
-		 */
+			
+		//$security = new \Phalcon\Security($di);
+		$security = new Security($di);
+		
 		$eventsManager->attach('dispatch', $security);
-
+		
 		$dispatcher = new Phalcon\Mvc\Dispatcher();
+		
 		$dispatcher->setEventsManager($eventsManager);
 
 		return $dispatcher;
 	});
 
-	/**
-	 * The URL component is used to generate all kind of urls in the application
-	 */
+
 	$di->set('url', function() use ($config){
 		$url = new \Phalcon\Mvc\Url();
 		$url->setBaseUri($config->application->baseUri);

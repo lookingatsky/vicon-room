@@ -12,7 +12,13 @@
 
     <h2>填 表</h2>
 	<div class="clearfix">
-		<?php echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true)) ?>
+		<?php 
+		if($did == 0){
+			echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true));
+		}else{
+			echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true,"disabled" => "disabled"));
+		}
+		 ?>		
 	</div>
 
 	<table>

@@ -1,3 +1,6 @@
+
+
+
 <?php use Phalcon\Tag as Tag ?>
 
 <?php echo $this->getContent() ?>
@@ -21,7 +24,13 @@
 	<?php echo Tag::hiddenField(array("id","type" => "number")) ?>
 
 	<div class="clearfix">
-		<?php echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true)) ?>
+		<?php 
+		if($did == 0){
+			echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true));
+		}else{
+			echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true,"disabled" => "disabled"));
+		}
+		 ?>
 	</div>
 
 	<table>
@@ -33,7 +42,9 @@
 		<?php foreach($val as $k=>$v){?>
 		<tr>	
 			<td width="150" align="right"><?php echo $v['name'];?>&nbsp;&nbsp;</td>
-			<td> <?php echo Tag::textField(array("cost[".$v['name']."]", "size" => 10, "maxlength" => 10, "type" => "number")) ?></td>
+			<td> 
+			<?php echo Tag::textField(array("cost[".$v['name']."]", "size" => 10, "maxlength" => 10, "type" => "number")) ?>
+			</td>
 		</tr>
 		<tr>
 			<td></td>

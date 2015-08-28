@@ -73,7 +73,7 @@ class ProductTypesController extends ControllerBase
 
         $productTypes = Type::find($parameters);
         if (count($productTypes) == 0) {
-            $this->flash->notice("The search did not find any product types");
+            $this->flash->notice("没有找到对应类型");
             return $this->forward("producttypes/index");
         }
 
@@ -106,7 +106,7 @@ class ProductTypesController extends ControllerBase
         $productTypes = Types::find($parameters);
 		
         if (count($productTypes) == 0) {
-            $this->flash->notice("没有对应下级类型");
+            $this->flash->notice("没有找到对应下级类型");
             return $this->forward("producttypes/index");
         }
 
@@ -116,7 +116,8 @@ class ProductTypesController extends ControllerBase
             "page" => $numberPage
         ));
         $page = $paginator->getPaginate();
-
+		
+		$this->view->setVar("id",$id);
         $this->view->setVar("page", $page);
         $this->view->setVar("productTypes", $productTypes);	
 		
@@ -126,14 +127,14 @@ class ProductTypesController extends ControllerBase
     {
     }
 
-    public function editAction($id)
-    {
+    public function editAction($id){
         $request = $this->request;
         if (!$request->isPost()) {
 
+            /* $producttypes = Type::findFirst(array('id=:id:', 'bind' => array('id' => $id))); */
             $producttypes = Type::findFirst(array('id=:id:', 'bind' => array('id' => $id)));
             if (!$producttypes) {
-                $this->flash->error("Product type to edit was not found");
+                $this->flash->error("没有找到对应类型");
                 return $this->forward("producttypes/index");
             }
             $this->view->setVar("id", $producttypes->id);
@@ -149,7 +150,7 @@ class ProductTypesController extends ControllerBase
             return $this->forward("producttypes/index");
         }
 
-        $producttypes = new ProductTypes();
+        $producttypes = new Type();
         $producttypes->id = $this->request->getPost("id", "int");
         $producttypes->name = $this->request->getPost("name");
 
@@ -161,8 +162,8 @@ class ProductTypesController extends ControllerBase
             }
             return $this->forward("producttypes/new");
         } else {
-            $this->flash->success("Product type was created successfully");
-            return $this->forward("producttypes/index");
+            /* $this->flash->success("类型创建成功"); */
+            $this->response->redirect("producttypes/search");
         }
     }
 
@@ -173,9 +174,9 @@ class ProductTypesController extends ControllerBase
         }
 
         $id = $this->request->getPost("id", "int");
-        $producttypes = ProductTypes::findFirst("id='$id'");
+        $producttypes = Type::findFirst("id='$id'");
         if ($producttypes == false) {
-            $this->flash->error("product types does not exist " . $id);
+            $this->flash->error("没有找到对应类型");
 
             return $this->forward("producttypes/index");
         }
@@ -188,8 +189,8 @@ class ProductTypesController extends ControllerBase
             }
             return $this->forward("producttypes/edit/" . $producttypes->id);
         } else {
-            $this->flash->success("Product Type was updated successfully");
-            return $this->forward("producttypes/index");
+            /* $this->flash->success("类型更新成功"); */
+            $this->response->redirect("producttypes/search");
         }
     }
 	
@@ -197,24 +198,25 @@ class ProductTypesController extends ControllerBase
     {
         $id = $this->filter->sanitize($id, array("int"));
 
-        $producttypes = ProductTypes::findFirst('id="' . $id . '"');
-        if (!$producttypes) {
-            $this->flash->error("没找到对应的类型");
+        $Type = Type::findFirst('id="' . $id . '"');
+        if (!$Type) {
+            $this->flash->error("没找到对应类型");
             return $this->forward("producttypes/index");
         }
 
-        if (!$producttypes->delete()) {
-            foreach ($producttypes->getMessages() as $message) {
+        if (!$Type->delete()) {
+            foreach ($Type->getMessages() as $message) {
                 $this->flash->error((string) $message);
             }
             return $this->forward("producttypes/search");
         } else {
-            $this->flash->success("product types was deleted");
-            return $this->forward("producttypes/index");
+            /* $this->flash->success("该类型已删除"); */
+           $this->response->redirect("producttypes/search");
         }
     }
 	
-	public function newtypesAction(){
+	public function newtypesAction($id){
+		Tag::displayTo("fid", $id);
 		$this->view->form = $this->getForm();
 	}
 	
@@ -253,7 +255,7 @@ class ProductTypesController extends ControllerBase
 			$types = Types::findFirstById($id);
 			
 			if (!$types) {
-				$this->flash->error("没有找到对应的类型");
+				$this->flash->error("没有找到对应类型");
 				return $this->forward("producttypes/index");
 			}
 
@@ -262,10 +264,44 @@ class ProductTypesController extends ControllerBase
 	}
 	
 	public function createtypesAction(){
+        if (!$this->request->isPost()) {
+            return $this->forward("producttypes/index");
+        }
+
+        $Types = new Types();
+        $Types->fid = $this->request->getPost("fid", "int");
+        $Types->name = $this->request->getPost("name");
+		$Types->name = strip_tags($Types->name);
+		$Types->limit = $this->request->getPost("limit","int");
+		$Types->remark = $this->request->getPost("remark","striptags");
 		
+        if (!$Types->save()) {
+            foreach ($Types->getMessages() as $message) {
+                $this->flash->error((string) $message);
+            }
+            return $this->forward("producttypes/new");
+        } else {
+            $this->response->redirect("producttypes/search");
+        }		
 	}
 	
-	public function deletetypesAction(){
-		
+	public function deletetypesAction($id){
+        $id = $this->filter->sanitize($id, array("int"));
+
+        $Types = Types::findFirst('id="' . $id . '"');
+        if (!$Types) {
+            $this->flash->error("没找到对应下级类型");
+            return $this->forward("producttypes/index");
+        }
+
+        if (!$Types->delete()) {
+            foreach ($Types->getMessages() as $message) {
+                $this->flash->error((string) $message);
+            }
+            return $this->forward("producttypes/search");
+        } else {
+            /* $this->flash->success("该下级类型已删除"); */
+            $this->response->redirect("producttypes/search");
+        }		
 	}
 }

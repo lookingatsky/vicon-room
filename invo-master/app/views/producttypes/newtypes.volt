@@ -14,7 +14,7 @@
 <?php echo $this->getContent() ?>
 
 <div class="center scaffold">
-    <h2>编辑下级类型</h2>
+    <h2>创建下级类型</h2>
     
 <!--     <input type="hidden" name="id" id="id" value="<?php echo $id ?>" />
 
@@ -22,7 +22,7 @@
         <label for="name">名称</label>
         <?php echo Tag::textField(array("name", "size" => 24, "maxlength" => 70)) ?>
     </div> -->
-		{{ form.render("id") }}
+		<?php echo Tag::hiddenField(array("fid", "size" => 24, "maxlength" => 70)) ?>
 
 		<div class="clearfix">
 			<label for="name">名称</label>

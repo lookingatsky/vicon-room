@@ -6,7 +6,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">INVO</a>
+            <a class="brand" href="/index">中合万邦</a>
             {{ elements.getMenu() }}
         </div>
     </div>

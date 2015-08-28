@@ -28,12 +28,13 @@
 </div>
 
 <?php echo Tag::form(array("products/list", "autocomplete" => "off","method"=>"post")) ?>
+	<?php if($did == 0 ){?>
 	<div class="clearfix" style="float:left;">
 		<?php echo Tag::select(array("company[]", $departments, "using" => array("id", "name"), "useDummy" => true,"multiple" => "multiple","size"=>"10")) ?>
 	</div>
+	<?php }?>
 	<div style="clear:both;"></div>
 	<div style="float:left;width:300px;">
-
 		<div class="input-group date form_date col-md-5" style="float:left;margin:20px 0;" data-date="{{ timeNow }}" data-date-format="yyyy MM dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
 			<input class="form-control" size="16" type="text" value="<?php if(isset($sTime) && $sTime != ''){ echo $sTime; } ?>" readonly>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
@@ -164,8 +165,8 @@
 	line-height:20px;
 }		
 </style>
-<div style="min-height:500px;position:relative;width:3800px;">
-	<table class="table table-bordered table-striped" align="center" style="max-width:3800px;width:3800px;" border="1">
+<div style="min-height:500px;position:relative;max-width:4000px;">
+	<table class="table table-bordered table-striped" align="center" style="max-width:4000px;width:4000px;" border="1">
 		<?php $listInfosArr = $listInfos->toArray();
 		if(!empty($listInfosArr)){	
 		?>
@@ -202,27 +203,38 @@
 			
 				<?php foreach($val1 as $k=>$v){?>
 				
-				<?php if(isset($total[$v['name']])){
+				<?php if(isset($total[$v['name']])  && $total[$v['name']] != ''){
 						$total[$v['name']] = $total[$v['name']]+$arr['cost'][$v['name']];
 					}else{
-						$total[$v['name']] = $arr['cost'][$v['name']];
+						if(isset($arr['cost'][$v['name']]) && $arr['cost'][$v['name']] != ''){
+							$total[$v['name']] = $arr['cost'][$v['name']];
+						}else{
+							$total[$v['name']] = 0;
+						}
+						
 					}
 				?>
 				
-				<?php $flag = $flag+$arr['cost'][$v['name']];$limit = $limit+$v['limit'];?>
+				<?php 
+				if(isset($arr['cost'][$v['name']]) && $arr['cost'][$v['name']] != ''){
+				$flag = $flag+$arr['cost'][$v['name']];
+				$limit = $limit+$v['limit'];?>
 					<td class="focusShowInfo" alt="<?php if(isset($arr['remark'][$v['name']])){ echo $arr['remark'][$v['name']];}else{ echo "（备注）";}?>" style="font-size:12px;" registrar="<?php echo $val->registrar; ?>" inner="<?php echo $arr['cost'][$v['name']]; ?>" time="<?php echo date('Y年m月d日',$val->time); ?>">
-						<?php if($arr['cost'][$v['name']] > $v['limit']){
-							echo '<span style="color:red;">'.$arr['cost'][$v['name']].'</span>';
-						}else{
-							if($arr['cost'][$v['name']] == ''){
-								echo "暂无数据";
+						<?php 
+							if($arr['cost'][$v['name']] > $v['limit']){
+								echo '<span style="color:red;">'.$arr['cost'][$v['name']].'</span>';
 							}else{
-								echo $arr['cost'][$v['name']];
-							}
-						}	
+								if($arr['cost'][$v['name']] == ''){
+									echo "暂无数据";
+								}else{
+									echo $arr['cost'][$v['name']];
+								}
+							}	
 						?>	
 					</td>
-				<?php }?>
+				<?php }else{
+					echo "<td>暂无数据</td>";
+				}}?>
 				
 				<td>
 					<b>
@@ -252,9 +264,15 @@
 				$flag = 0;
 				$limit = 0;?>	
 				<?php foreach($val1 as $k=>$v){?>
-				<?php $flag = $flag+$total[$v['name']];$limit = $limit+$v['limit'];?>								
+				<?php 
+					if(isset($total[$v['name']]) && $total[$v['name']] != ''){
+					$flag = $flag+$total[$v['name']];
+					$limit = $limit+$v['limit'];
+				?>								
 						<td><?php echo $total[$v['name']]; ?></td>
-				<?php }?>
+				<?php }else{ 
+					echo "<td>暂无数据</td>";
+				}}?>
 				<td><b><?php echo $flag;?></b></td>
 				
 			<?php 

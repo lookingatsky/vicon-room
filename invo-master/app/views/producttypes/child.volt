@@ -6,8 +6,8 @@
     <li class="previous pull-left">
         <?php echo Tag::linkTo("producttypes/search", "&larr; 返 回") ?>
     </li>
-    <li class="pull-right">
-        <?php echo Tag::linkTo(array("producttypes/newtypes", "创建新的下级类型", "class" => "btn btn-primary")) ?>
+    <li class="pull-right">	
+        <?php echo Tag::linkTo(array("producttypes/newtypes/".$id, "创建新的下级类型", "class" => "btn btn-primary")) ?>
     </li>
 </ul>
 
@@ -44,10 +44,10 @@
         <tr>
             <td colspan="6" align="right">
                 <div class="btn-group">
-                    <?php echo Tag::linkTo(array("producttypes/search", '<i class="icon-fast-backward"></i> 首页', "class" => "btn")) ?>
-                    <?php echo Tag::linkTo(array("producttypes/search?page=".$page->before, '<i class="icon-step-backward"></i> 上一页', "class" => "btn ")) ?>
-                    <?php echo Tag::linkTo(array("producttypes/search?page=".$page->next, '<i class="icon-step-forward"></i> 下一页', "class" => "btn")) ?>
-                    <?php echo Tag::linkTo(array("producttypes/search?page=".$page->last, '<i class="icon-fast-forward"></i> 尾页', "class" => "btn")) ?>
+                    <?php echo Tag::linkTo(array("producttypes/child/".$id, '<i class="icon-fast-backward"></i> 首页', "class" => "btn")) ?>
+                    <?php echo Tag::linkTo(array("producttypes/child/".$id."?page=".$page->before, '<i class="icon-step-backward"></i> 上一页', "class" => "btn ")) ?>
+                    <?php echo Tag::linkTo(array("producttypes/child/".$id."?page=".$page->next, '<i class="icon-step-forward"></i> 下一页', "class" => "btn")) ?>
+                    <?php echo Tag::linkTo(array("producttypes/child/".$id."?page=".$page->last, '<i class="icon-fast-forward"></i> 尾页', "class" => "btn")) ?>
                     <span class="help-inline" style="line-height:35px;"><?php echo $page->current, "/", $page->total_pages ?></span>
                 </div>
             </td>

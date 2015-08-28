@@ -16,11 +16,11 @@ class Users extends model
         )));
 	   $this->validate(new UniquenessValidator(array(
             'field' => 'email',
-            'message' => 'Sorry, The email was registered by another user'
+            'message' => '邮箱被霸占了'
         )));
         $this->validate(new UniquenessValidator(array(
             'field' => 'username',
-            'message' => 'Sorry, That username is already taken'
+            'message' => '用户名被霸占了'
         )));
         if ($this->validationHasFailed() == true) {
             return false;

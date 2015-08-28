@@ -7,7 +7,7 @@ class SessionController extends ControllerBase
     public function initialize()
     {
         $this->view->setTemplateAfter('main');
-        Tag::setTitle('Sign Up/Sign In');
+        Tag::setTitle('登录/注册');
         parent::initialize();
     }
 
@@ -16,39 +16,14 @@ class SessionController extends ControllerBase
         if (!$this->request->isPost()) {
             Tag::setDefault('email', 'demo@phalconphp.com');
             Tag::setDefault('password', 'phalcon');
-        }
-            $user = new Users();
-/* $user = Users::findById(array('53b266abc4c6b2c007000002','53b2669ac4c6b2cc07000001'));
-
-$user = Users::findFirst(array(
-     array(
-		"username" => "vicon",
-		"name" => "lookingatsky"
-	 )
- ));
-
- if($user == false){
-	$this->flash->error('the user didnt exist!');
- }else{
- //fb::log($user->name);
-foreach ( $user as $key => $rr){
-	fb::log($rr->name);
-	fb::log($rr->password);
-} 		
- } */
- /*
-foreach ( $user as $key => $rr){
-	fb::log($rr->name);
-	fb::log($rr->password);
-} 	
-*/		
+        }	
     }
 
     public function registerAction()
     {
         $request = $this->request;
         if ($request->isPost()) {
-
+			$did = $request->getPost('did', 'int');
             $name = $request->getPost('name', array('string', 'striptags'));
             $username = $request->getPost('username', 'alphanum');
             $email = $request->getPost('email', 'email');
@@ -56,61 +31,39 @@ foreach ( $user as $key => $rr){
             $repeatPassword = $this->request->getPost('repeatPassword');
 
             if ($password != $repeatPassword) {
-                $this->flash->error('Passwords are diferent');
+                $this->flash->error('两次密码不一致');
                 return false;
             }
-
+			
             $user = new Users();
             $user->username = $username;
             $user->password = sha1($password);
             $user->name = $name;
             $user->email = $email;
-            //$user->created_at = new Phalcon\Db\RawValue('now()');
+			$user->did = $did;
+            $user->created_at = new Phalcon\Db\RawValue('now()');
             $user->active = 'Y';
 
 			if ($user->save() == false) {
-				echo "Umh, We can't store robots right now ";
+				$this->flash->error('保存失败');
 				foreach ($user->getMessages() as $message) {
-					echo $message;
+					$this->flash->error((string) $message);
 				}
 			} else {
-                Tag::setDefault('email', '');
-                Tag::setDefault('password', '');
-                $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
-                return $this->forward('session/index');
-			}
-			
-/*            if ($user->save() == false) {
-                foreach ($user->getMessages() as $message) {
-                    $this->flash->error((string) $message);
-                }
-            } else {
-                Tag::setDefault('email', '');
-                Tag::setDefault('password', '');
-                $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
-                return $this->forward('session/index');
-            }
-*/			
+                return $this->response->redirect('companies/search');
+			}		
         }
     }
 
-    /**
-     * Register authenticated user into session data
-     *
-     * @param Users $user
-     */
     private function _registerSession($user)
     {
         $this->session->set('auth', array(
             'id' => $user->id,
-            'name' => $user->name
+            'name' => $user->name,
+			'did' => $user->did
         ));
     }
 
-    /**
-     * This actions receive the input from the login form
-     *
-     */
     public function startAction()
     {
         if ($this->request->isPost()) {
@@ -133,22 +86,18 @@ foreach ( $user as $key => $rr){
                 $this->flash->success('Welcome ' . $user->name);
                 return $this->forward('invoices/index');
             }
-
-            $this->flash->error('Wrong email/password');
+			
+            $this->flash->error('帐号密码错误');
         }
 
         return $this->forward('session/index');
     }
 
-    /**
-     * Finishes the active session redirecting to the index
-     *
-     * @return unknown
-     */
     public function endAction()
     {
         $this->session->remove('auth');
-        $this->flash->success('Goodbye!');
+		$this->session->destroy();
+        $this->flash->success('拜拜!');
         return $this->forward('index/index');
     }
 }

@@ -32,7 +32,7 @@
 			<td>{{ company.city }}</td>
             <td>{{ company.address }}</td>
             <td>{{ company.contacts }}</td>
-            <td width="10%">{{ link_to("companies/edit/" ~ company.id, '<i class="icon-list"></i> 帐号', "class": "btn") }}</td>			
+            <td width="10%">{{ link_to("companies/account/" ~ company.id, '<i class="icon-list"></i> 帐号', "class": "btn") }}</td>			
             <td width="10%">{{ link_to("companies/edit/" ~ company.id, '<i class="icon-pencil"></i> 编辑', "class": "btn") }}</td>
             <td width="10%">{{ link_to("companies/delete/" ~ company.id, '<i class="icon-remove"></i> 删除', "class": "btn") }}</td>
         </tr>

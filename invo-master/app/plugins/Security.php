@@ -29,24 +29,32 @@ class Security extends Plugin
 			//Register roles
 			$roles = array(
 				'users' => new Phalcon\Acl\Role('Users'),
-				'guests' => new Phalcon\Acl\Role('Guests')
+				'guests' => new Phalcon\Acl\Role('Guests'),
+				'admin' => new Phalcon\Acl\Role('admin')
 			);
 			foreach ($roles as $role) {
 				$acl->addRole($role);
 			}
 
-			//Private area resources
+			//////////
 			$privateResources = array(
-				'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
+				'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','account','accountsave'),
 				'products' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','list'),
-				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','newtypes'),
+				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','child','savetypes','edittypes','newtypes','createtypes','deletetypes'),
 				'invoices' => array('index', 'profile')
 			);
 			foreach ($privateResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
 			}
-
-			//Public area resources
+			////////////////
+			$userResources = array(
+				'invoices' => array('index', 'profile'),
+				'products' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','list'),
+			);
+			foreach ($userResources as $resource => $actions) {
+				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
+			}			
+			//////////////////
 			$publicResources = array(
 				'index' => array('index'),
 				'about' => array('index'),
@@ -64,13 +72,19 @@ class Security extends Plugin
 				}
 			}
 
-			//Grant acess to private area to role Users
-			foreach ($privateResources as $resource => $actions) {
+			foreach ($userResources as $resource => $actions) {
 				foreach ($actions as $action){
 					$acl->allow('Users', $resource, $action);
 				}
+			}			
+			
+			
+			foreach ($privateResources as $resource => $actions) {
+				foreach ($actions as $action){
+					$acl->allow('admin', $resource, $action);
+				}
 			}
-
+	
 			//The acl is stored in session, APC would be useful here too
 			$this->persistent->acl = $acl;
 		}
@@ -78,27 +92,28 @@ class Security extends Plugin
 		return $this->persistent->acl;
 	}
 
-	/**
-	 * This action is executed before execute any action in the application
-	 */
+
 	public function beforeDispatch(Event $event, Dispatcher $dispatcher)
 	{
-
 		$auth = $this->session->get('auth');
+		
 		if (!$auth){
 			$role = 'Guests';
 		} else {
-			$role = 'Users';
+			if($auth['did'] == 0){
+				$role = 'admin';
+			}else{
+				$role = 'Users';				
+			}
 		}
-
 		$controller = $dispatcher->getControllerName();
 		$action = $dispatcher->getActionName();
 
 		$acl = $this->getAcl();
-
+		
 		$allowed = $acl->isAllowed($role, $controller, $action);
 		if ($allowed != Acl::ALLOW) {
-			$this->flash->error("You don't have access to this module");
+			$this->flash->error("没有权限");
 			$dispatcher->forward(
 				array(
 					'controller' => 'index',
@@ -107,7 +122,7 @@ class Security extends Plugin
 			);
 			return false;
 		}
-
+		
 	}
 
 }

@@ -11,32 +11,32 @@ class Elements extends Phalcon\Mvc\User\Component
     private $_headerMenu = array(
         'pull-left' => array(
             'index' => array(
-                'caption' => '首页',
+                'caption' => '首 页',
                 'action' => 'index'
             ),
-            'invoices' => array(
-                'caption' => '系统',
+             'invoices' => array(
+                'caption' => '系 统',
                 'action' => 'index'
             ),
-            'about' => array(
+/*            'about' => array(
                 'caption' => '关于',
                 'action' => 'index'
             ),
             'contact' => array(
                 'caption' => '联系我们',
                 'action' => 'index'
-            ),
+            ), */
         ),
         'pull-right' => array(
             'session' => array(
-                'caption' => '登录/注册',
+                'caption' => '登 录',
                 'action' => 'index'
             ),
         )
     );
 
     private $_tabs = array(
-        'Invoices' => array(
+        '行政费控' => array(
             'controller' => 'invoices',
             'action' => 'index',
             'any' => false

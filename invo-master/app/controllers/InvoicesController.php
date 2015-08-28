@@ -15,18 +15,20 @@ class InvoicesController extends ControllerBase
 
     public function indexAction()
     {
+		$auth = $this->session->get('auth');
+		$user = Users::findFirst($auth['id']);
+		if ($user == false) {
+            $this->forward('index/index');
+        }
+		$department = Department::findFirst($auth['did']);
+		$this->view->setVar("user",$user);
+		$this->view->setVar("department",$department);
     }
 
-    /**
-     * Edit the active user profile
-     *
-     */
     public function profileAction()
     {
-        //Get session info
         $auth = $this->session->get('auth');
 
-        //Query the active user
         $user = Users::findFirst($auth['id']);
         if ($user == false) {
             $this->_forward('index/index');
@@ -51,7 +53,7 @@ class InvoicesController extends ControllerBase
                     $this->flash->error((string) $message);
                 }
             } else {
-                $this->flash->success('Your profile information was updated successfully');
+                $this->flash->success('更新成功');
             }
         }
     }

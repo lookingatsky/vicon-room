@@ -162,7 +162,7 @@ class CompaniesController extends ControllerBase
 
 		$companies = Department::findFirstById($id);
 		if ($companies == false) {
-			$this->flash->error("Company does not exist ".$id);
+			$this->flash->error("没有找到对应的部门".$id);
 			return $this->forward("companies/index");
 		}
 
@@ -207,5 +207,54 @@ class CompaniesController extends ControllerBase
 		return $this->forward("companies/index");
 		*/
 		$this->response->redirect("companies/search");
+	}
+	
+	public function accountAction($id){
+		$id = $this->filter->sanitize($id, array("int"));
+		
+		$userInfo = Users::findFirst('did = "'.$id.'"');
+		
+		if(!$userInfo){
+			$this->flash->notice("还木有帐号，请创建并保存");
+			Tag::displayTo("did", $id);
+			$this->view->pick("session/register");
+		}else{
+			Tag::displayTo("id", $userInfo->id);
+			Tag::displayTo("username", $userInfo->username);
+            Tag::displayTo("name", $userInfo->name);
+            Tag::displayTo("email", $userInfo->email);
+		}
+	}
+	
+	public function accountsaveAction(){
+		
+		
+		$request = $this->request;
+		
+		$id = $request->getPost("id", "int");
+		
+		if (!$request->isPost()) {
+
+		}else{
+			$userInfo = Users::findFirstById($id);
+		
+			if (!$userInfo) {
+				$this->flash->error("没有找到对应的帐号");
+				return $this->forward("companies/index");
+			}
+
+			$userInfo->username = $request->getPost("username", "striptags");
+			$userInfo->email = $request->getPost("email", "striptags");
+			$userInfo->name = $request->getPost("name", "striptags");
+			
+			if (!$userInfo->save()) {
+				foreach ($userInfo->getMessages() as $message) {
+					$this->flash->error((string) $message);
+				}
+				return $this->forward("companies/account/".$id);
+			}
+			$this->response->redirect("companies/search");			
+			
+		}		
 	}
 }

@@ -24,6 +24,12 @@ class ProductsController extends ControllerBase
 			$types = Types::find("fid = '".$v->id."'");
 			$typeArr[$v->name] = $types->toArray();
 		}
+		
+		$auth = $this->session->get("auth");
+		if($auth['did'] != 0){
+			Tag::setDefault("company", $auth['did']);
+		}
+		$this->view->setVar('did',$auth['did']);
 		$this->view->setVar("typeArr",$typeArr);		
     }
 
@@ -42,13 +48,9 @@ class ProductsController extends ControllerBase
 		//$finance = new Finance();
 		
 		$finance->data = json_encode($request);
-		
 		$finance->time = time(); 
-		
 		$finance->did = $request['company'];
-		
 		$finance->d_name = $finance->department->name;
-		
 		if($finance->save()){
 			$this->flash->notice("保存成功！");
 		}else{
@@ -72,16 +74,22 @@ class ProductsController extends ControllerBase
 			
 		$ids =  '';	
 		$parameters = array();	
-		if(isset($request['company']) && $request['company'] != '' ){
-			foreach($request['company'] as $key=>$val){
-				if($key >0 && $key<count($request['company'])){
-					$ids .= " or ";
-				}
-				$ids .= 'did = '.$val;	
-			}
-			$parameters[] = $ids;
-		}
 		
+		$auth = $this->session->get("auth");
+		if($auth['did'] == 0){		
+			if(isset($request['company']) && $request['company'] != '' ){
+				foreach($request['company'] as $key=>$val){
+					if($key >0 && $key<count($request['company'])){
+						$ids .= " or ";
+					}
+					$ids .= 'did = '.$val;	
+				}
+				$parameters[] = $ids;
+			}			
+		}else{
+			$parameters[] = 'did = '.$auth['did'];
+		}
+
 		$timeNow = date('Y-m-d',time());
 		$this->view->setVar('timeNow',$timeNow);
 		
@@ -98,11 +106,12 @@ class ProductsController extends ControllerBase
 		if(isset($timeLimit) && $timeLimit != ''){
 			$parameters['conditions'] = $timeLimit;	
 		}
-			
+		
 		$listInfos = Finance::find($parameters);
 		
 		$this->view->setVar('listInfos',$listInfos);
-	
+		$this->view->setVar('did',$auth['did']);
+		
 	}
     public function searchAction()
     {
@@ -176,12 +185,22 @@ class ProductsController extends ControllerBase
 			
 			foreach($typeArr as $key=>$val){
 				foreach($val as $k=>$v){
-					 Tag::displayTo("cost[".$v['name']."]", $datas['cost'][$v['name']]);
-					 Tag::displayTo("remark[".$v['name']."]", $datas['remark'][$v['name']]);
+					if(isset($datas['cost'][$v['name']]) && $datas['cost'][$v['name']] != ''){
+						Tag::displayTo("cost[".$v['name']."]", $datas['cost'][$v['name']]);						
+					}
+					if(isset($datas['remark'][$v['name']]) && $datas['remark'][$v['name']] != ''){
+						Tag::displayTo("remark[".$v['name']."]", $datas['remark'][$v['name']]);
+					} 
 				}
 			}
 
 			Tag::displayTo("id", $Finance->id);
+			
+			$auth = $this->session->get("auth");
+			if($auth['did'] != 0){
+			Tag::setDefault("company", $auth['did']);
+			}
+			$this->view->setVar('did',$auth['did']);
 /*             
             Tag::displayTo("product_types_id", $products->product_types_id);
             Tag::displayTo("name", $products->name);
