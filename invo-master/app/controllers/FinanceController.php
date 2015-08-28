@@ -16,7 +16,6 @@ class FinanceController extends ControllerBase
     {
         $this->persistent->searchParams = null;
 		$types = Types::find();
-		fb($types);
         $this->view->setVar("productTypes", ProductTypes::find());
     }
 	
