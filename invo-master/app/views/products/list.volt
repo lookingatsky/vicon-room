@@ -118,7 +118,14 @@
 					$('.showInfoFrame').hide();
 				})
 				
-
+				$(".parent").click(function(){
+					var childrenClass = $(this).attr("children");
+					if($("."+childrenClass).css('display') == 'none'){
+						$("."+childrenClass).show();
+					}else{
+						$("."+childrenClass).hide();
+					}
+				})
 			})
 		</script>	
 	</div>
@@ -165,8 +172,8 @@
 	line-height:20px;
 }		
 </style>
-<div style="min-height:500px;position:relative;max-width:4000px;">
-	<table class="table table-bordered table-striped" align="center" style="max-width:4000px;width:4000px;" border="1">
+<div style="min-height:500px;position:relative;width:2000px;">
+	<table class="table table-bordered table-striped" align="center"  border="1">
 		<?php $listInfosArr = $listInfos->toArray();
 		if(!empty($listInfosArr)){	
 		?>
@@ -177,9 +184,9 @@
 			<?php foreach($typeArr as $key=>$val){?>
 				
 			<?php foreach($val as $k=>$v){?>
-				<td style="font-size:12px;"><?php echo $v['name']; ?></td>
+				<td class="<?php  echo $key; ?>"  style="font-size:12px;display:none;"><?php echo $v['name']; ?></td>
 			<?php }?>
-				<td width="100"><b><?php echo $key; ?></b></td>
+				<td class="parent"  children="<?php  echo $key; ?>"  width="100"><b><?php echo $key; ?></b></td>
 			<?php }?>
 				<td width="100"><b>总计</b></td>			
 		</tr>
@@ -219,7 +226,7 @@
 				if(isset($arr['cost'][$v['name']]) && $arr['cost'][$v['name']] != ''){
 				$flag = $flag+$arr['cost'][$v['name']];
 				$limit = $limit+$v['limit'];?>
-					<td class="focusShowInfo" alt="<?php if(isset($arr['remark'][$v['name']])){ echo $arr['remark'][$v['name']];}else{ echo "（备注）";}?>" style="font-size:12px;" registrar="<?php echo $val->registrar; ?>" inner="<?php echo $arr['cost'][$v['name']]; ?>" time="<?php echo date('Y年m月d日',$val->time); ?>">
+				<td style="display:none;font-size:12px;" class="<?php  echo $key1; ?> focusShowInfo" alt="<?php if(isset($arr['remark'][$v['name']])){ echo $arr['remark'][$v['name']];}else{ echo "（备注）";}?>" style="font-size:12px;" registrar="<?php echo $val->registrar; ?>" inner="<?php echo $arr['cost'][$v['name']]; ?>" time="<?php echo date('Y年m月d日',$val->time); ?>">
 						<?php 
 							if($arr['cost'][$v['name']] > $v['limit']){
 								echo '<span style="color:red;">'.$arr['cost'][$v['name']].'</span>';
@@ -233,10 +240,10 @@
 						?>	
 					</td>
 				<?php }else{
-					echo "<td>暂无数据</td>";
+					echo "<td style='display:none;font-size:12px;' class='".$key1."'>暂无数据</td>";
 				}}?>
 				
-				<td>
+				<td class="parent" children="<?php echo $key1;?>">
 					<b>
 					<?php if($flag>$limit){
 						echo '<span style="color:red;">'.$flag.'</span>'; 
@@ -246,7 +253,7 @@
 					</b>
 				</td>	
 			<?php $flagTotal += $flag; }?>			
-				<td>
+				<td class="">
 					<b>
 						<?php echo $flagTotal; ?>
 					</b>
@@ -269,11 +276,11 @@
 					$flag = $flag+$total[$v['name']];
 					$limit = $limit+$v['limit'];
 				?>								
-						<td><?php echo $total[$v['name']]; ?></td>
+						<td style="display:none;" class="<?php  echo $key1; ?>"><?php echo $total[$v['name']]; ?></td>
 				<?php }else{ 
-					echo "<td>暂无数据</td>";
+					echo "<td style='display:none;' class='".$key1."'>暂无数据</td>";
 				}}?>
-				<td><b><?php echo $flag;?></b></td>
+				<td class="parent" children="<?php echo $key1;?>"><b><?php echo $flag;?></b></td>
 				
 			<?php 
 				$flagTotal += $flag;

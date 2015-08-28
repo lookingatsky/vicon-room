@@ -133,7 +133,7 @@ class ProductsController extends ControllerBase
 
         $products = Products::find($parameters);
         if (count($products) == 0) {
-            $this->flash->notice("The search did not find any products");
+            $this->flash->notice("没找到任何类型");
             return $this->forward("products/index");
         }
 

@@ -107,7 +107,7 @@ class ProductTypesController extends ControllerBase
 		
         if (count($productTypes) == 0) {
             $this->flash->notice("没有找到对应下级类型");
-            return $this->forward("producttypes/index");
+            return $this->forward("producttypes/newtypes/".$id);
         }
 
         $paginator = new Phalcon\Paginator\Adapter\Model(array(
