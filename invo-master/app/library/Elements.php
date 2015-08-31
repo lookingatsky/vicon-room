@@ -28,6 +28,10 @@ class Elements extends Phalcon\Mvc\User\Component
             ), */
         ),
         'pull-right' => array(
+			'invoices' => array(
+				'caption' => '',
+				'action' => 'index'
+			),
             'session' => array(
                 'caption' => '登 录',
                 'action' => 'index'
@@ -73,10 +77,15 @@ class Elements extends Phalcon\Mvc\User\Component
 
         $auth = $this->session->get('auth');
         if ($auth) {
+		
             $this->_headerMenu['pull-right']['session'] = array(
                 'caption' => '退 出',
                 'action' => 'end'
             );
+            $this->_headerMenu['pull-right']['invoices'] = array(
+                'caption' => "欢迎您！ ".$auth['name'],
+                'action' => 'profile'
+            );				
         } else {
             unset($this->_headerMenu['pull-left']['invoices']);
         }

@@ -14,8 +14,8 @@ class SessionController extends ControllerBase
     public function indexAction()
     {
         if (!$this->request->isPost()) {
-            Tag::setDefault('email', 'demo@phalconphp.com');
-            Tag::setDefault('password', 'phalcon');
+            Tag::setDefault('email', ' ');
+            Tag::setDefault('password', '');
         }	
     }
 
@@ -75,7 +75,7 @@ class SessionController extends ControllerBase
             $user = Users::findFirst("email='$email' AND password='$password' AND active='Y'");
             if ($user != false) {
                 $this->_registerSession($user);
-                $this->flash->success('Welcome ' . $user->name);
+                $this->flash->success('欢迎！ ' . $user->name);
                 return $this->forward('invoices/index');
             }
 
@@ -83,7 +83,7 @@ class SessionController extends ControllerBase
             $user = Users::findFirst("username='$username' AND password='$password' AND active='Y'");
             if ($user != false) {
                 $this->_registerSession($user);
-                $this->flash->success('Welcome ' . $user->name);
+                $this->flash->success('欢迎！ ' . $user->name);
                 return $this->forward('invoices/index');
             }
 			
