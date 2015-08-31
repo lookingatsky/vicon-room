@@ -172,23 +172,23 @@
 	line-height:20px;
 }		
 </style>
-<div style="min-height:500px;position:relative;width:2000px;">
-	<table class="table table-bordered table-striped" align="center"  border="1">
+<div style="min-height:500px;position:relative;width:5000px;">
+	<table class="table table-bordered table-striped" align="center"  border="1" style="float:left;">
 		<?php $listInfosArr = $listInfos->toArray();
 		if(!empty($listInfosArr)){	
 		?>
 		<tr align="center">
 				<td width="200"><b>营业部名称</b></td>
-				<td width="150"><b>时间</b></td>
+				<td width="200"><b>时间</b></td>
 				<td width="230"><b>操作</b></td>
 			<?php foreach($typeArr as $key=>$val){?>
 				
 			<?php foreach($val as $k=>$v){?>
-				<td class="<?php  echo $key; ?>"  style="font-size:12px;display:none;"><?php echo $v['name']; ?></td>
+				<td width="100" class="<?php  echo $key; ?>"  style="font-size:12px;display:none;"><?php echo $v['name']; ?></td>
 			<?php }?>
-				<td class="parent"  children="<?php  echo $key; ?>"  width="100"><b><?php echo $key; ?></b></td>
+				<td width="150" class="parent"  children="<?php  echo $key; ?>" ><b><?php echo $key; ?></b></td>
 			<?php }?>
-				<td width="100"><b>总计</b></td>			
+				<td width="150" width="100"><b>总计</b></td>			
 		</tr>
 		<?php $total = array();  ?>	
 		<?php foreach($listInfos as $key=>$val){?>

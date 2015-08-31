@@ -11,7 +11,7 @@
 
 {% for company in page.items %}
 {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
+<table class="table table-bordered table-striped" align="center" style="width:100%;max-width:100%;">
     <thead>
         <tr>
             <th>序号</th>

@@ -2,7 +2,7 @@
 {{ content() }}
 
 <div align="right">
-    {{ link_to("companies/new", "创建部门", "class": "btn btn-primary") }}
+    {{ link_to("companies/search", "部门列表", "class": "btn btn-info") }}
 </div>
 
 <form method="post" action="{{ url("companies/search") }}">

@@ -3,7 +3,7 @@
 <?php echo $this->getContent() ?>
 
 <div align="right">
-    <?php echo Tag::linkTo(array("products/list", "查找历史	", "class" => "btn btn-primary")) ?>
+    <?php echo Tag::linkTo(array("products/list", "记录列表	", "class" => "btn btn-info")) ?>
 </div>
 
 <?php echo Tag::form(array("products/create", "autocomplete" => "off")) ?>
