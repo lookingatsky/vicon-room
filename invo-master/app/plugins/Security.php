@@ -38,10 +38,11 @@ class Security extends Plugin
 
 			//////////
 			$privateResources = array(
-				'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','account','accountsave'),
+				'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','account','accountsave',"accountdelete"),
 				'products' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','list'),
 				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','child','savetypes','edittypes','newtypes','createtypes','deletetypes'),
-				'invoices' => array('index', 'profile')
+				'invoices' => array('index', 'profile'),
+				'register' => array('index','sendemail','verifyemail','register')
 			);
 			foreach ($privateResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);

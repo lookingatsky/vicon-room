@@ -1,10 +1,20 @@
 
 {{ content() }}
-
+<style>
+.control-label{
+	width:50px;
+	float:left;
+	text-align:right;
+}
+.controls{
+	margin-left:20px;
+	float:left;
+}
+</style>
 <div class="profile left">
     {{ form('invoices/profile', 'id': 'profileForm', 'onbeforesubmit': 'return false') }}
         <div class="clearfix">
-            <label for="name">姓 名:</label>
+            <label for="name">使 用 者:</label>
             <div class="input">
                 {{ text_field("name", "size": "30", "class": "span6") }}
                 <div class="alert" id="name_alert">

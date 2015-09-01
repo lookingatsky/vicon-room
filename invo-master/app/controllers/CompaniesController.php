@@ -213,12 +213,15 @@ class CompaniesController extends ControllerBase
 		$id = $this->filter->sanitize($id, array("int"));
 		
 		$userInfo = Users::findFirst('did = "'.$id.'"');
-		
 		if(!$userInfo){
 			$this->flash->notice("还木有帐号，请创建并保存");
+			$this->view->setVar("aid",$id);
 			Tag::displayTo("did", $id);
+			Tag::setDefault('email',' ');
+			Tag::setDefault('password','');
 			$this->view->pick("session/register");
 		}else{
+			$this->view->setVar("aid",$id);
 			Tag::displayTo("id", $userInfo->id);
 			Tag::displayTo("username", $userInfo->username);
             Tag::displayTo("name", $userInfo->name);
@@ -243,8 +246,8 @@ class CompaniesController extends ControllerBase
 				return $this->forward("companies/index");
 			}
 
-			$userInfo->username = $request->getPost("username", "striptags");
-			$userInfo->email = $request->getPost("email", "striptags");
+			$userInfo->username = trim($request->getPost("username", "striptags"));
+			$userInfo->email = trim($request->getPost("email", "striptags"));
 			$userInfo->name = $request->getPost("name", "striptags");
 			
 			if (!$userInfo->save()) {
@@ -257,4 +260,22 @@ class CompaniesController extends ControllerBase
 			
 		}		
 	}
+	
+	public function accountdeleteAction($id){
+		$account = Users::findFirstById($id);
+		if (!$account) {
+			$this->flash->error("没有找到对应部门");
+			return $this->forward("companies/index");
+		}
+
+		if (!$account->delete()) {
+			foreach ($account->getMessages() as $message) {
+				$this->flash->error((string) $message);
+			}
+			return $this->forward("companies/search");
+		}
+		
+		$this->response->redirect("companies/search");		
+	}
+	
 }

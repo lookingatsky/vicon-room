@@ -6,7 +6,7 @@
         {{ link_to("companies/search", "&larr; 返回") }}
     </li>
     <li class="pull-right">
-        {{ submit_button("保存", "class": "btn btn-success") }}
+         {{ link_to("companies/accountdelete/"~aid,"class":"btn btn-danger","删除帐号") }}
     </li>
 </ul>
 
@@ -31,8 +31,8 @@
         <?php echo Tag::textField(array("name", "size" => 10, "maxlength" => 10, "type" => "str")) ?>
     </div>
 	
-
-
-
+	<div class="clearfix">
+		<?php echo Tag::submitButton(array("保 存", "class" => "btn btn-primary")) ?>
+	</div>
 </div>
 </form>

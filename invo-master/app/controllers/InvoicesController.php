@@ -20,7 +20,13 @@ class InvoicesController extends ControllerBase
 		if ($user == false) {
             $this->forward('index/index');
         }
-		$department = Department::findFirst($auth['did']);
+		
+		if($auth['did'] != '' && $auth['did'] != 0){
+			$department = Department::findFirst($auth['did']);
+		}else{
+			$department->name = '中合万邦总部';
+		}
+		
 		$this->view->setVar("user",$user);
 		$this->view->setVar("department",$department);
     }

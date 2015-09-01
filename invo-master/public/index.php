@@ -7,6 +7,9 @@ try {
 	/**
 	 * Read the configuration
 	 */
+	define('APP_PATH', realpath('..') . '/');
+	define('LOGS_PATH', realpath('..') . '/logs/');	 
+	 
 	$config = new Phalcon\Config\Adapter\Ini(__DIR__ . '/../app/config/config.ini');
 
 	$loader = new \Phalcon\Loader();
@@ -20,6 +23,7 @@ try {
 			__DIR__ . $config->application->pluginsDir,
 			__DIR__ . $config->application->libraryDir,
 			__DIR__ . $config->application->modelsDir,
+			__DIR__ . $config->application->formsDir,
 		)
 	)->register();
 

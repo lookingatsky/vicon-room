@@ -8,7 +8,7 @@
         {{ link_to("companies/search", "&larr; 返 回") }}
     </li>
     <li class="pull-right">
-          {{ submit_button('保 存', 'class': 'btn btn-success', 'onclick': 'return SignUp.validate();') }}
+        {{ link_to("register/index/"~aid,"class":"btn btn-warning", "邮箱注册") }}  
     </li>	
 </ul>
 	<fieldset>
@@ -61,5 +61,8 @@
                 </div>
             </div>
         </div>
+		<div class="form-actions">
+			{{ submit_button('保 存', 'class': 'btn btn-primary', 'onclick': 'return SignUp.validate();') }}
+		</div>
     </fieldset>
 </form>

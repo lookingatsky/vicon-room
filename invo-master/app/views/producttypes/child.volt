@@ -7,7 +7,7 @@
         <?php echo Tag::linkTo("producttypes/search", "&larr; 返 回") ?>
     </li>
     <li class="pull-right">	
-        <?php echo Tag::linkTo(array("producttypes/newtypes/".$id, "创建新的下级类型", "class" => "btn btn-primary")) ?>
+        <?php echo Tag::linkTo(array("producttypes/newtypes/".$id, "创建下级类型", "class" => "btn btn-primary")) ?>
     </li>
 </ul>
 
