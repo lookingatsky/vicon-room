@@ -44,7 +44,7 @@ class RegisterController extends ControllerBase
 				$emailContent = "亲爱的".$email."： \r\n";
 				$emailContent .= "欢迎您来到中合万邦费控系统！ \r\n";
 				$emailContent .= "请马上点击以下链接完成注册 \r\n";
-				$emailContent .= "http://test2.com/register/verifyemail/".md5($time."+".$email)."\r\n";
+				$emailContent .= "http://wap.zhwbchina.com/register/verifyemail/".md5($time."+".$email)."\r\n";
 				$emailContent .= "(如果该链接无法点击，请将它完成复制并粘贴至浏览器的地址栏中访问)\r\n\r\n\r\n";
 				$emailContent .= "这是一封系统自动发出的邮件，请不要直接回复。\r\n";
 				$emailContent .= "如有疑问可发送邮件至tech@zhwbchina.com。\r\n\r\n";
