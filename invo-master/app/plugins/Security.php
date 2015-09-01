@@ -51,6 +51,7 @@ class Security extends Plugin
 			$userResources = array(
 				'invoices' => array('index', 'profile'),
 				'products' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','list'),
+				'register' => array('verifyemail','register')
 			);
 			foreach ($userResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
@@ -60,7 +61,8 @@ class Security extends Plugin
 				'index' => array('index'),
 				'about' => array('index'),
 				'session' => array('index', 'register', 'start', 'end'),
-				'contact' => array('index', 'send')
+				'contact' => array('index', 'send'),
+				'register' => array('verifyemail','register')
 			);
 			foreach ($publicResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
