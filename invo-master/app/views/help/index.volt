@@ -29,18 +29,24 @@
         border-radius: 0;
     }
 	ul.nav-tabs li a{
-		color:#ccc;
+		color:#aaa;
 	}
     ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover{
-        color:#aaa;
+        color:#563d7c;
 		font-weight:bold;
 		background-color:#fff;
     }
     ul.nav-tabs li:first-child a{
-        border-radius: 4px 4px 0 0;
+        border-radius: 0;
     }
+	.nav-tabs.nav-stacked > li:first-child > a{
+		border-radius: 0;
+	}
+	.nav-tabs.nav-stacked > li:last-child > a{
+		border-radius: 0;
+	}
     ul.nav-tabs li:last-child a{
-        border-radius: 0 0 4px 4px;
+        border-radius: 0;
     }
     ul.nav-tabs.affix{
         top: 30px; /* Set the top position of pinned element */
@@ -1898,606 +1904,6 @@ input.btn-block[type="submit"], input.btn-block[type="reset"], input.btn-block[t
 .glyphicon:empty {
     width: 1em;
 }
-.glyphicon-asterisk::before {
-    content: "*";
-}
-.glyphicon-plus::before {
-    content: "+";
-}
-.glyphicon-euro::before {
-    content: "€";
-}
-.glyphicon-minus::before {
-    content: "−";
-}
-.glyphicon-cloud::before {
-    content: "☁";
-}
-.glyphicon-envelope::before {
-    content: "✉";
-}
-.glyphicon-pencil::before {
-    content: "✏";
-}
-.glyphicon-glass::before {
-    content: "";
-}
-.glyphicon-music::before {
-    content: "";
-}
-.glyphicon-search::before {
-    content: "";
-}
-.glyphicon-heart::before {
-    content: "";
-}
-.glyphicon-star::before {
-    content: "";
-}
-.glyphicon-star-empty::before {
-    content: "";
-}
-.glyphicon-user::before {
-    content: "";
-}
-.glyphicon-film::before {
-    content: "";
-}
-.glyphicon-th-large::before {
-    content: "";
-}
-.glyphicon-th::before {
-    content: "";
-}
-.glyphicon-th-list::before {
-    content: "";
-}
-.glyphicon-ok::before {
-    content: "";
-}
-.glyphicon-remove::before {
-    content: "";
-}
-.glyphicon-zoom-in::before {
-    content: "";
-}
-.glyphicon-zoom-out::before {
-    content: "";
-}
-.glyphicon-off::before {
-    content: "";
-}
-.glyphicon-signal::before {
-    content: "";
-}
-.glyphicon-cog::before {
-    content: "";
-}
-.glyphicon-trash::before {
-    content: "";
-}
-.glyphicon-home::before {
-    content: "";
-}
-.glyphicon-file::before {
-    content: "";
-}
-.glyphicon-time::before {
-    content: "";
-}
-.glyphicon-road::before {
-    content: "";
-}
-.glyphicon-download-alt::before {
-    content: "";
-}
-.glyphicon-download::before {
-    content: "";
-}
-.glyphicon-upload::before {
-    content: "";
-}
-.glyphicon-inbox::before {
-    content: "";
-}
-.glyphicon-play-circle::before {
-    content: "";
-}
-.glyphicon-repeat::before {
-    content: "";
-}
-.glyphicon-refresh::before {
-    content: "";
-}
-.glyphicon-list-alt::before {
-    content: "";
-}
-.glyphicon-lock::before {
-    content: "";
-}
-.glyphicon-flag::before {
-    content: "";
-}
-.glyphicon-headphones::before {
-    content: "";
-}
-.glyphicon-volume-off::before {
-    content: "";
-}
-.glyphicon-volume-down::before {
-    content: "";
-}
-.glyphicon-volume-up::before {
-    content: "";
-}
-.glyphicon-qrcode::before {
-    content: "";
-}
-.glyphicon-barcode::before {
-    content: "";
-}
-.glyphicon-tag::before {
-    content: "";
-}
-.glyphicon-tags::before {
-    content: "";
-}
-.glyphicon-book::before {
-    content: "";
-}
-.glyphicon-bookmark::before {
-    content: "";
-}
-.glyphicon-print::before {
-    content: "";
-}
-.glyphicon-camera::before {
-    content: "";
-}
-.glyphicon-font::before {
-    content: "";
-}
-.glyphicon-bold::before {
-    content: "";
-}
-.glyphicon-italic::before {
-    content: "";
-}
-.glyphicon-text-height::before {
-    content: "";
-}
-.glyphicon-text-width::before {
-    content: "";
-}
-.glyphicon-align-left::before {
-    content: "";
-}
-.glyphicon-align-center::before {
-    content: "";
-}
-.glyphicon-align-right::before {
-    content: "";
-}
-.glyphicon-align-justify::before {
-    content: "";
-}
-.glyphicon-list::before {
-    content: "";
-}
-.glyphicon-indent-left::before {
-    content: "";
-}
-.glyphicon-indent-right::before {
-    content: "";
-}
-.glyphicon-facetime-video::before {
-    content: "";
-}
-.glyphicon-picture::before {
-    content: "";
-}
-.glyphicon-map-marker::before {
-    content: "";
-}
-.glyphicon-adjust::before {
-    content: "";
-}
-.glyphicon-tint::before {
-    content: "";
-}
-.glyphicon-edit::before {
-    content: "";
-}
-.glyphicon-share::before {
-    content: "";
-}
-.glyphicon-check::before {
-    content: "";
-}
-.glyphicon-move::before {
-    content: "";
-}
-.glyphicon-step-backward::before {
-    content: "";
-}
-.glyphicon-fast-backward::before {
-    content: "";
-}
-.glyphicon-backward::before {
-    content: "";
-}
-.glyphicon-play::before {
-    content: "";
-}
-.glyphicon-pause::before {
-    content: "";
-}
-.glyphicon-stop::before {
-    content: "";
-}
-.glyphicon-forward::before {
-    content: "";
-}
-.glyphicon-fast-forward::before {
-    content: "";
-}
-.glyphicon-step-forward::before {
-    content: "";
-}
-.glyphicon-eject::before {
-    content: "";
-}
-.glyphicon-chevron-left::before {
-    content: "";
-}
-.glyphicon-chevron-right::before {
-    content: "";
-}
-.glyphicon-plus-sign::before {
-    content: "";
-}
-.glyphicon-minus-sign::before {
-    content: "";
-}
-.glyphicon-remove-sign::before {
-    content: "";
-}
-.glyphicon-ok-sign::before {
-    content: "";
-}
-.glyphicon-question-sign::before {
-    content: "";
-}
-.glyphicon-info-sign::before {
-    content: "";
-}
-.glyphicon-screenshot::before {
-    content: "";
-}
-.glyphicon-remove-circle::before {
-    content: "";
-}
-.glyphicon-ok-circle::before {
-    content: "";
-}
-.glyphicon-ban-circle::before {
-    content: "";
-}
-.glyphicon-arrow-left::before {
-    content: "";
-}
-.glyphicon-arrow-right::before {
-    content: "";
-}
-.glyphicon-arrow-up::before {
-    content: "";
-}
-.glyphicon-arrow-down::before {
-    content: "";
-}
-.glyphicon-share-alt::before {
-    content: "";
-}
-.glyphicon-resize-full::before {
-    content: "";
-}
-.glyphicon-resize-small::before {
-    content: "";
-}
-.glyphicon-exclamation-sign::before {
-    content: "";
-}
-.glyphicon-gift::before {
-    content: "";
-}
-.glyphicon-leaf::before {
-    content: "";
-}
-.glyphicon-fire::before {
-    content: "";
-}
-.glyphicon-eye-open::before {
-    content: "";
-}
-.glyphicon-eye-close::before {
-    content: "";
-}
-.glyphicon-warning-sign::before {
-    content: "";
-}
-.glyphicon-plane::before {
-    content: "";
-}
-.glyphicon-calendar::before {
-    content: "";
-}
-.glyphicon-random::before {
-    content: "";
-}
-.glyphicon-comment::before {
-    content: "";
-}
-.glyphicon-magnet::before {
-    content: "";
-}
-.glyphicon-chevron-up::before {
-    content: "";
-}
-.glyphicon-chevron-down::before {
-    content: "";
-}
-.glyphicon-retweet::before {
-    content: "";
-}
-.glyphicon-shopping-cart::before {
-    content: "";
-}
-.glyphicon-folder-close::before {
-    content: "";
-}
-.glyphicon-folder-open::before {
-    content: "";
-}
-.glyphicon-resize-vertical::before {
-    content: "";
-}
-.glyphicon-resize-horizontal::before {
-    content: "";
-}
-.glyphicon-hdd::before {
-    content: "";
-}
-.glyphicon-bullhorn::before {
-    content: "";
-}
-.glyphicon-bell::before {
-    content: "";
-}
-.glyphicon-certificate::before {
-    content: "";
-}
-.glyphicon-thumbs-up::before {
-    content: "";
-}
-.glyphicon-thumbs-down::before {
-    content: "";
-}
-.glyphicon-hand-right::before {
-    content: "";
-}
-.glyphicon-hand-left::before {
-    content: "";
-}
-.glyphicon-hand-up::before {
-    content: "";
-}
-.glyphicon-hand-down::before {
-    content: "";
-}
-.glyphicon-circle-arrow-right::before {
-    content: "";
-}
-.glyphicon-circle-arrow-left::before {
-    content: "";
-}
-.glyphicon-circle-arrow-up::before {
-    content: "";
-}
-.glyphicon-circle-arrow-down::before {
-    content: "";
-}
-.glyphicon-globe::before {
-    content: "";
-}
-.glyphicon-wrench::before {
-    content: "";
-}
-.glyphicon-tasks::before {
-    content: "";
-}
-.glyphicon-filter::before {
-    content: "";
-}
-.glyphicon-briefcase::before {
-    content: "";
-}
-.glyphicon-fullscreen::before {
-    content: "";
-}
-.glyphicon-dashboard::before {
-    content: "";
-}
-.glyphicon-paperclip::before {
-    content: "";
-}
-.glyphicon-heart-empty::before {
-    content: "";
-}
-.glyphicon-link::before {
-    content: "";
-}
-.glyphicon-phone::before {
-    content: "";
-}
-.glyphicon-pushpin::before {
-    content: "";
-}
-.glyphicon-usd::before {
-    content: "";
-}
-.glyphicon-gbp::before {
-    content: "";
-}
-.glyphicon-sort::before {
-    content: "";
-}
-.glyphicon-sort-by-alphabet::before {
-    content: "";
-}
-.glyphicon-sort-by-alphabet-alt::before {
-    content: "";
-}
-.glyphicon-sort-by-order::before {
-    content: "";
-}
-.glyphicon-sort-by-order-alt::before {
-    content: "";
-}
-.glyphicon-sort-by-attributes::before {
-    content: "";
-}
-.glyphicon-sort-by-attributes-alt::before {
-    content: "";
-}
-.glyphicon-unchecked::before {
-    content: "";
-}
-.glyphicon-expand::before {
-    content: "";
-}
-.glyphicon-collapse-down::before {
-    content: "";
-}
-.glyphicon-collapse-up::before {
-    content: "";
-}
-.glyphicon-log-in::before {
-    content: "";
-}
-.glyphicon-flash::before {
-    content: "";
-}
-.glyphicon-log-out::before {
-    content: "";
-}
-.glyphicon-new-window::before {
-    content: "";
-}
-.glyphicon-record::before {
-    content: "";
-}
-.glyphicon-save::before {
-    content: "";
-}
-.glyphicon-open::before {
-    content: "";
-}
-.glyphicon-saved::before {
-    content: "";
-}
-.glyphicon-import::before {
-    content: "";
-}
-.glyphicon-export::before {
-    content: "";
-}
-.glyphicon-send::before {
-    content: "";
-}
-.glyphicon-floppy-disk::before {
-    content: "";
-}
-.glyphicon-floppy-saved::before {
-    content: "";
-}
-.glyphicon-floppy-remove::before {
-    content: "";
-}
-.glyphicon-floppy-save::before {
-    content: "";
-}
-.glyphicon-floppy-open::before {
-    content: "";
-}
-.glyphicon-credit-card::before {
-    content: "";
-}
-.glyphicon-transfer::before {
-    content: "";
-}
-.glyphicon-cutlery::before {
-    content: "";
-}
-.glyphicon-header::before {
-    content: "";
-}
-.glyphicon-compressed::before {
-    content: "";
-}
-.glyphicon-earphone::before {
-    content: "";
-}
-.glyphicon-phone-alt::before {
-    content: "";
-}
-.glyphicon-tower::before {
-    content: "";
-}
-.glyphicon-stats::before {
-    content: "";
-}
-.glyphicon-sd-video::before {
-    content: "";
-}
-.glyphicon-hd-video::before {
-    content: "";
-}
-.glyphicon-subtitles::before {
-    content: "";
-}
-.glyphicon-sound-stereo::before {
-    content: "";
-}
-.glyphicon-sound-dolby::before {
-    content: "";
-}
-.glyphicon-sound-5-1::before {
-    content: "";
-}
-.glyphicon-sound-6-1::before {
-    content: "";
-}
-.glyphicon-sound-7-1::before {
-    content: "";
-}
-.glyphicon-copyright-mark::before {
-    content: "";
-}
-.glyphicon-registration-mark::before {
-    content: "";
-}
-.glyphicon-cloud-download::before {
-    content: "";
-}
-.glyphicon-cloud-upload::before {
-    content: "";
-}
-.glyphicon-tree-conifer::before {
-    content: "";
-}
-.glyphicon-tree-deciduous::before {
-    content: "";
-}
 .caret {
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
@@ -2925,7 +2331,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 }
 .nav > li > a {
     display: block;
-    padding: 10px 15px;
+    padding: 5px 15px;
     position: relative;
 }
 .nav > li > a:hover, .nav > li > a:focus {
@@ -2963,7 +2369,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 }
 .nav-tabs > li > a {
     border: 1px solid transparent;
-    border-radius: 4px 4px 0 0;
+   
     line-height: 1.42857;
     margin-right: 2px;
 }
@@ -2971,7 +2377,16 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     border-color: #eee #eee #ddd;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-	border-bottom:1px solid #ddd;
+	border-right:3px solid #563d7c;
+}
+.row p{
+	padding-left:50px;
+}
+.row h4{
+	padding-left:50px;
+}
+.row img{
+	border:1px solid #ccc;
 }
 </style>
 <script type="text/javascript">
@@ -3017,43 +2432,48 @@ $(document).ready(function(){
     <div class="row">
         <div class="col-xs-3" id="myScrollspy">
             <ul class="nav nav-tabs nav-stacked" id="myNav">
-                <li class="active"><a href="#section-1">常见问题1</a></li>
-                <li><a href="#section-2">常见问题2</a></li>
-                <li><a href="#section-3">常见问题3</a></li>
-                <li><a href="#section-4">常见问题4</a></li>
-                <li><a href="#section-5">常见问题5</a></li>
+                <li class="active"><a href="#section-1">登录系统</a></li>
+                <li><a href="#section-2">添加帐号</a></li>
+                <li><a href="#section-3">部门管理</a></li>
+<!--                 <li><a href="#section-4">类型管理</a></li>
+                <li><a href="#section-5">添加记录</a></li> -->
             </ul>
         </div>
         <div class="col-xs-9">
-            <h2 id="section-1">常见问题1</h2>
-			<p>这是第一部分</p>
-			<p>这是第一部分</p>
-			<p>这是第一部分</p>
-			<p>这是第一部分</p>
+            <h2 id="section-1">1. 登录系统</h2>
+				<h4>点击【登录】按钮，进入登录页</h4>
+				<p><img src="../img/help/login.png" /></p>
+				<h4>登录进入系统</h4>
+				<p><img src="../img/help/access.png" /></p>
             <hr>
-            <h2 id="section-2">常见问题2</h2>
-			<p>这是第二部分</p>
-			<p>这是第二部分</p>
-			<p>这是第二部分</p>
-			<p>这是第二部分</p>
+            <h2 id="section-2">2. 添加帐号</h2>
+				<h4>点击【部门管理】下的【部门列表】按钮，进入部门列表页</h4>
+				<p><img src="../img/help/department.png" /></p>
+				<h4>点击【帐号】按钮，进入部门帐号管理</h4>
+				<p><img src="../img/help/departmentlist.png" /></p>
+				<h4>如果该部门有帐号，则无需注册，直接进入帐号管理页</h4>
+				<p><img src="../img/help/account.png" /></p>
+				<p>如果该部门无帐号，则进入帐号注册页，也可点击【邮箱注册】按钮选择邮箱注册</p>
+				<p><img src="../img/help/register.png" /></p>
+				<p style="color:red;">注：上述帐号只可管理对应部门的信息，管理员帐号请直接联系管理员获取</p>
             <hr>
-            <h2 id="section-3">常见问题3</h2>
-            <p>这是第三部分</p>
-			<p>这是第三部分</p>
-			<p>这是第三部分</p>
-			<p>这是第三部分</p>
+            <h2 id="section-3">3. 部门管理</h2>
+				<h4>部门列表页，点击【创建部门】</h4>
+				<p><img src="../img/help/createdepartment.png" /></p>
+				<h4>录入部门信息后，点击【保存】</h4>
+				<p><img src="../img/help/savedepartment.png" /></p>
 			<hr>
-            <h2 id="section-4">常见问题4</h2>
+<!--             <h2 id="section-4">4. 类型管理</h2>
 			<p>这是第四部分</p>
 			<p>这是第四部分</p>
 			<p>这是第四部分</p>
 			<p>这是第四部分</p>
 			<hr>
-            <h2 id="section-5">常见问题5</h2>
+            <h2 id="section-5">5. 添加记录</h2>
 			<p>这是第五部分</p>
 			<p>这是第五部分</p>
 			<p>这是第五部分</p>
-			<p>这是第五部分</p>
+			<p>这是第五部分</p> -->
 		</div>
     </div>
 	<hr>
