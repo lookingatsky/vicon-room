@@ -2453,7 +2453,7 @@ $(document).ready(function(){
 				<p><img src="../img/help/departmentlist.png" /></p>
 				<h4>如果该部门有帐号，则无需注册，直接进入帐号管理页</h4>
 				<p><img src="../img/help/account.png" /></p>
-				<p>如果该部门无帐号，则进入帐号注册页，也可点击【邮箱注册】按钮选择邮箱注册</p>
+				<h4>如果该部门无帐号，则进入帐号注册页，也可点击【邮箱注册】按钮选择邮箱注册</h4>
 				<p><img src="../img/help/register.png" /></p>
 				<p style="color:red;">注：上述帐号只可管理对应部门的信息，管理员帐号请直接联系管理员获取</p>
             <hr>
