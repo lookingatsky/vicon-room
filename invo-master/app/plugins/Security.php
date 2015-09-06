@@ -62,6 +62,7 @@ class Security extends Plugin
 				'about' => array('index'),
 				'session' => array('index', 'register', 'start', 'end'),
 				'contact' => array('index', 'send'),
+				'help' => array('index'),
 				'register' => array('verifyemail','register')
 			);
 			foreach ($publicResources as $resource => $actions) {

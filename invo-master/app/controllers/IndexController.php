@@ -20,9 +20,15 @@ class IndexController extends ControllerBase
 		fb($types); */
 			
         if (!$this->request->isPost()) {
-            $this->flash->notice('欢迎登陆中合万邦行政财务系统！');
-        }else{
+			$auth = $this->session->get("auth");
+			if(isset($auth)){
+					
+			}else{
+				$this->flash->notice('欢迎来到中合万邦费控系统！');
+			}
+        }
+/* 		else{
 			$keywords = $this->request->getPost('keywords', 'keywords');
-		}
+		} */
     }
 }

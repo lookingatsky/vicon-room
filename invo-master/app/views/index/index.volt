@@ -1,10 +1,21 @@
 
 {{ content() }}
-
 <div class="hero-unit">
-    <h1>欢迎来到中合万邦行政费控系统</h1>
+	<p><img src="../img/bootstrap/index_2.jpg" /></p>
+	<br />
     <p>中合万邦行政费控系统是自用系统，如果没有账号，请先联系系统管理员。</p>
-    <p>{{ link_to('session/index', '登陆 &raquo;', 'class': 'btn btn-primary btn-large btn-success') }}</p>
+
+<?php 
+	$auth = $this->session->get('auth');
+	if(isset($auth)){
+?>	
+	<p>{{ link_to('invoices/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+<?php }else{ ?>
+	<p>{{ link_to('session/index', '登陆 &raquo;', 'class': 'btn btn-primary btn-large btn-success') }}</p>
+<?php	
+	}
+?>
+    
 </div>
 
 <!-- <div class="row">

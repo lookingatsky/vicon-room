@@ -18,6 +18,10 @@ class Elements extends Phalcon\Mvc\User\Component
                 'caption' => '系 统',
                 'action' => 'index'
             ),
+             'help' => array(
+                'caption' => '帮助中心',
+                'action' => 'index'
+            ),			
 /*            'about' => array(
                 'caption' => '关于',
                 'action' => 'index'
