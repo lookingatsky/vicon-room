@@ -191,6 +191,9 @@ class ProductsController extends ControllerBase
 					if(isset($datas['remark'][$v['name']]) && $datas['remark'][$v['name']] != ''){
 						Tag::displayTo("remark[".$v['name']."]", $datas['remark'][$v['name']]);
 					} 
+					if(isset($datas['limit'][$v['name']]) && $datas['limit'][$v['name']] != ''){
+						Tag::displayTo("limit[".$v['name']."]", $datas['limit'][$v['name']]);
+					}
 				}
 			}
 
@@ -198,7 +201,7 @@ class ProductsController extends ControllerBase
 			
 			$auth = $this->session->get("auth");
 			if($auth['did'] != 0){
-			Tag::setDefault("company", $auth['did']);
+				Tag::setDefault("company", $auth['did']);
 			}
 			$this->view->setVar('did',$auth['did']);
 /*             
@@ -214,31 +217,6 @@ class ProductsController extends ControllerBase
     public function createAction()
     {
 
-/*         $request = $this->request;
-
-        if (!$request->isPost()) {
-            return $this->forward("products/index");
-        }
-
-        $products = new Products();
-        $products->id = $request->getPost("id", "int");
-        $products->product_types_id = $request->getPost("product_types_id", "int");
-        $products->name = $request->getPost("name", "striptags");
-        $products->price = $request->getPost("price");
-        $products->active = $request->getPost("active");
-
-        if (!$products->save()) {
-
-            foreach ($products->getMessages() as $message) {
-                $this->flash->error((string) $message);
-            }
-            return $this->forward("products/new");
-
-        } else {
-            $this->flash->success("products was created successfully");
-            return $this->forward("products/index");
-        } */
-/*-------------------------------------------------------------*/
 		$auth = $this->session->get('auth');
 		
 		$request = $this->request;

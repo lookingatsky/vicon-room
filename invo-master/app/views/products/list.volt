@@ -182,11 +182,11 @@
 				<td width="200"><b>时间</b></td>
 				<td width="230"><b>操作</b></td>
 			<?php foreach($typeArr as $key=>$val){?>
-				
+				<td width="150" class="parent"  children="<?php  echo $key; ?>" ><b><?php echo $key; ?></b></td>
 			<?php foreach($val as $k=>$v){?>
 				<td width="100" class="<?php  echo $key; ?>"  style="font-size:12px;display:none;"><?php echo $v['name']; ?></td>
 			<?php }?>
-				<td width="150" class="parent"  children="<?php  echo $key; ?>" ><b><?php echo $key; ?></b></td>
+				
 			<?php }?>
 				<td width="150" width="100"><b>总计</b></td>			
 		</tr>
@@ -223,18 +223,33 @@
 				?>
 				
 				<?php 
+				$limit = $limit+$arr['limit'][$v['name']];
 				if(isset($arr['cost'][$v['name']]) && $arr['cost'][$v['name']] != ''){
 				$flag = $flag+$arr['cost'][$v['name']];
-				$limit = $limit+$v['limit'];?>
+				}} 
+				?>
+				<td style="background:#ccc;" class="parent" children="<?php echo $key1;?>">
+					<b>
+					<?php if($flag>$limit){
+						echo '<span style="color:red;">'.$flag.'</span>'; 
+					}else{
+						echo $flag.'<br/>(余额'.($limit-$flag).')'; 
+					}?>
+					</b>
+				</td>					
+				<?php
+				foreach($val1 as $k=>$v){
+				if(isset($arr['cost'][$v['name']]) && $arr['cost'][$v['name']] != ''){
+				?>
 				<td style="display:none;font-size:12px;" class="<?php  echo $key1; ?> focusShowInfo" alt="<?php if(isset($arr['remark'][$v['name']])){ echo $arr['remark'][$v['name']];}else{ echo "（备注）";}?>" style="font-size:12px;" registrar="<?php echo $val->registrar; ?>" inner="<?php echo $arr['cost'][$v['name']]; ?>" time="<?php echo date('Y年m月d日',$val->time); ?>">
 						<?php 
-							if($arr['cost'][$v['name']] > $v['limit']){
+							if($arr['cost'][$v['name']] > $arr['limit'][$v['name']]){
 								echo '<span style="color:red;">'.$arr['cost'][$v['name']].'</span>';
 							}else{
 								if($arr['cost'][$v['name']] == ''){
 									echo "暂无数据";
 								}else{
-									echo $arr['cost'][$v['name']];
+									echo $arr['cost'][$v['name']].'<br/>(余额'.($arr['limit'][$v['name']] - $arr['cost'][$v['name']]).')';
 								}
 							}	
 						?>	
@@ -243,15 +258,8 @@
 					echo "<td style='display:none;font-size:12px;' class='".$key1."'>暂无数据</td>";
 				}}?>
 				
-				<td class="parent" children="<?php echo $key1;?>">
-					<b>
-					<?php if($flag>$limit){
-						echo '<span style="color:red;">'.$flag.'</span>'; 
-					}else{
-						echo $flag; 
-					}?>
-					</b>
-				</td>	
+				
+
 			<?php $flagTotal += $flag; }?>			
 				<td class="">
 					<b>
@@ -275,12 +283,17 @@
 					if(isset($total[$v['name']]) && $total[$v['name']] != ''){
 					$flag = $flag+$total[$v['name']];
 					$limit = $limit+$v['limit'];
+				}}?>
+				<td style="background:#ccc;" class="parent" children="<?php echo $key1;?>"><b><?php echo $flag;?></b></td>
+				<?php foreach($val1 as $k=>$v){?>
+				<?php 
+					if(isset($total[$v['name']]) && $total[$v['name']] != ''){
 				?>								
 						<td style="display:none;" class="<?php  echo $key1; ?>"><?php echo $total[$v['name']]; ?></td>
 				<?php }else{ 
 					echo "<td style='display:none;' class='".$key1."'>暂无数据</td>";
-				}}?>
-				<td class="parent" children="<?php echo $key1;?>"><b><?php echo $flag;?></b></td>
+				}}?>				
+				
 				
 			<?php 
 				$flagTotal += $flag;

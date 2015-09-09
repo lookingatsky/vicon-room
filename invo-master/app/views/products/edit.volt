@@ -47,9 +47,16 @@
 			</td>
 		</tr>
 		<tr>
-			<td></td>
+			<td width="150" align="right">备注&nbsp;&nbsp;</td>
 			<td><?php echo Tag::textArea(array("remark[".$v['name']."]", "size" => 10,"cols" => 10,"rows" => 1, "maxlength" => 250, "type" => "str")) ?></td>	
 		</tr>
+		<?php if($did == 0){?>
+		<tr>
+			<td width="150" align="right">限额&nbsp;&nbsp;</td>
+			<td><?php echo Tag::textField(array("limit[".$v['name']."]", "size" => 10, "maxlength" => 10, "type" => "number")) ?></td>	
+		</tr>
+		<?php }?>
+		
 		<?php if($v['remark'] != ''){?>
 		<tr height="35" valign="top" align="left">
 			<td></td>

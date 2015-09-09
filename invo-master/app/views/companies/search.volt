@@ -54,5 +54,5 @@
 </table>
 {% endif %}
 {% else %}
-    No companies are recorded
+   没有部门信息
 {% endfor %}
