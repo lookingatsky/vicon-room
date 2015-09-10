@@ -12,7 +12,8 @@ html body{
 }
 .voteFrame{
 	margin:0 auto;
-	width:650px;
+	max-width:650px;
+	width:100%;
 	text-align:center;
 }
 .title{
@@ -220,7 +221,7 @@ body{
 	font-family:"微软雅黑";
 }
 .showFrame{
-	width:650px;
+	width:100%;
 	min-height:150px;
 	background:#fff;
 	margin:auto;
