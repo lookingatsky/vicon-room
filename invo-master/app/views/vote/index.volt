@@ -90,8 +90,8 @@ hr{
 	padding:0;
 }
 .detail ul li{
-	width:100%%;
-	margin-bottom:10px;
+	width:100%;
+	margin-bottom:2%;
 	border:0px solid #000;
 	min-height:20px;
 	background:#fff;
@@ -109,12 +109,12 @@ hr{
 	text-align:left;
 }
 .detailLeft{
-	width:300px;
-	margin-right:10px;
+	width:49%;
+	margin-right:1%;
 	float:left;
 }
 .detailRight{
-	width:300px;
+	width:49%;
 	float:left;
 }
 </style>
