@@ -1,4 +1,4 @@
-{% if isWeixin != 1 %}
+{% if isWeixin == 1 %}
 <style>
 *{
 	margin:0;
