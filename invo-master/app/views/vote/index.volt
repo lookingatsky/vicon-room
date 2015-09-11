@@ -69,7 +69,7 @@ hr{
 .timeLimit{
 	background:green;
 	text-align:left;
-	color:#ddd;
+	color:#eee;
 	padding:20px;
 }
 .timeLimit div:nth-child(1){
@@ -98,6 +98,7 @@ hr{
 	background:#fff;
 	padding:5px;
 	cursor:pointer;
+	position:relative;
 }
 .detail ul li .voteName{
 	background:#eee;
@@ -108,17 +109,19 @@ hr{
 	height:30px;
 	line-height:30px;
 	text-align:left;
+	margin-top:5px;
 }
 .detailLeft{
-	width:49%;
-	margin-right:1%;
+	width:48%;
+	margin-right:2.5%;
 	float:left;
 }
 .detailRight{
-	width:49%;
+	width:48%;
 	float:left;
 }
 </style>
+
 <div class="voteFrame">
 	<div class="title">
 		<img src="/img/20150605/1.jpg" />	
@@ -126,18 +129,35 @@ hr{
 	<div class="info">
 		<div class="num fLeft">
 			参与选手<br />
-			10
+			<span id="cNum"></span>
 		</div>
+	
 		<div class="voter fLeft">
 			累计投票<br />
-			2030
+			<span id="voteNum"></span>
 		</div>
+		
 		<div class="visitor fLeft">
 			访问量<br />
-			21400
+			<span id="visitNum"></span>
 		</div>
+		<script>
+		function magic_number(value,target) { 
+			var num = $("#"+target); 
+			num.animate({count: value}, { 
+				duration: 2000, 
+				step: function() { 
+					num.text(String(parseInt(this.count))); 
+				} 
+			}); 
+		}; 
+		magic_number(101,"cNum"); 
+		magic_number(1986,"voteNum"); 
+		magic_number(10001,"visitNum");  
+		</script>			
 		<div class="clear"></div>
 	</div>
+	
 	<div class="timeLimit">
 		<div>距活动结束还有：</div>
 		<div>97天23时57分24秒</div>
@@ -155,27 +175,27 @@ hr{
 				<li>
 					<img src="/img/20150605/aesthetics_4-1.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
 				<li>
 					<img src="/img/20150605/20150817161812.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
 				<li>
 					<img src="/img/20150605/201508121522953.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
 				<li>
 					<img src="/img/20150605/20150812172127.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
 				<li>
 					<img src="/img/20150605/3.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
 			</ul>		
 		</div>
@@ -184,28 +204,48 @@ hr{
 				<li>
 					<img src="/img/20150605/201508121522953.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
 				<li>
 					<img src="/img/20150605/20150817161812.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
 				<li>
 					<img src="/img/20150605/20150812172127.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
 				<li>
 					<img src="/img/20150605/aesthetics_4-1.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>				
 				<li>
 					<img src="/img/20150605/3.jpg" />
 					<div class="voteName">选手名字</div>
-					<div class="voteButton">为她投票</div>
+					<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
 				</li>
+<script>
+$(function(){
+	x = $(".test1").offset();
+	$(".test2").css("top",-x.top);
+	$(".test2").css("left",-x.left);
+	$(".test2").click(function(){
+		$(".test2").animate({"top":"0px","left":"0px"},1000);
+	})
+})	
+   var timer;
+    $(window).scroll(function () {
+ 
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            clearInterval(timer);
+            timer = setTimeout(function () {
+                alert('到底了，开始加载入内容');
+            }, 0);
+        }
+    });
+</script>				
 			</ul>			
 		</div>
 		<div class="clear"></div>
@@ -221,6 +261,7 @@ body{
 	font-family:"微软雅黑";
 }
 .showFrame{
+	max-width:650px;
 	width:100%;
 	min-height:150px;
 	background:#fff;
@@ -231,7 +272,6 @@ body{
 	height:30px;
 	line-height:30px;
 	padding:15px 40px;
-	
 	font-weight:bold;
 }
 .time{
