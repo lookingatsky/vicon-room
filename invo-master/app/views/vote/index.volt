@@ -131,7 +131,10 @@ hr{
 			<div style="border:1px solid #00ff00;">
 				<?php print_r($dataJson);?>
 			</div>
-		
+			
+			<div style="border:1px solid #ff0000;">
+				<?php print_r($dataJson_);?>
+			</div>		
 		{{ openid }}
 	</div>
 	<div class="info">
