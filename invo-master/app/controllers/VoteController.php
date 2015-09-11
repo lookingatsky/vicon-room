@@ -43,7 +43,7 @@ class VoteController extends ControllerBase
 					$info = curl_exec($ch);
 					$dataJson = json_decode($info, true);
 					$openid = $dataJson['openid'];
-					
+					$this->view->setVar("dataJson",$dataJson);
 					$this->view->setVar("openid",$openid);
 /* 					$userdata = $table->get_subscribe_res($openid);
 					$subscribed = $userdata['data']['subscribed'];
