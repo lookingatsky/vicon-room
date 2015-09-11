@@ -28,9 +28,10 @@ class VoteController extends ControllerBase
 					$SECRET = "3b941879e6467442d4c398b0c2cc99fa";
 					$code = $_REQUEST['code'];
 					$this->view->setVar("code",$code);
-					
-					$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $APPID . "&secret=" . $SECRET . "&code=".$code."&grant_type=authorization_code";
-					$ch = curl_init($accessTokenUrl);
+					$test = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$APPID."&secret=".$SECRET;
+				
+					//$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $APPID . "&secret=" . $SECRET . "&code=".$code."&grant_type=authorization_code";
+					$ch = curl_init($test);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 					curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 5.1; rv:21.0) Gecko/20100101 Firefox/21.0');
@@ -39,13 +40,13 @@ class VoteController extends ControllerBase
 					$dataJson = json_decode($info, true);
 					
 					//$openid = $dataJson['openid'];
-					//$this->view->setVar("dataJson",$dataJson);
+					$this->view->setVar("dataJson",$dataJson);
 					//$this->view->setVar("openid",$openid);
 					
 					//$refresh_token = "OezXcEiiBSKSxW0eoylIeMmDrGVrRqI4UJHh7hukRNE5t294rK_rtPNW_qAaWFz0e5sAfURNm11eg-KAl9w9QwJ2wXy5kHxiqE51U444-wu2w0gUnZJrKpb8v4SEMNp3hCQ5ty0TayFHCu0ALni2Kg";
 				
  					//$ACCESS_TOKEN = "2D6t8FiF6cwngpdwyAvW7A81ruZuWBoJjoqrxn4jF9r7D3VnqGaP9ZYR7sc1KiDW6-cT_xyDtsGHjcsIV8e4zaI-lpY8FPn0Vi5bZcifVZE";
-					$ACCESS_TOKEN = $dataJson['access_token'];
+/* 					$ACCESS_TOKEN = $dataJson['access_token'];
 					$OPENID = $dataJson['openid'];
 					$accessTokenUrl_ =  "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$ACCESS_TOKEN."&openid=".$OPENID."&lang=zh_CN";
 					
@@ -57,7 +58,7 @@ class VoteController extends ControllerBase
 					$info_ = curl_exec($ch_);
 
 					$dataJson_ = json_decode($info_, true);
-					$this->view->setVar("dataJson_",$dataJson_);  
+					$this->view->setVar("dataJson_",$dataJson_);   */
 					
 					
 					
