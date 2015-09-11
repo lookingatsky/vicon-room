@@ -126,12 +126,15 @@ hr{
 	<div class="title">
 		<img src="/img/20150605/1.jpg" />	
 	</div>
+	<div>
+		{{ openid }}
+	</div>
 	<div class="info">
 		<div class="num fLeft">
 			参与选手<br />
 			<span id="cNum"></span>
 		</div>
-	
+		
 		<div class="voter fLeft">
 			累计投票<br />
 			<span id="voteNum"></span>

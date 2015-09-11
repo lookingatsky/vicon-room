@@ -54,6 +54,7 @@ class VoteController extends ControllerBase
 						echo $this->assign('url', $url)->fetch('redirect');
 						return;
 					} */
+					https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxec3e1348d19af993&redirect_uri=http://wap.zhwbchina.com/vote/index&response_type=code&scope=snsapi_base&state=123#wechat_redirect
 				}
 			}		
     }
