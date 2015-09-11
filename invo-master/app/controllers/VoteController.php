@@ -35,14 +35,12 @@ class VoteController extends ControllerBase
 					$code = $_REQUEST['code'];
 					
 					$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $APPID . "&secret=" . $SECRET . "&code=$code&grant_type=authorization_code";
-/* 					$ch = curl_init($accessTokenUrl);
+					$ch = curl_init($accessTokenUrl);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 					curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 5.1; rv:21.0) Gecko/20100101 Firefox/21.0');
 					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-					$info = curl_exec($ch); */
-					
-					$info = file_get_contents($accessTokenUrl);
+					$info = curl_exec($ch); 
 					
 					$dataJson = json_decode($info, true);
 					$openid = $dataJson['openid'];
@@ -52,14 +50,13 @@ class VoteController extends ControllerBase
 					$OPENID = $openid;
 					$accessTokenUrl_ =  "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$ACCESS_TOKEN."&openid=".$OPENID."&lang=zh_CN";
 					
-/* 					$ch = curl_init($accessTokenUrl_);
+ 					$ch = curl_init($accessTokenUrl_);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 					curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 5.1; rv:21.0) Gecko/20100101 Firefox/21.0');
 					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 					$info_ = curl_exec($ch);
- */					
-					$info_ = file_get_contents($accessTokenUrl_);
+
 					$dataJson_ = json_decode($info_, true);
 					$this->view->setVar("dataJson_",$dataJson_);
 /* 					$userdata = $table->get_subscribe_res($openid);
