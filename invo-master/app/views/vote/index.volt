@@ -129,7 +129,7 @@ hr{
 	<div>
 
 			<div style="border:1px solid #00ff00;">
-				<?php print_r($dataJson_);?>
+				<?php print_r($dataJson);?>
 			</div>
 	
 		

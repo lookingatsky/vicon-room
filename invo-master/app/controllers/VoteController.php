@@ -39,12 +39,12 @@ class VoteController extends ControllerBase
 					$dataJson = json_decode($info, true);
 					
 					//$openid = $dataJson['openid'];
-					//$this->view->setVar("dataJson",$dataJson);
+					$this->view->setVar("dataJson",$dataJson);
 					//$this->view->setVar("openid",$openid);
 					
-					
- 					$ACCESS_TOKEN = "2D6t8FiF6cwngpdwyAvW7A81ruZuWBoJjoqrxn4jF9r7D3VnqGaP9ZYR7sc1KiDW6-cT_xyDtsGHjcsIV8e4zaI-lpY8FPn0Vi5bZcifVZE";
-					//$ACCESS_TOKEN = $dataJson['access_token'];
+/* 					
+ 					//$ACCESS_TOKEN = "2D6t8FiF6cwngpdwyAvW7A81ruZuWBoJjoqrxn4jF9r7D3VnqGaP9ZYR7sc1KiDW6-cT_xyDtsGHjcsIV8e4zaI-lpY8FPn0Vi5bZcifVZE";
+					$ACCESS_TOKEN = $dataJson['access_token'];
 					$OPENID = $dataJson['openid'];
 					$accessTokenUrl_ =  "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$ACCESS_TOKEN."&openid=".$OPENID."&lang=zh_CN";
 					
@@ -56,7 +56,7 @@ class VoteController extends ControllerBase
 					$info_ = curl_exec($ch_);
 
 					$dataJson_ = json_decode($info_, true);
-					$this->view->setVar("dataJson_",$dataJson_); 
+					$this->view->setVar("dataJson_",$dataJson_);  */
 					
 					
 					
