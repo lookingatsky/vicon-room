@@ -39,6 +39,15 @@ class VoteController extends ControllerBase
 					$info = curl_exec($ch); 
 					$dataJson = json_decode($info, true);
 					
+					$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $APPID . "&secret=" . $SECRET . "&code=".$code."&grant_type=authorization_code";
+					$ch2 = curl_init($accessTokenUrl);
+					curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, "POST");
+					curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch2, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 5.1; rv:21.0) Gecko/20100101 Firefox/21.0');
+					curl_setopt($ch2, CURLOPT_SSL_VERIFYPEER, false);
+					$info2 = curl_exec($ch2); 
+					$dataJson2 = json_decode($info2, true);
+					
 					//$openid = $dataJson['openid'];
 					//$this->view->setVar("dataJson",$dataJson);
 					//$this->view->setVar("openid",$openid);
@@ -47,7 +56,7 @@ class VoteController extends ControllerBase
 				
  					//$ACCESS_TOKEN = "2D6t8FiF6cwngpdwyAvW7A81ruZuWBoJjoqrxn4jF9r7D3VnqGaP9ZYR7sc1KiDW6-cT_xyDtsGHjcsIV8e4zaI-lpY8FPn0Vi5bZcifVZE";
  					$ACCESS_TOKEN = $dataJson['access_token'];
-					$OPENID = $dataJson['openid'];
+					$OPENID = $dataJson2['openid'];
 					$accessTokenUrl_ =  "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$ACCESS_TOKEN."&openid=".$OPENID."&lang=zh_CN";
 					
  					$ch_ = curl_init($accessTokenUrl_);
