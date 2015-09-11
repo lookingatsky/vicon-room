@@ -23,18 +23,15 @@ class VoteController extends ControllerBase
 			$isWeixin = 0;;
 		}
 		$this->view->setVar("isWeixin",$isWeixin);
-		if (empty($openid)){
-				$APPID = "wxec3e1348d19af993";
-				$SECRET = "3b941879e6467442d4c398b0c2cc99fa";
-				//$redirect_url = 
-				if (empty($_REQUEST["code"])) {
-					//$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$APPID."&redirect_uri=".$redirect_url."&response_type=code&scope=snsapi_base&state=blinq#wechat_redirect";
-					//echo $this->assign('url', $url)->fetch('redirect');
-					return;
-				}else{
+		
+
+
+					
+					$APPID = "wxec3e1348d19af993";
+					$SECRET = "3b941879e6467442d4c398b0c2cc99fa";
 					$code = $_REQUEST['code'];
 					
-					$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $APPID . "&secret=" . $SECRET . "&code=$code&grant_type=authorization_code";
+					$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $APPID . "&secret=" . $SECRET . "&code=".$code."&grant_type=authorization_code";
 					$ch = curl_init($accessTokenUrl);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -71,8 +68,8 @@ class VoteController extends ControllerBase
 					} */
 					//https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxec3e1348d19af993&redirect_uri=http://wap.zhwbchina.com/vote/index&response_type=code&scope=snsapi_base&state=123#wechat_redirect
 					//https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID
-				}
-			}		
+				
+				
     }
 	
 	private function is_weixin(){ 
