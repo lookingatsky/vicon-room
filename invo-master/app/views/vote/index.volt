@@ -127,15 +127,11 @@ hr{
 		<img src="/img/20150605/1.jpg" />	
 	</div>
 	<div>
-		
-			<div style="border:1px solid #00ff00;">
-				<?php print_r($dataJson);?>
+			<div style="border:1px solid #000;">
+				<?php echo $code;?>
 			</div>
-			
-			<div style="border:1px solid #ff0000;">
-				<?php print_r($dataJson_);?>
-			</div>		
-		{{ openid }}
+
+		
 	</div>
 	<div class="info">
 		<div class="num fLeft">

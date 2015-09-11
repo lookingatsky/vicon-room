@@ -23,15 +23,13 @@ class VoteController extends ControllerBase
 			$isWeixin = 0;;
 		}
 		$this->view->setVar("isWeixin",$isWeixin);
-		
-
-
-					
+				
 					$APPID = "wxec3e1348d19af993";
 					$SECRET = "3b941879e6467442d4c398b0c2cc99fa";
 					$code = $_REQUEST['code'];
+					$this->view->setVar("code",$code);
 					
-					$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $APPID . "&secret=" . $SECRET . "&code=".$code."&grant_type=authorization_code";
+/* 					$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $APPID . "&secret=" . $SECRET . "&code=".$code."&grant_type=authorization_code";
 					$ch = curl_init($accessTokenUrl);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -56,7 +54,11 @@ class VoteController extends ControllerBase
 					$info_ = curl_exec($ch);
 
 					$dataJson_ = json_decode($info_, true);
-					$this->view->setVar("dataJson_",$dataJson_);
+					$this->view->setVar("dataJson_",$dataJson_); */
+					
+					
+					
+					
 /* 					$userdata = $table->get_subscribe_res($openid);
 					$subscribed = $userdata['data']['subscribed'];
 					if($subscribed){
