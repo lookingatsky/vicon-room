@@ -127,7 +127,9 @@ hr{
 		<img src="/img/20150605/1.jpg" />	
 	</div>
 	<div>
-
+			<div style="border:1px solid #0000ff;">
+				<?php echo $code;?>
+			</div>	
 			<div style="border:1px solid #00ff00;">
 				<?php print_r($dataJson);?>
 			</div>
