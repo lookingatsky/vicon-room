@@ -1,4 +1,5 @@
-{% if isWeixin == 1 %}
+{% if isWeixin != 1 %}
+{{ javascript_include('js/jquery.poptrox.min.js') }}
 <style>
 *{
 	margin:0;
@@ -120,19 +121,29 @@ hr{
 	width:48%;
 	float:left;
 }
+#loading{
+	width:40%;
+	height:50px;
+	background:#000;
+	margin:auto;
+	display:none;
+}
+.candidateFrame{
+	position:absolute;
+	left:30%;
+	top:300px;
+	width:50%;
+	padding:20px;
+	min-height:300px;
+	border:1px solid #000;
+	display:none;
+	background:#fff;
+}
 </style>
 
 <div class="voteFrame">
 	<div class="title">
 		<img src="/img/20150605/1.jpg" />	
-	</div>
-	<div>
-
-			<div style="border:1px solid #00ff00;">
-				<?php print_r($dataJson_);?>
-			</div>
-	
-		
 	</div>
 	<div class="info">
 		<div class="num fLeft">
@@ -236,11 +247,22 @@ hr{
 				</li>
 <script>
 $(function(){
+/*
 	x = $(".test1").offset();
 	$(".test2").css("top",-x.top);
 	$(".test2").css("left",-x.left);
 	$(".test2").click(function(){
 		$(".test2").animate({"top":"0px","left":"0px"},1000);
+	})*/
+	$('.detail').poptrox({
+		usePopupCaption: true
+	});
+				
+	$(".detail").find("li").click(function(){
+		$(".candidateFrame").show();
+		$(".candidateFrame").animate({'width':'70%'},500);
+		//$(".candidateFrame").find("img").attr('src','/img/20150605/3.jpg');
+		//$(".candidateFrame").find("img").attr({'src':'/img/20150605/3.jpg'},500);
 	})
 })	
    var timer;
@@ -249,7 +271,22 @@ $(function(){
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
             clearInterval(timer);
             timer = setTimeout(function () {
-                alert('到底了，开始加载入内容');
+				$("#loading").show();
+                //alert('到底了，开始加载入内容');
+				$.post('/vote/getdata/',{
+					index:8,
+				},function(data){
+					$("#loading").hide();
+				});
+			
+/*			$("#loading").ajaxStart(function(){
+				$(this).show();
+			});
+			$("#loading").ajaxSuccess(function(){
+				$(this).hide;
+				// $(this).empty(); // 或者直接清除
+			});*/
+				
             }, 0);
         }
     });
@@ -258,6 +295,16 @@ $(function(){
 		</div>
 		<div class="clear"></div>
 	</div>
+</div>
+<div class="candidateFrame">
+	<div>
+		<img src="" />
+		<div class="voteName">选手名字</div>
+		<div class="voteButton"><input type="button" value="为她投票"/> <span style="color:#ff0078;font-size:18px;">1000</span> <span style="color:#ff0078;">票</span></div>
+	</div>
+</div>
+
+<div id="loading">
 </div>
 {% else %}
 <style>

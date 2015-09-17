@@ -34,8 +34,8 @@ try {
 
 		$eventsManager = $di->getShared('eventsManager');
 			
-		//$security = new \Phalcon\Security($di);
-		$security = new Security($di);
+		$security = new \Phalcon\Security($di);
+		//$security = new Security($di);
 		
 		$eventsManager->attach('dispatch', $security);
 		

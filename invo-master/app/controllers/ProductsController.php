@@ -220,10 +220,10 @@ class ProductsController extends ControllerBase
 		$auth = $this->session->get('auth');
 		
 		$request = $this->request;
+		
         if (!$request->isPost()) {
             return $this->forward("products/index");
         }	
-		
 		$request = $request->getPost();
 		$finance = new Finance();	
 		$finance->data = json_encode($request);	

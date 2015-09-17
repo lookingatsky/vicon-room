@@ -16,7 +16,7 @@
 		if($did == 0){
 			echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true));
 		}else{
-			echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true,"disabled" => "disabled"));
+			echo Tag::select(array("company", $departments, "using" => array("id", "name"), "useDummy" => true ,"readonly" => "readonly"));
 		}
 		 ?>		
 	</div>

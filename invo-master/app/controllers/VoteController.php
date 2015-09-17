@@ -23,7 +23,7 @@ class VoteController extends ControllerBase
 			$isWeixin = 0;;
 		}
 		$this->view->setVar("isWeixin",$isWeixin);
-				
+/* 			
 					$APPID = "wxec3e1348d19af993";
 					$SECRET = "3b941879e6467442d4c398b0c2cc99fa";
 					$code = $_REQUEST['code'];
@@ -69,7 +69,7 @@ class VoteController extends ControllerBase
 					$dataJson_ = json_decode($info_, true);
 					$this->view->setVar("dataJson_",$dataJson_);   
 					
-					
+ */					
 					
 					
 /* 					$userdata = $table->get_subscribe_res($openid);
@@ -86,6 +86,11 @@ class VoteController extends ControllerBase
 				
 				
     }
+	
+	public function getdataAction(){
+		$this->view->disable();
+		echo true;
+	}
 	
 	private function is_weixin(){ 
 		if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
