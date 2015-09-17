@@ -27,7 +27,6 @@ class InvoicesController extends ControllerBase
 			$department->name = '中合万邦总部';
 		}
 		
-		$this->view->setVar("user",$user);
 		$this->view->setVar("department",$department);
     }
 
