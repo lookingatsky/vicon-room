@@ -18,12 +18,12 @@
 	
     <div class="clearfix">
         <label for="username">帐号</label>
-        <?php echo Tag::textField(array("username", "size" => 10, "maxlength" => 10, "type" => "str")) ?>
+        <?php echo Tag::textField(array("username", "size" => 20, "maxlength" => 20, "type" => "str")) ?>
     </div>
 
     <div class="clearfix">
         <label for="email">邮箱</label>
-        <?php echo Tag::textField(array("email", "size" => 10, "maxlength" => 10, "type" => "str")) ?>
+        <?php echo Tag::textField(array("email", "size" => 50, "maxlength" => 50, "type" => "str")) ?>
     </div>
 	
     <div class="clearfix">
