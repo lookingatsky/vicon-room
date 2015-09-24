@@ -25,7 +25,7 @@
         <div class="clearfix">
             <label for="email">邮箱地址:</label>
             <div class="input">
-                {{ text_field("email", "size": "30", "class": "span6") }}
+                {{ text_field("email", "size": "60", "class": "span6") }}
                 <div class="alert" id="email_alert">
                     <strong>警告!</strong> 邮箱不能为空
                 </div>
