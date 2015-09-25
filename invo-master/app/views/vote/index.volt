@@ -1,4 +1,4 @@
-{% if isWeixin != 1 %}
+{% if isWeixin == 1 %}
 {{ javascript_include('js/jquery.poptrox.min.js') }}
 <style>
 *{
