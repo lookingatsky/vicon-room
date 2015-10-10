@@ -46,11 +46,10 @@ class ProductsController extends ControllerBase
 			
 		$request = $this->request->getPost();
 		//$finance = new Finance();
-		
 		$finance->data = json_encode($request);
-		$finance->time = time(); 
-		$finance->did = $request['company'];
-		$finance->d_name = $finance->department->name;
+		//$finance->time = time(); 
+		//$finance->did = $request['company'];
+		//$finance->d_name = $finance->department->name;
 		if($finance->save()){
 			$this->flash->notice("保存成功！");
 		}else{
