@@ -132,15 +132,11 @@ class DebtController extends ControllerBase
  			if (!file_exists(APP_PATH.'/public/files/'.$fileName.'/')){ 
 				mkdir(APP_PATH.'/public/files/'.$fileName.'/'); 
 			}	 		
-			fb($fileName);
             foreach ($this->request->getUploadedFiles() as $file) {
-				fb($file->getName());
 				$getType = explode('.',$file->getName());
 				$uploadFile = date('YmdHis').rand(10000,99999).".".$getType[count($getType)-1];
                 $file->moveTo(APP_PATH.'/public/files/'.$fileName.'/'.$uploadFile);
             }
-			fb('/files/'.$fileName.'/'.$uploadFile);
-			exit();
 			$debt = new Debt();
 			$debt->fid = $fid;
 			$debt->src = '/files/'.$fileName.'/'.$uploadFile;
