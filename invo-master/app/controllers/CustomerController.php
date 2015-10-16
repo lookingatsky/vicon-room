@@ -69,9 +69,7 @@ class CustomerController extends ControllerBase
 	
 	public function detailAction($id)
 	{
-		fb(1111);
 		$id = $this->filter->sanitize($id, array("int"));
-		fb(2222);
 		if($id){
 			$searchParams = array();
 			$searchParams = array("id = '".$id."'");
@@ -83,34 +81,26 @@ class CustomerController extends ControllerBase
 			if (count($customer) == 0) {
 				$this->flash->notice("没有找到对应的债权信息");
 			}
-			fb(3333);
 			
 			$paginator = new Phalcon\Paginator\Adapter\Model(array(
 				"data" => $debts,
 				"limit" => 10,
 				"page" => $numberPage
 			));
-			$page = $paginator->getPaginate();	
-			fb(4444);
+			$page = $paginator->getPaginate();
 			$this->view->page = $page;
-			fb(5555);
 			$cards = Cards::find("user = ".$id);
-			fb(12345);
 			$this->view->setVar("cards", $cards);
-			fb(54321);
 			$this->view->setVar("uid", $id);
-			fb(6666);
 			$account = Account::findFirst("cid = ".$id);
 			if(isset($account->id)){
 				$this->view->hasAccount = 1;
 			}else{
 				$this->view->hasAccount = 0;
 			}
-			fb(7777);
 		}else{
 			$this->flash->error("没有找到对应的客户");
 			return $this->forward("customer/index");
-			fb(8888);
 		}	
 	}
 	
