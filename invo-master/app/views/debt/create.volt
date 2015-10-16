@@ -1,11 +1,11 @@
 <?php use Phalcon\Tag as Tag ?>
 <?php echo $this->getContent() ?>
 
-<form method="post" action="{{ url("customer/save") }}">
+<form method="post" action="{{ url("debt/save") }}">
 
 <ul class="pager">
     <li class="previous pull-left">
-        {{ link_to("customer/save", "&larr; 返回") }}
+        {{ link_to("debt/index", "&larr; 返回") }}
     </li>
     <li class="pull-right">
         {{ submit_button("保存", "class": "btn btn-success") }}
