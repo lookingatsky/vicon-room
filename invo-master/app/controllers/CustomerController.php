@@ -94,8 +94,10 @@ class CustomerController extends ControllerBase
 			fb(4444);
 			$this->view->page = $page;
 			fb(5555);
-			$cards = Cards::find("user = '".$id."'");
+			$cards = Cards::find("user = ".$id);
+			fb(12345);
 			$this->view->setVar("cards", $cards);
+			fb(54321);
 			$this->view->setVar("uid", $id);
 			fb(6666);
 			$account = Account::findFirst("cid = ".$id);
