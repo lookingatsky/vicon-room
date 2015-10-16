@@ -12,12 +12,6 @@ class IndexController extends ControllerBase
 	
     public function indexAction()
     {
-/* 		foreach($types as $k=>$val){
-			fb($k);
-			fb($val);	
-		}
-		$types = $types->toArray();
-		fb($types); */
 			
         if (!$this->request->isPost()) {
 			$auth = $this->session->get("auth");

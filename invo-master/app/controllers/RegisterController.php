@@ -99,8 +99,13 @@ class RegisterController extends ControllerBase
 	}
 	
 	public function verifyemailAction($code){
+		
 		if($code){
-			$results = VerifyEmail::FindFirst("verifyCode = '".$code."'");			
+			$results = VerifyEmail::FindFirst("verifyCode = '".$code."'");
+		if(!isset($results->did)){
+			return $this->response->redirect("index/index");
+		}
+				
 			$form = new RegisterForm;
 			if(isset($results) && $results != ''){
 				if($results->active == 'Y'){
@@ -131,7 +136,6 @@ class RegisterController extends ControllerBase
 	}
 
  	public function registerAction(){
-		
 		if ($this->request->isPost()) {
 			$email = $this->request->getPost('email');	
 			$username = $this->request->getPost('username');
@@ -144,10 +148,7 @@ class RegisterController extends ControllerBase
             $user->email = trim($email);
             $user->created_at = new Phalcon\Db\RawValue('now()');
 			$user->did = $this->request->getPost('did');
-            $user->active = 'Y';
-
-			
-			
+            $user->active = 'Y';			
 			
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {

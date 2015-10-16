@@ -53,7 +53,7 @@
             <td style="vertical-align:middle;">{{ customer.address }}</td>
             <td style="vertical-align:middle;">{{ customer.registered }}</td>		
             <td width="10%">{{ link_to("customer/detail/" ~ customer.id, '<i class="icon-pencil"></i> 查看详情', "class": "btn") }}</td>
-            <td width="10%">{{ link_to("customer/delete/" ~ customer.id, '<i class="icon-remove"></i> 删除', "class": "btn") }}</td>
+            <td width="10%">{{ link_to("customer/delete/" ~ customer.id, '<i class="icon-remove"></i> 删除', "class": "btn btn-danger") }}</td>
         </tr>
     </tbody>
 {% if loop.last %}

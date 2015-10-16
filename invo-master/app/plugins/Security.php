@@ -35,7 +35,15 @@ class Security extends Plugin
 			foreach ($roles as $role) {
 				$acl->addRole($role);
 			}
-
+			
+			$marketResources = array(
+				"customer" => array("index","detail","new","save","account","sendemail","addcard","deletecard"),
+				"debt" => array("index","add","","detail","new","edit","delete","upload","deletechild","create","save")
+			);
+			foreach ($marketResources as $resource => $actions) {
+				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
+			}		
+			
 			//////////
 			$privateResources = array(
 				'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','account','accountsave',"accountdelete"),
@@ -90,6 +98,12 @@ class Security extends Plugin
 					$acl->allow('admin', $resource, $action);
 				}
 			}
+			
+			foreach ($marketResources as $resource => $actions) {
+				foreach ($actions as $action){
+					$acl->allow('marketer', $resource, $action);
+				}
+			}
 	
 			//The acl is stored in session, APC would be useful here too
 			$this->persistent->acl = $acl;
@@ -107,11 +121,16 @@ class Security extends Plugin
 			$role = 'Guests';
 		} else {
 			if($auth['did'] == 0){
-				$role = 'admin';
+				if(isset($auth['type']) && $auth['type'] == 'market'){
+					$role = 'marketer';
+				}else{
+					$role = 'admin';
+				}	
 			}else{
-				$role = 'Users';				
+				$role = 'Users';		
 			}
 		}
+		
 		$controller = $dispatcher->getControllerName();
 		$action = $dispatcher->getActionName();
 

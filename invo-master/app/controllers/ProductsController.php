@@ -1,7 +1,10 @@
 <?php
 
 use Phalcon\Tag;
-use Phalcon\Mvc\Model\Criteria;
+use Phalcon\Mvc\Model\Criteria,
+	Phalcon\Forms\Element\Text,
+	Phalcon\Forms\Element\Textarea,
+	Phalcon\Forms\Element\Hidden;
 
 class ProductsController extends ControllerBase
 {

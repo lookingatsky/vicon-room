@@ -22,7 +22,6 @@ class VoteController extends ControllerBase
 		}else{
 			$isWeixin = 0;;
 		}
-		//fb($isWeixin);
 		$this->view->setVar("isWeixin",$isWeixin);
 			
 					$APPID = "wxec3e1348d19af993";

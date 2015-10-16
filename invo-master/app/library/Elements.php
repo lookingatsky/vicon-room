@@ -70,11 +70,21 @@ class Elements extends Phalcon\Mvc\User\Component
             'any' => true
         ),
 */		
+        '客户管理' => array(
+            'controller' => 'customer',
+            'action' => 'index',
+            'any' => true
+        ),
+        '债权管理' => array(
+            'controller' => 'debt',
+            'action' => 'index',
+            'any' => true
+        ),		
         '账户管理' => array(
             'controller' => 'invoices',
             'action' => 'profile',
             'any' => false
-        )
+        )		
     );
 
     /**

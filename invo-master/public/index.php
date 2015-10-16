@@ -14,7 +14,9 @@ try {
 	$config = new Phalcon\Config\Adapter\Ini(__DIR__ . '/../app/config/config.ini');
 
 	$loader = new \Phalcon\Loader();
-
+	
+	define('WEBNAME',$config->webservice->webname);
+	
 	/**
 	 * We're a registering a set of directories taken from the configuration file
 	 */
@@ -35,8 +37,8 @@ try {
 
 		$eventsManager = $di->getShared('eventsManager');
 			
-		//$security = new \Phalcon\Security($di);
-		$security = new Security($di);
+		$security = new \Phalcon\Security($di);
+		//$security = new Security($di);
 		
 		$eventsManager->attach('dispatch', $security);
 		
@@ -94,6 +96,15 @@ try {
 		));
 	});
 
+	$di->set('customersystem', function() use ($config) {
+		return new \Phalcon\Db\Adapter\Pdo\Mysql(array(
+			"host" => $config->database2->host,
+			"username" => $config->database2->username,
+			"password" => $config->database2->password,
+			"dbname" => $config->database2->name
+		));
+	});	
+	
 	$di->set('collectionManager', function() {
 		//$eventsManager = new Phalcon\Events\Manager();
 		/*
