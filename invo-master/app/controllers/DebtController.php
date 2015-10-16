@@ -110,7 +110,17 @@ class DebtController extends ControllerBase
 		if($id){
 			$searchParams = array("id = '".$id."'");
 			$debts = Debts::findFirst($searchParams);
-			$this->view->setVar("debts", $debts);			
+			$this->view->setVar("debts", $debts);
+			if(!$debts->delete()){
+				foreach ($debts->getMessages() as $message) {
+					$this->flash->error((string) $message);
+				}
+				return $this->forward("debt/index");
+			}else{
+				$this->flash->success("记录已删除");
+				return $this->forward("debt/index");				
+			}
+			
 		}else{
 			$this->flash->error("没有找到对应的债权文件");
 			return $this->forward("debt/index");
@@ -155,6 +165,7 @@ class DebtController extends ControllerBase
 	public function deletechildAction($id){
 		if($id){
 			$debt = Debt::findFirst("id = ".$id);
+			$fid = $debt->fid;
 			if(!$debt){
 				$this->flash->error("没有找到对应的债权文件");
 				return $this->forward("debt/index");				
@@ -164,10 +175,10 @@ class DebtController extends ControllerBase
 				foreach ($debt->getMessages() as $message) {
 					$this->flash->error((string) $message);
 				}
-				return $this->forward("debt/detail".$debt->fid);	
+				$this->response->redirect("debt/detail/".$fid);	
 			}else{
 				$this->flash->success("记录已删除");
-				return $this->forward("debt/detail".$debt->fid);				
+				$this->response->redirect("debt/detail/".$fid);				
 			}
 		}else{
 			$this->flash->error("没有找到对应的债权文件");
