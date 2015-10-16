@@ -21,7 +21,7 @@
     </div>
 
     <div class="clearfix">
-        <label for="telephone">号 码</label>
+        <label for="telephone">身份证号码</label>
         <?php echo Tag::textField(array("number","type" => "str")) ?>
     </div>
 	
