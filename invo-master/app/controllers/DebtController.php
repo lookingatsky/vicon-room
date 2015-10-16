@@ -139,7 +139,8 @@ class DebtController extends ControllerBase
 				$uploadFile = date('YmdHis').rand(10000,99999).".".$getType[count($getType)-1];
                 $file->moveTo(APP_PATH.'/public/files/'.$fileName.'/'.$uploadFile);
             }
-			
+			fb('/files/'.$fileName.'/'.$uploadFile);
+			exit();
 			$debt = new Debt();
 			$debt->fid = $fid;
 			$debt->src = '/files/'.$fileName.'/'.$uploadFile;
