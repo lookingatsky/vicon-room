@@ -205,12 +205,12 @@ class DebtController extends ControllerBase
 			$debts->cost = $request['cost'];
 			$debts->cid = $request['cid'];
 			$debts->total = $request['total'];
-			if($finance->save()){
+			if($debts->save()){
 				$this->flash->notice("保存成功！");
-				return $this->forward("customer/detail".$cid);
+				$this->response->redirect("customer/detail/".$cid);
 			}else{
 				$this->flash->error("保存失败！");
-				return $this->forward("customer/detail".$cid);
+				$this->response->redirect("customer/detail/".$cid);
 			}			
 		}else{
 			return $this->forward("customer/index");
