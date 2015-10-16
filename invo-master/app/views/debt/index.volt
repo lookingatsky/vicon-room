@@ -60,10 +60,10 @@
 				<tr>
 					<td colspan="9" align="right">
 						<div class="btn-group">
-							{{ link_to("customer/detail/" ~ customer.id, '<i class="icon-fast-backward"></i> 首页', "class": "btn") }}
-							{{ link_to("customer/detail/" ~ customer.id ~"?page=" ~ page.before, '<i class="icon-step-backward"></i> 上一页', "class": "btn ") }}
-							{{ link_to("customer/detail/" ~ customer.id ~"?page=" ~ page.next, '<i class="icon-step-forward"></i> 下一页', "class": "btn") }}
-							{{ link_to("customer/detail/" ~ customer.id ~"?page=" ~ page.last, '<i class="icon-fast-forward"></i> 尾页', "class": "btn") }}
+							{{ link_to("debt/index/", '<i class="icon-fast-backward"></i> 首页', "class": "btn") }}
+							{{ link_to("debt/index/?page=" ~ page.before, '<i class="icon-step-backward"></i> 上一页', "class": "btn ") }}
+							{{ link_to("debt/index/?page=" ~ page.next, '<i class="icon-step-forward"></i> 下一页', "class": "btn") }}
+							{{ link_to("debt/index/?page=" ~ page.last, '<i class="icon-fast-forward"></i> 尾页', "class": "btn") }}
 							<span class="help-inline">{{ page.current }}/{{ page.total_pages }}</span>
 						</div>
 					</td>

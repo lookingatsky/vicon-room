@@ -29,7 +29,7 @@
     </li>
 </ul>
 
-{% for customer in page.items %}
+{% for index,customer in page.items %}
 {% if loop.first %}
 <table class="table table-bordered table-striped" align="center" style="width:100%;max-width:100%;">
     <thead>
@@ -46,7 +46,7 @@
 {% endif %}
     <tbody>
         <tr>
-            <td style="vertical-align:middle;">{{ customer.id }}</td>
+            <td style="vertical-align:middle;">{{ index+1+10*(page.current-1) }}</td>
             <td style="vertical-align:middle;">{{ customer.name }}</td>
             <td style="vertical-align:middle;">{{ customer.cellphone }}</td>
 			<td style="vertical-align:middle;">{{ customer.number }}</td>
@@ -61,10 +61,10 @@
         <tr>
             <td colspan="8" align="right">
                 <div class="btn-group">
-                    {{ link_to("customer/search", '<i class="icon-fast-backward"></i> 首页', "class": "btn") }}
-                    {{ link_to("customer/search?page=" ~ page.before, '<i class="icon-step-backward"></i> 上一页', "class": "btn ") }}
-                    {{ link_to("customer/search?page=" ~ page.next, '<i class="icon-step-forward"></i> 下一页', "class": "btn") }}
-                    {{ link_to("customer/search?page=" ~ page.last, '<i class="icon-fast-forward"></i> 尾页', "class": "btn") }}
+                    {{ link_to("customer/index", '<i class="icon-fast-backward"></i> 首页', "class": "btn") }}
+                    {{ link_to("customer/index?page=" ~ page.before, '<i class="icon-step-backward"></i> 上一页', "class": "btn ") }}
+                    {{ link_to("customer/index?page=" ~ page.next, '<i class="icon-step-forward"></i> 下一页', "class": "btn") }}
+                    {{ link_to("customer/index?page=" ~ page.last, '<i class="icon-fast-forward"></i> 尾页', "class": "btn") }}
                     <span class="help-inline">{{ page.current }}/{{ page.total_pages }}</span>
                 </div>
             </td>

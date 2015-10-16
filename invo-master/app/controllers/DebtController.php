@@ -24,9 +24,7 @@ class DebtController extends ControllerBase
 			$keyword = trim($this->request->getPost("keyword","striptags"));
 			
 			if(isset($keyword) && $keyword != ''){
-				if(strlen($keyword) == 14){
 					$searchParams = array("number = '".$keyword."'");
-				}
 			}else{
 				$this->flash->notice("请重新输入搜索条件");
 			}		
@@ -134,8 +132,9 @@ class DebtController extends ControllerBase
  			if (!file_exists(APP_PATH.'/public/files/'.$fileName.'/')){ 
 				mkdir(APP_PATH.'/public/files/'.$fileName.'/'); 
 			}	 		
-			
+			fb($fileName);
             foreach ($this->request->getUploadedFiles() as $file) {
+				fb($file->getName());
 				$getType = explode('.',$file->getName());
 				$uploadFile = date('YmdHis').rand(10000,99999).".".$getType[count($getType)-1];
                 $file->moveTo(APP_PATH.'/public/files/'.$fileName.'/'.$uploadFile);
