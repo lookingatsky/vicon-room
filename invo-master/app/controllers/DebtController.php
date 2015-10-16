@@ -26,8 +26,6 @@ class DebtController extends ControllerBase
 			if(isset($keyword) && $keyword != ''){
 				if(strlen($keyword) == 14){
 					$searchParams = array("number = '".$keyword."'");
-				}else{
-					$searchParams = array("name = '".$keyword."'");
 				}
 			}else{
 				$this->flash->notice("请重新输入搜索条件");
