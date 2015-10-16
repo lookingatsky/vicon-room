@@ -85,10 +85,14 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('欢迎！ ' . $user->name);
-                return $this->forward('invoices/index');
-            }
-			
-            $this->flash->error('帐号密码错误');
+				if($user->type == "market"){
+					return $this->forward('customer/index');
+				}else{
+					return $this->forward('invoices/index');
+				} 
+            }else{
+				$this->flash->error('帐号密码错误');
+			}
         }
 
         return $this->forward('session/index');

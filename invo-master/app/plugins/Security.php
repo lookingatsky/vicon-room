@@ -30,7 +30,8 @@ class Security extends Plugin
 			$roles = array(
 				'users' => new Phalcon\Acl\Role('Users'),
 				'guests' => new Phalcon\Acl\Role('Guests'),
-				'admin' => new Phalcon\Acl\Role('admin')
+				'admin' => new Phalcon\Acl\Role('admin'),
+				'marketer' => new Phalcon\Acl\Role('marketer')
 			);
 			foreach ($roles as $role) {
 				$acl->addRole($role);
@@ -50,8 +51,7 @@ class Security extends Plugin
 				'products' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','list'),
 				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','child','savetypes','edittypes','newtypes','createtypes','deletetypes'),
 				'invoices' => array('index', 'profile'),
-				'register' => array('index','sendemail','verifyemail','register'),
-				'customer' => array('index','detail')
+				'register' => array('index','sendemail','verifyemail','register')
 			);
 			foreach ($privateResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
@@ -120,15 +120,15 @@ class Security extends Plugin
 		if (!$auth){
 			$role = 'Guests';
 		} else {
-			if($auth['did'] == 0){
-				if(isset($auth['type']) && $auth['type'] == 'market'){
-					$role = 'marketer';
-				}else{
-					$role = 'admin';
-				}	
+			if(isset($auth['type']) && $auth['type'] == 'market'){
+				$role = 'marketer';
 			}else{
-				$role = 'Users';		
-			}
+				if($auth['did'] == 0){
+					$role = 'admin';
+				}else{
+					$role = 'Users';		
+				}
+			}	
 		}
 		
 		$controller = $dispatcher->getControllerName();

@@ -52,7 +52,7 @@ class CustomerController extends ControllerBase
 		
 		$customer = Customer::find($parameters);
 		if (count($customer) == 0) {
-			$this->flash->notice("没有找到对应的合同");
+			$this->flash->notice("没有找到对应的客户");
 		}
 
 		$paginator = new Phalcon\Paginator\Adapter\Model(array(

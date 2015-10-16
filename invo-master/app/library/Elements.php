@@ -21,15 +21,7 @@ class Elements extends Phalcon\Mvc\User\Component
              'help' => array(
                 'caption' => '帮助中心',
                 'action' => 'index'
-            ),			
-/*            'about' => array(
-                'caption' => '关于',
-                'action' => 'index'
-            ),
-            'contact' => array(
-                'caption' => '联系我们',
-                'action' => 'index'
-            ), */
+            )
         ),
         'pull-right' => array(
 			'invoices' => array(
@@ -88,9 +80,6 @@ class Elements extends Phalcon\Mvc\User\Component
     );
 
     /**
-     * Builds header menu with left and right items
-     *
-     * @return string
      */
     public function getMenu()
     {
@@ -105,7 +94,27 @@ class Elements extends Phalcon\Mvc\User\Component
             $this->_headerMenu['pull-right']['invoices'] = array(
                 'caption' => "欢迎您！ ".$auth['name'],
                 'action' => 'profile'
-            );				
+            );	
+			if($auth['type'] == "market"){
+				$this->_headerMenu['pull-left'] = array(
+					'index' => array(
+						'caption' => '首 页',
+						'action' => 'index'
+					),
+					 'customer' => array(
+						'caption' => '客户管理',
+						'action' => 'index'
+					),
+					 'debt' => array(
+						'caption' => '债权管理',
+						'action' => 'index'
+					),					
+					 'help' => array(
+						'caption' => '帮助中心',
+						'action' => 'index'
+					)
+				);				
+			}	
         } else {
             unset($this->_headerMenu['pull-left']['invoices']);
         }
