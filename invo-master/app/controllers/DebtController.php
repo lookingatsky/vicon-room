@@ -24,7 +24,7 @@ class DebtController extends ControllerBase
 			$keyword = trim($this->request->getPost("keyword","striptags"));
 			
 			if(isset($keyword) && $keyword != ''){
-				if(strlen($keyword) == 18){
+				if(strlen($keyword) == 14){
 					$searchParams = array("number = '".$keyword."'");
 				}else{
 					$searchParams = array("name = '".$keyword."'");
@@ -38,7 +38,6 @@ class DebtController extends ControllerBase
 				$numberPage = 1;
 			}					
 		}
-		
 		$parameters = array();
 		if ($searchParams) {
 			$parameters = $searchParams;
@@ -207,10 +206,10 @@ class DebtController extends ControllerBase
 			$debts->total = $request['total'];
 			if($debts->save()){
 				$this->flash->notice("保存成功！");
-				$this->response->redirect("customer/detail/".$cid);
+				$this->response->redirect("customer/detail/".$request['cid']);
 			}else{
 				$this->flash->error("保存失败！");
-				$this->response->redirect("customer/detail/".$cid);
+				$this->response->redirect("customer/detail/".$request['cid']);
 			}			
 		}else{
 			return $this->forward("customer/index");
