@@ -108,6 +108,46 @@ class CustomerController extends ControllerBase
 		
 	}
 	
+	public function editAction($id){
+		if($id){
+			$Customer = Customer::FindFirst("id = ".$id);
+			Tag::setDefault("id",$Customer->id);
+			Tag::setDefault("name",$Customer->name);
+			Tag::setDefault("number",$Customer->number);
+			Tag::setDefault("address",$Customer->address);
+			Tag::setDefault("cellphone",$Customer->cellphone);
+			Tag::setDefault("registered",$Customer->registered);
+			$this->view->id = $id;
+		}else{
+			$this->flash->error('页面错误');	
+			return $this->forward('customer/index');				
+		}
+	}
+	
+	public function saveeditAction(){
+		if($this->request->isPost()) {
+			$request = $this->request->getPost();
+			$Customer = Customer::FindFirst("id = ".$request['id']);
+			$Customer->name = $request['name'];
+			$Customer->number = $request['number'];
+			$Customer->address = $request['address'];
+			$Customer->cellphone = $request['cellphone'];
+			$Customer->registered = $request['registered'];
+			if($Customer->save()){
+				$this->response->redirect('customer/detail/'.$request['id']);
+			}else{
+				$this->flash->error("保存失败！");
+				foreach ($Customer->getMessages() as $message) {
+					$this->flash->error((string) $message);
+				}	
+				return $this->forward("customer/detail/".$request['id']);
+			}			
+		}else{
+			$this->flash->error('页面错误');	
+			return $this->forward('customer/index');
+		}
+	}
+	
 	public function saveAction(){
 		$Customer = new Customer();
 		$request = $this->request->getPost();

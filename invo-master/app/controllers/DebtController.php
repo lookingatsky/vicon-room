@@ -90,11 +90,20 @@ class DebtController extends ControllerBase
 
 	public function editAction($id){
 		if($id){
-			$this->flash->error("债权暂时无法启用编辑功能，请先删除再创建新的债权");
-			return $this->forward("debt/index");
+			//$this->flash->error("债权暂时无法启用编辑功能，请先删除再创建新的债权");
+			//return $this->forward("debt/index");
 			$searchParams = array("id = '".$id."'");
 			$debts = Debts::findFirst($searchParams);
-			$this->view->setVar("debts", $debts);			
+			Tag::setDefault("id",$debts->id);
+			
+			Tag::setDefault("number",$debts->number);
+			Tag::setDefault("customer",$debts->customer->name);
+			
+			Tag::setDefault("type",$debts->type);
+			Tag::setDefault("cost",$debts->cost);
+			Tag::setDefault("time",$debts->time);
+			Tag::setDefault("total",$debts->total);
+			//$this->view->setVar("debts", $debts);			
 		}else{
 			$this->flash->error("没有找到对应的债权文件");
 			return $this->forward("debt/index");
@@ -186,6 +195,28 @@ class DebtController extends ControllerBase
 			$this->flash->error("没有找到对应的客户");
 			return $this->forward("customer/index");
 		}		
+	}
+	
+	public function saveeditAction($id){
+		if($this->request->isPost()){
+			$request = $this->request->getPost();
+			$debts = Debts::findFirst($searchParams);
+			$debts->type = $request['type'];
+			$debts->time = $request['time'];
+			$debts->cost = $request['cost'];
+			$debts->total = $request['total'];
+			if($debts->save()){
+				$this->flash->notice("保存成功！");
+				//$this->forward("debt/index");
+				$this->response->redirect("debt/index/");
+			}else{
+				$this->flash->notice("保存失败！");
+				//$this->forward("debt/index");
+				$this->response->redirect("debt/index/");				
+			}
+		}else{
+			return $this->forward("debt/index");
+		}			
 	}
 	
 	public function saveAction(){
