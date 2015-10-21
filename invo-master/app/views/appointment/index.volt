@@ -77,5 +77,5 @@
 		</table>
 		{% endif %}
 		{% else %}
-			没有债权信息
+			没有预约信息
 		{% endfor %}
