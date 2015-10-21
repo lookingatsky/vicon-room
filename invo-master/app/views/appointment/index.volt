@@ -63,7 +63,7 @@
 		{% if loop.last %}
 			<tbody>
 				<tr>
-					<td colspan="10" align="right">
+					<td colspan="11" align="right">
 						<div class="btn-group">
 							{{ link_to("appointment/index/", '<i class="icon-fast-backward"></i> 首页', "class": "btn") }}
 							{{ link_to("appointment/index/?page=" ~ page.before, '<i class="icon-step-backward"></i> 上一页', "class": "btn ") }}
