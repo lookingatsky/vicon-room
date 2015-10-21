@@ -49,7 +49,7 @@
             <td style="vertical-align:middle;">{{ index+1+10*(page.current-1) }}</td>
             <td style="vertical-align:middle;">{{ customer.name }}</td>
             <td style="vertical-align:middle;">{{ customer.cellphone }}</td>
-			<td style="vertical-align:middle;">{{ customer.number }}</td>
+			<td style="vertical-align:middle;"><?php echo substr($customer->number,0,5)?>********<?php echo substr($customer->number,14,4)?></td>
             <td style="vertical-align:middle;">{{ customer.address }}</td>
             <td style="vertical-align:middle;">{{ customer.registered }}</td>		
             <td width="10%">{{ link_to("customer/detail/" ~ customer.id, '<i class="icon-pencil"></i> 查看详情', "class": "btn") }}</td>

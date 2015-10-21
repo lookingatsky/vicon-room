@@ -72,6 +72,11 @@ class Elements extends Phalcon\Mvc\User\Component
             'action' => 'index',
             'any' => true
         ),		
+        '预约管理' => array(
+            'controller' => 'appointment',
+            'action' => 'index',
+            'any' => true
+        ),		
         '账户管理' => array(
             'controller' => 'invoices',
             'action' => 'profile',

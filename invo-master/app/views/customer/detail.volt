@@ -164,7 +164,7 @@ label font{
 		<li class="previous pull-left">
 			<div class="clearfix" style="float:left;">
 				<label><b>名 称：</b> {{ customer.name }}</label>
-				<label><b>身份证号码：</b> {{ customer.number }}</label>
+				<label><b>身份证号码：</b> <?php echo substr($customer->number,0,5)?>********<?php echo substr($customer->number,14,4)?></label>
 				<label><b>现居地：</b> {{ customer.address }}</label>
 				<label><b>户籍地址：</b> {{ customer.registered }}</label>
 				<hr />
@@ -224,7 +224,7 @@ label font{
 					<td style="vertical-align:middle;">{{ debts.total }}</td>
 					<td style="vertical-align:middle;">{{ debts.cost }}</td>
 					<td style="vertical-align:middle;">{{ debts.customer.name }}</td>	
-					<td style="vertical-align:middle;">{{ debts.customer.number }}</td>	
+					<td style="vertical-align:middle;"><?php echo substr($debts->customer->number,0,5)?>********<?php echo substr($debts->customer->number,14,4)?></td>	
 					<td width="10%">{{ link_to("debt/edit/" ~ debts.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
 					<td width="10%">{{ link_to("debt/delete/" ~ debts.id, '<i class="icon-remove"></i> 删 除', "class": "btn btn-danger") }}</td>
 				</tr>

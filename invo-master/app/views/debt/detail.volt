@@ -139,7 +139,7 @@ label font{
 					<td style="vertical-align:middle;"></td>
 					<td style="vertical-align:middle;">{{ debts.cost }}</td>
 					<td style="vertical-align:middle;">{{ debts.customer.name }}</td>	
-					<td style="vertical-align:middle;">{{ debts.customer.number }}</td>	
+					<td style="vertical-align:middle;"><?php echo substr($debts->customer->number,0,5)?>********<?php echo substr($debts->customer->number,14,4)?></td>	
 					<td style="vertical-align:middle;"></td>
 				</tr>
 			</tbody>

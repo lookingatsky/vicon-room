@@ -50,7 +50,7 @@
 					<td style="vertical-align:middle;">{{ debts.total }}</td>
 					<td style="vertical-align:middle;">{{ debts.cost }}</td>
 					<td style="vertical-align:middle;">{{ debts.customer.name }}</td>	
-					<td style="vertical-align:middle;">{{ debts.customer.number }}</td>	
+					<td style="vertical-align:middle;"><?php echo substr($debts->customer->number,0,5)?>********<?php echo substr($debts->customer->number,14,4)?></td>	
 					<td width="10%">{{ link_to("debt/edit/" ~ debts.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
 					<td width="10%">{{ link_to("debt/delete/" ~ debts.id, '<i class="icon-remove"></i> 删 除', "class": "btn btn-danger") }}</td>
 				</tr>
