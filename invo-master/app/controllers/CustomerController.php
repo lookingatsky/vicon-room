@@ -381,7 +381,10 @@ class CustomerController extends ControllerBase
 						}
 						
 						if(!$customer->save()){
-							
+							$this->flash->error('保存失败');
+							foreach ($customer->getMessages() as $message) {
+								$this->flash->error((string) $message);
+							}							
 						}
 					}
 				}
@@ -399,7 +402,10 @@ class CustomerController extends ControllerBase
 						$cards->user  = $customer->id;
 						$cards->name  = $val[18];
 						if(!$cards->save()){
-							
+							$this->flash->error('保存失败');
+							foreach ($cards->getMessages() as $message) {
+								$this->flash->error((string) $message);
+							}								
 						}
 					}
 				}
@@ -449,7 +455,10 @@ class CustomerController extends ControllerBase
 						$debts->pos_num  = $val[22];
 						$debts->contact_phone  = $val[23];
 						if(!$debts->save()){
-							
+							$this->flash->error('保存失败');
+							foreach ($debts->getMessages() as $message) {
+								$this->flash->error((string) $message);
+							}							
 						}
 					}
 				}
