@@ -72,11 +72,21 @@ class Elements extends Phalcon\Mvc\User\Component
             'action' => 'index',
             'any' => true
         ),		
-        '预约管理' => array(
+        '借款人管理' => array(
+            'controller' => 'borrower',
+            'action' => 'index',
+            'any' => true
+        ),	
+        '借款管理' => array(
+            'controller' => 'loan',
+            'action' => 'index',
+            'any' => true
+        ),	
+		'预约管理' => array(
             'controller' => 'appointment',
             'action' => 'index',
             'any' => true
-        ),		
+        ),			
         '账户管理' => array(
             'controller' => 'invoices',
             'action' => 'profile',
@@ -113,7 +123,19 @@ class Elements extends Phalcon\Mvc\User\Component
 					 'debt' => array(
 						'caption' => '债权管理',
 						'action' => 'index'
-					),					
+					),	
+					 'appointment' => array(
+						'caption' => '预约管理',
+						'action' => 'index'
+					),							
+					 'borrower' => array(
+						'caption' => '借款人管理',
+						'action' => 'index'
+					),	
+					 'loan' => array(
+						'caption' => '借款管理',
+						'action' => 'index'
+					),						
 					 'help' => array(
 						'caption' => '帮助中心',
 						'action' => 'index'

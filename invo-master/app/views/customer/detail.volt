@@ -158,17 +158,40 @@ label font{
 	　　 }		
 	})
 </script>
+<style type="text/css">
+.title{
+	width:150px;
+	text-align:right;
+	margin-right:30px;
+	line-height:25px;
+}
+.content{
+	line-height:25px;
+}
+.clear{
+	clear:both;
+}
+</style>
 <div class="center scaffold">
     <h3>客户信息</h3>
 	<ul class="pager">
 		<li class="previous pull-left">
 			<div class="clearfix" style="float:left;">
-				<label><b>名 称：</b> {{ customer.name }}</label>
-				<label><b>身份证号码：</b> <?php echo substr($customer->number,0,5)?>********<?php echo substr($customer->number,14,4)?></label>
-				<label><b>现居地：</b> {{ customer.address }}</label>
-				<label><b>户籍地址：</b> {{ customer.registered }}</label>
+				<label><div class="title pull-left"><b>名 称：</b></div> <div class="content pull-left">{{ customer.name }}</div><div class="clear"></div></label>
+				<label><div class="title pull-left"><b>性别：</b></div> <div class="content pull-left">{% if customer.sex == 1 %}男{% else %}女{% endif %}</div><div class="clear"></div></label>
+				<label><div class="title pull-left"><b>手机号码：</b></div> <div class="content pull-left">{{ customer.cellphone }}</div><div class="clear"></div></label>
+				<label><div class="title pull-left"><b>邮 箱：</b></div> <div class="content pull-left">{{ customer.email }}</div><div class="clear"></div></label>
+				<label><div class="title pull-left"><b>身份证号码：</b></div> <div class="content pull-left"><?php echo substr($customer->number,0,5)?>********<?php echo substr($customer->number,14,4)?></div><div class="clear"></div></label>
+				<label><div class="title pull-left"><b>邮寄地址：</b></div> <div class="content pull-left">{{ customer.address }}</div><div class="clear"></div></label>
+				<label><div class="title pull-left"><b>邮政编码：</b></div> <div class="content pull-left">{{ customer.address_num }}</div><div class="clear"></div></label>
+				{% if customer.registered is defined %}
+				<label><div class="title pull-left"><b>户籍地址：</b></div> <div class="content pull-left">{{ customer.registered }}</div><div class="clear"></div></label>
+				{% endif %}
 				<hr />
-				<label><b>是否绑定帐号：</b> {% if hasAccount == 0%}否{% else %}是{% endif %}</label>
+				{% if customer.source is defined %}
+				<label><div class="title pull-left"><b>客户来源：</b></div> <div class="content pull-left">{{ customer.source }}</div><div class="clear"></div></label>
+				{% endif %}
+				<label><div class="title pull-left"><b>是否绑定帐号：</b></div> <div class="content pull-left">{% if hasAccount == 0%}否{% else %}是{% endif %}</div><div class="clear"></div></label>
 				<hr />
 			</div>
 		</li>
@@ -181,9 +204,10 @@ label font{
 		<div class="addBankCard">
 			<i class="icon-plus" style="margin-top:4px;"></i> 添加银行卡
 		</div>
+		
 		{% for card in cards %}
 		<div class='addBankCard_' cid="{{ card.id }}</">
-			<div class='addBankCard_number'>{{ card.number }}</div>
+			<div class='addBankCard_number'><?php echo substr($card->number,0,4)?>********<?php echo substr($card->number,strlen($card->number)-4,4)?></div>
 			<div class='addBankCard_info'>{{ card.name }} {{ card.address }}</div>
 		</div>
 		{% endfor %}
@@ -206,12 +230,17 @@ label font{
 			<thead>
 				<tr>
 					<th>出借编号</th>
-					<th>资金出借及回收方式</th>
-					<th>初始出借日期</th>
-					<th>初始出借金额</th>
-					<th>账户管理费</th>
-					<th>债权受让人（新债权人）</th>
-					<th>身份证（护照）号码</th>
+					<th>产品类型</th>
+					<th>出借金额</th>
+					<th>签约日期</th>
+					<th>划扣日期</th>
+					<th>出借日期</th>
+					<th>支付卡号</th>
+					<th>入账方式</th>
+					<th>POS小条流水号</th>
+					<th>债权文件邮寄方式</th>
+					<th>邮寄日期</th>
+					<th>快递单号</th>
 					<th colspan="2"></th>
 				</tr>
 			</thead>
@@ -220,19 +249,24 @@ label font{
 				<tr>
 					<td style="vertical-align:middle;"><a href="/debt/detail/{{ debts.id }}">{{ debts.number }}</a></td>
 					<td style="vertical-align:middle;">{{ debts.type }}</td>
-					<td style="vertical-align:middle;">{{ debts.time }}</td>
 					<td style="vertical-align:middle;">{{ debts.total }}</td>
-					<td style="vertical-align:middle;">{{ debts.cost }}</td>
-					<td style="vertical-align:middle;">{{ debts.customer.name }}</td>	
-					<td style="vertical-align:middle;"><?php echo substr($debts->customer->number,0,5)?>********<?php echo substr($debts->customer->number,14,4)?></td>	
-					<td width="10%">{{ link_to("debt/edit/" ~ debts.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
-					<td width="10%">{{ link_to("debt/delete/" ~ debts.id, '<i class="icon-remove"></i> 删 除', "class": "btn btn-danger") }}</td>
+					<td style="vertical-align:middle;"><?php echo date("Y年m月d日",$debts->assign_time);?></td>
+					<td style="vertical-align:middle;"><?php if($debts->pay_time == "续签"){ echo $debts->pay_time; }else{ echo date("Y年m月d日",$debts->pay_time); } ?></td>
+					<td style="vertical-align:middle;"><?php echo date("Y年m月d日",$debts->invest_time);?></td>
+					<td style="vertical-align:middle;"><?php echo substr($debts->card_num,0,4)?>********<?php echo substr($debts->card_num,strlen($debts->card_num)-4,4)?></td>
+					<td style="vertical-align:middle;">{{ debts.pay_method }}</td>
+					<td style="vertical-align:middle;">{{ debts.pos_num }}</td>
+					<td style="vertical-align:middle;">{{ debts.mail_method }}</td>
+					<td style="vertical-align:middle;">{{ debts.mail_time }}</td>
+					<td style="vertical-align:middle;">{{ debts.mail_num }}</td>
+					<td width="8%">{{ link_to("debt/edit/" ~ debts.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
+					<td width="8%">{{ link_to("debt/delete/" ~ debts.id, '<i class="icon-remove"></i> 删 除', "class": "btn btn-danger") }}</td>
 				</tr>
 			</tbody>
 		{% if loop.last %}
 			<tbody>
 				<tr>
-					<td colspan="9" align="right">
+					<td colspan="14" align="right">
 						<div class="btn-group">
 							{{ link_to("customer/detail/" ~ customer.id, '<i class="icon-fast-backward"></i> 首页', "class": "btn") }}
 							{{ link_to("customer/detail/" ~ customer.id ~"?page=" ~ page.before, '<i class="icon-step-backward"></i> 上一页', "class": "btn ") }}
@@ -258,7 +292,7 @@ label font{
 		<div class="addInfo">开 户 名&nbsp;：&nbsp;<input type="text" name="name" class="addName"/></div>
 		<div class="addInfo">开 户 行&nbsp;：&nbsp;<input type="text" name="address" class="addAddress"/></div>
 		<div class="addSubmit"><input class="addButton" type="button" value="添加"/></div>
-	</div>	
+	</div>
  <!--    <div class="clearfix">
         <label for="telephone">电话</label>
 

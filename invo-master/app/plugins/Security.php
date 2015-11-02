@@ -38,9 +38,11 @@ class Security extends Plugin
 			}
 			
 			$marketResources = array(
-				"customer" => array("index","detail","new","save","account","sendemail","addcard","deletecard","edit","saveedit"),
-				"debt" => array("index","add","","detail","new","edit","delete","upload","deletechild","create","save","saveedit"),
-				"appointment" => array("index","detail","save")
+				"customer" => array("index","detail","new","save","account","sendemail","addcard","deletecard","edit","saveedit","upload","uploadsave"),
+				"debt" => array("index","add","","detail","new","edit","delete","upload","deletechild","create","save","saveedit","uploadmatch"),
+				"appointment" => array("index","detail","save"),
+				"borrower" => array("index","detail","new","save","account","sendemail","addcard","deletecard","edit","saveedit","upload","uploadsave"),
+				"loan" => array("index","add","","detail","new","edit","delete","upload","deletechild","create","save","saveedit"),
 			);
 			foreach ($marketResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);

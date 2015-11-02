@@ -71,6 +71,9 @@ class DebtController extends ControllerBase
 			
 			$debt = Debt::find("fid = ".$id);
 			$this->view->debt = $debt;
+			$match = Match::find("debt_number  = '".$debts->number ."'");
+			$this->view->match = $match;
+			
 		}else{
 			$this->flash->error("没有找到对应的债权");
 			return $this->forward("debt/index");
@@ -101,7 +104,7 @@ class DebtController extends ControllerBase
 			
 			Tag::setDefault("type",$debts->type);
 			Tag::setDefault("cost",$debts->cost);
-			Tag::setDefault("time",$debts->time);
+			Tag::setDefault("time",date("Y年m月d日",$debts->assign_time));
 			Tag::setDefault("total",$debts->total);
 			//$this->view->setVar("debts", $debts);			
 		}else{
@@ -241,4 +244,58 @@ class DebtController extends ControllerBase
 		}	
 	}
 	
+	public function uploadmatchAction(){
+		
+		
+	}
+	
+	public function uploadmatchsaveAction(){
+		$this->view->disable();
+		if ($this->request->hasFiles() == true) {
+			foreach ($this->request->getUploadedFiles() as $file) {
+				$getType = explode('.',$file->getName());
+				
+				$uploadFile = "tests.".$getType[count($getType)-1];
+				
+                $file->moveTo(APP_PATH.'/public/upload/'.$uploadFile);				
+				
+			}	
+
+			$excel = new Excel();
+			
+			$excel->path = APP_PATH.'/public/upload/'.$uploadFile;
+			$excel->type = '03';
+			//调用readExcel函数返回一个二维数组
+			
+			$data = $excel->getData();	
+			
+			
+			//保存债权匹配信息
+			foreach($data as $key=>$val){
+				if($key != 0){
+					$ifExist = Match::findFirst("debt_number = '".$val[0]."' AND loan_number = '".$val[14]."'");
+					if(!$ifExist){
+						$match = new Match();
+						$match->debt_number  = $val[14];
+						$match->loan_number  = $val[0];
+						$match->debt_money  = $val[17];
+						$match->debt_borrow  = $val[18];
+						$match->debt_last  = $val[19];
+						$match->starttime = $val[21];
+						$match->endtime = $val[22];
+						$match->status = $val[23];
+						if(!$match->save()){
+							$this->flash->error("保存失败！");
+							foreach ($match->getMessages() as $message) {
+								$this->flash->error((string) $message);
+							}							
+						}else{
+							$this->response->redirect("debt/index/");
+						}
+					}
+				}
+			}
+			$this->response->redirect("debt/index/");
+		}
+	}
 }
