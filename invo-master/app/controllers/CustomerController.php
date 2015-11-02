@@ -359,7 +359,7 @@ class CustomerController extends ControllerBase
 			$excel->path = APP_PATH.'/public/upload/'.$uploadFile;
 			$excel->type = '03';
 			//调用readExcel函数返回一个二维数组
-			fb(4444);
+			fb($uploadFile);
 			$data = $excel->getData();	
 			//fb($data);exit();
 			fb($data);

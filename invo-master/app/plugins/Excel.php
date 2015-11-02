@@ -15,6 +15,7 @@ class Excel
 
 	public function getData()
 	{	
+		fb(12345);
 		if($this->type == '07'){
 			$type = 'Excel2007';
 		}else{
