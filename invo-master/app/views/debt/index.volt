@@ -29,7 +29,7 @@
     </li>	
 </ul>
 
-		{% for debts in page.items %}
+		{% for index,debts in page.items %}
 		{% if loop.first %}
 		<table class="table table-bordered table-striped" align="center" style="width:100%;max-width:100%;">
 			<thead>
