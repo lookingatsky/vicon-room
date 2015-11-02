@@ -1,10 +1,10 @@
 <?php
-error_reporting(E_ALL);
-//error_reporting(E_ALL^E_NOTICE);
+//error_reporting(E_ALL);
+error_reporting(E_ALL^E_NOTICE);
 
 
 try {
-	require_once 'FirePHP/fb.php';
+	//require_once 'FirePHP/fb.php';
 	/**
 	 * Read the configuration
 	 */

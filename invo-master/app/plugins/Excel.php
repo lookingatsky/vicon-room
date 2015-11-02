@@ -15,7 +15,6 @@ class Excel
 
 	public function getData()
 	{	
-		fb(12345);
 		if($this->type == '07'){
 			$type = 'Excel2007';
 		}else{
@@ -24,7 +23,6 @@ class Excel
 		}	
 		
 		$xlsReader = PHPExcel_IOFactory::createReader($type);  
-		fb($xlsReader);
 		$xlsReader->setReadDataOnly(true);
 		$xlsReader->setLoadSheetsOnly(true);
 		$Sheets = $xlsReader->load($this->path);
