@@ -24,6 +24,7 @@ class Excel
 		}	
 		
 		$xlsReader = PHPExcel_IOFactory::createReader($type);  
+		fb($xlsReader);
 		$xlsReader->setReadDataOnly(true);
 		$xlsReader->setLoadSheetsOnly(true);
 		$Sheets = $xlsReader->load($this->path);
