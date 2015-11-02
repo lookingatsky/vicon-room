@@ -70,10 +70,8 @@ class BorrowerController extends ControllerBase
 		if($id){
 			$searchParams = array();
 			$searchParams = array("id = '".$id."'");
-			
 			$borrower = Borrower::findFirst($searchParams);
 			$this->view->setVar("borrower", $borrower);
-			
 			$loan = loan::find("bid = ".$id);
 			if (count($borrower) == 0) {
 				$this->flash->notice("没有找到对应的债权信息");
@@ -230,21 +228,22 @@ class BorrowerController extends ControllerBase
 			foreach($data as $key=>$val){
 				if($key != 0){
 					if($val[17] == ""){
-						break;
-					}
-					$borrower = Borrower::findFirst("number = '".$val[4]."'");
-					$bcards = Bcards::findFirst("number = '".$val[17]."'");
-					if(!$bcards){
-						$bcards = new Bcards();
-						$bcards->number  = $val[17];
-						$bcards->address  = $val[18];
-						$bcards->bid = $borrower->id;
-						$bcards->name  = $val[16];
-						if(!$bcards->save()){
-							$this->flash->error("保存失败！");
-							foreach ($bcards->getMessages() as $message) {
-								$this->flash->error((string) $message);
-							}								
+						
+					}else{
+						$borrower = Borrower::findFirst("number = '".$val[4]."'");
+						$bcards = Bcards::findFirst("number = '".$val[17]."'");
+						if(!$bcards){
+							$bcards = new Bcards();
+							$bcards->number  = $val[17];
+							$bcards->address  = $val[18];
+							$bcards->bid = $borrower->id;
+							$bcards->name  = $val[16];
+							if(!$bcards->save()){
+								$this->flash->error("保存失败！");
+								foreach ($bcards->getMessages() as $message) {
+									$this->flash->error((string) $message);
+								}								
+							}
 						}
 					}
 				}
