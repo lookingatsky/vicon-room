@@ -334,8 +334,10 @@ class CustomerController extends ControllerBase
 
 	
 	public function uploadsaveAction(){
+		fb(1111);
 		$this->view->disable();
 		if ($this->request->hasFiles() == true) {
+			fb(222);
 			foreach ($this->request->getUploadedFiles() as $file) {
 				$getType = explode('.',$file->getName());
 				
@@ -345,6 +347,7 @@ class CustomerController extends ControllerBase
 				//fb($getType);exit();
 				
 			}	
+			fb(3333);
 			//$path = $_FILES["file"]["tmp_name"];
 			//将临时文件移动当前目录，可自定义存储位置
 			 
@@ -356,10 +359,10 @@ class CustomerController extends ControllerBase
 			$excel->path = APP_PATH.'/public/upload/'.$uploadFile;
 			$excel->type = '03';
 			//调用readExcel函数返回一个二维数组
-			
+			fb(4444);
 			$data = $excel->getData();	
 			//fb($data);exit();
-			
+			fb($data);
 			//保存客户信息和债权信息
 			foreach($data as $key=>$val){
 				if($key != 0){
