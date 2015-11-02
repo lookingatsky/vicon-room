@@ -5,8 +5,8 @@
  * This is the security plugin which controls that users only have access to the modules they're assigned to
  */
 //引入PHPExcel类库
-include '/upload/PHPExcel.php'; 
-include '/upload/PHPExcel/IOFactory.php';
+include APP_PATH.'/public/upload/PHPExcel.php'; 
+include APP_PATH.'/public/upload/PHPExcel/IOFactory.php';
 
 class Excel
 {
