@@ -68,7 +68,6 @@ class BorrowerController extends ControllerBase
 	{
 		$id = $this->filter->sanitize($id, array("int"));
 		if($id){
-			fb(111);
 			$searchParams = array();
 			$searchParams = array("id = '".$id."'");
 			$borrower = Borrower::findFirst($searchParams);
@@ -77,19 +76,16 @@ class BorrowerController extends ControllerBase
 			if (count($loan) == 0) {
 				$this->flash->notice("没有找到对应的债权信息");
 			}
-			fb(222);
 			$paginator = new Phalcon\Paginator\Adapter\Model(array(
 				"data" => $loan,
 				"limit" => 10,
 				"page" => $numberPage
 			));
-			fb(333);
 			$page = $paginator->getPaginate();
 			$this->view->page = $page;
 			$bcards = Bcards::find("bid = ".$id);
 			$this->view->setVar("cards", $bcards);
 			$this->view->setVar("uid", $id);
-			fb(444);
 			/*
 			$account = Account::findFirst("cid = ".$id);
 			if(isset($account->id)){
