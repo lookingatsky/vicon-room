@@ -4,9 +4,9 @@
         {{ link_to("borrower/index", "&larr; 返回") }}
     </li>
 	{% if hasAccount == 0%}
-    <li class="pull-right">
+<!--     <li class="pull-right">
         {{ link_to("borrower/account/"~uid,"class":"btn btn-warning", "绑定邮箱帐号") }}  
-    </li>
+    </li> -->
 	{% endif %}	
 </ul>
 <style>
@@ -106,7 +106,7 @@ label font{
 					if(address == ''){
 						alert("开户行不能为空！");
 					}else{
-						$.post('/customer/addcard',{
+						$.post('/borrower/addcard',{
 							name:name,
 							number:number,
 							address:address,
@@ -133,7 +133,7 @@ label font{
 			var cid = $(this).attr("cid");
 			var index = $(this).index();
 			if(confirm("是否确定解除绑定该银行卡？")){
-				$.post('/customer/deletecard',{
+				$.post('/borrower/deletecard',{
 					id:cid,
 				},function(data){
 					if(data == true){
@@ -173,30 +173,38 @@ label font{
 }
 </style>
 <div class="center scaffold">
-    <h3>客户信息</h3>
+    <h3>借款客户信息</h3>
 	<ul class="pager">
 		<li class="previous pull-left">
 			<div class="clearfix" style="float:left;">
-				<label><div class="title pull-left"><b>名 称：</b></div> <div class="content pull-left">{{ customer.name }}</div><div class="clear"></div></label>
-				<label><div class="title pull-left"><b>性别：</b></div> <div class="content pull-left">{% if customer.sex == 1 %}男{% else %}女{% endif %}</div><div class="clear"></div></label>
-				<label><div class="title pull-left"><b>手机号码：</b></div> <div class="content pull-left">{{ customer.cellphone }}</div><div class="clear"></div></label>
-				<label><div class="title pull-left"><b>邮 箱：</b></div> <div class="content pull-left">{{ customer.email }}</div><div class="clear"></div></label>
-				<label><div class="title pull-left"><b>身份证号码：</b></div> <div class="content pull-left"><?php echo substr($customer->number,0,5)?>********<?php echo substr($customer->number,14,4)?></div><div class="clear"></div></label>
-				<label><div class="title pull-left"><b>邮寄地址：</b></div> <div class="content pull-left">{{ customer.address }}</div><div class="clear"></div></label>
-				<label><div class="title pull-left"><b>邮政编码：</b></div> <div class="content pull-left">{{ customer.address_num }}</div><div class="clear"></div></label>
-				{% if customer.registered is defined %}
-				<label><div class="title pull-left"><b>户籍地址：</b></div> <div class="content pull-left">{{ customer.registered }}</div><div class="clear"></div></label>
+				<label><div class="title pull-left"><b>客户名称：</b></div> <div class="content pull-left">{{ borrower.name }}</div><div class="clear"></div></label>
+				<label><div class="title pull-left"><b>性别：</b></div> <div class="content pull-left">{% if borrower.sex == 1 %}男{% else %}女{% endif %}</div><div class="clear"></div></label>
+				<label>
+					<div class="title pull-left"><b>证件号码：</b></div> <div class="content pull-left">
+					<?php if(strlen($borrower->number) > 30){?>
+						<?php echo substr($borrower->number,0,18)?>;<?php echo substr($borrower->number,18,19)?>
+					<?php }else{ ?>
+						<?php echo substr($borrower->number,0,5)?>********<?php echo substr($borrower->number,14,4)?>
+					<?php }?>
+					</div>
+					<div class="clear"></div>
+				</label>
+				<label><div class="title pull-left"><b>手机号码：</b></div> <div class="content pull-left">{{ borrower.cellphone }}</div><div class="clear"></div></label>
+				
+				<label><div class="title pull-left"><b>居住地址：</b></div> <div class="content pull-left">{{ borrower.address }}</div><div class="clear"></div></label>
+				{% if borrower.registered is defined %}
+				<label><div class="title pull-left"><b>户籍地址：</b></div> <div class="content pull-left">{{ borrower.registered }}</div><div class="clear"></div></label>
 				{% endif %}
 				<hr />
-				{% if customer.source is defined %}
-				<label><div class="title pull-left"><b>客户来源：</b></div> <div class="content pull-left">{{ customer.source }}</div><div class="clear"></div></label>
+				{% if borrower.source is defined %}
+				<label><div class="title pull-left"><b>客户来源：</b></div> <div class="content pull-left">{{ borrower.source }}</div><div class="clear"></div></label>
 				{% endif %}
 				<label><div class="title pull-left"><b>是否绑定帐号：</b></div> <div class="content pull-left">{% if hasAccount == 0%}否{% else %}是{% endif %}</div><div class="clear"></div></label>
 				<hr />
 			</div>
 		</li>
 		<li class="pull-right">
-			 {{ link_to("customer/edit/"~uid,"class":"btn btn-primary", "编辑信息") }} 
+			 {{ link_to("borrower/edit/"~uid,"class":"btn btn-primary", "编辑信息") }} 
 		</li>
 	</ul>
 	<div style="clear:both;"></div>
@@ -217,50 +225,46 @@ label font{
 	<div style="text-align:left;">
 		<ul class="pager">
 			<li class="previous pull-left">
-				<h4>债权记录：</h4>
+				<h4>借款记录：</h4>
 			</li>
 			<li class="pull-right">
-				{{ link_to("debt/create/" ~ customer.id, "创建新债权", "class": "btn btn-primary") }}
+				{{ link_to("debt/create/" ~ customer.id, "创建新借款", "class": "btn btn-primary") }}
 			</li>		
 		</ul>
 		
-		{% for debts in page.items %}
+		{% for index,debts in page.items %}
 		{% if loop.first %}
 		<table class="table table-bordered table-striped" align="center" style="width:100%;max-width:100%;">
 			<thead>
 				<tr>
-					<th>出借编号</th>
-					<th>产品类型</th>
-					<th>出借金额</th>
+					<th>序号</th>
+					<th>合同编号</th>
+					<th>借款类型</th>
+					<th>批款金额</th>
 					<th>签约日期</th>
-					<th>划扣日期</th>
-					<th>出借日期</th>
-					<th>支付卡号</th>
-					<th>入账方式</th>
-					<th>POS小条流水号</th>
-					<th>债权文件邮寄方式</th>
-					<th>邮寄日期</th>
-					<th>快递单号</th>
+					<th>终审日期</th>
+					<th>借款期数</th>
+					<th>借款状态</th>
+					<th>借款用途</th>
+					<th>备注</th>
 					<th colspan="2"></th>
 				</tr>
 			</thead>
 		{% endif %}
 			<tbody>
 				<tr>
-					<td style="vertical-align:middle;"><a href="/debt/detail/{{ debts.id }}">{{ debts.number }}</a></td>
+					<td style="vertical-align:middle;">{{ index+1+(page.current-1)*10 }}</td>
+					<td style="vertical-align:middle;"><a href="/loan/detail/{{ debts.id }}">{{ debts.number }}</a></td>
 					<td style="vertical-align:middle;">{{ debts.type }}</td>
-					<td style="vertical-align:middle;">{{ debts.total }}</td>
-					<td style="vertical-align:middle;"><?php echo date("Y年m月d日",$debts->assign_time);?></td>
-					<td style="vertical-align:middle;"><?php if($debts->pay_time == "续签"){ echo $debts->pay_time; }else{ echo date("Y年m月d日",$debts->pay_time); } ?></td>
-					<td style="vertical-align:middle;"><?php echo date("Y年m月d日",$debts->invest_time);?></td>
-					<td style="vertical-align:middle;"><?php echo substr($debts->card_num,0,4)?>********<?php echo substr($debts->card_num,strlen($debts->card_num)-4,4)?></td>
-					<td style="vertical-align:middle;">{{ debts.pay_method }}</td>
-					<td style="vertical-align:middle;">{{ debts.pos_num }}</td>
-					<td style="vertical-align:middle;">{{ debts.mail_method }}</td>
-					<td style="vertical-align:middle;">{{ debts.mail_time }}</td>
-					<td style="vertical-align:middle;">{{ debts.mail_num }}</td>
-					<td width="8%">{{ link_to("debt/edit/" ~ debts.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
-					<td width="8%">{{ link_to("debt/delete/" ~ debts.id, '<i class="icon-remove"></i> 删 除', "class": "btn btn-danger") }}</td>
+					<td style="vertical-align:middle;">{{ debts.allowed_money }}</td>
+					<td style="vertical-align:middle;">{{ debts.assign_time }}</td>
+					<td style="vertical-align:middle;">{{ debts.verify_time }}</td>
+					<td style="vertical-align:middle;">{{ debts.cycle }}</td>
+					<td style="vertical-align:middle;">{{ debts.loan_status }}</td>
+					<td style="vertical-align:middle;">{{ debts.purpose }}</td>
+					<td style="vertical-align:middle;">{{ debts.remark }}</td>
+					<td width="8%">{{ link_to("loan/edit/" ~ debts.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
+					<td width="8%">{{ link_to("loan/delete/" ~ debts.id, '<i class="icon-remove"></i> 删 除', "class": "btn btn-danger") }}</td>
 				</tr>
 			</tbody>
 		{% if loop.last %}
@@ -268,10 +272,10 @@ label font{
 				<tr>
 					<td colspan="14" align="right">
 						<div class="btn-group">
-							{{ link_to("customer/detail/" ~ customer.id, '<i class="icon-fast-backward"></i> 首页', "class": "btn") }}
-							{{ link_to("customer/detail/" ~ customer.id ~"?page=" ~ page.before, '<i class="icon-step-backward"></i> 上一页', "class": "btn ") }}
-							{{ link_to("customer/detail/" ~ customer.id ~"?page=" ~ page.next, '<i class="icon-step-forward"></i> 下一页', "class": "btn") }}
-							{{ link_to("customer/detail/" ~ customer.id ~"?page=" ~ page.last, '<i class="icon-fast-forward"></i> 尾页', "class": "btn") }}
+							{{ link_to("borrower/detail/" ~ borrower.id, '<i class="icon-fast-backward"></i> 首页', "class": "btn") }}
+							{{ link_to("borrower/detail/" ~ borrower.id ~"?page=" ~ page.before, '<i class="icon-step-backward"></i> 上一页', "class": "btn ") }}
+							{{ link_to("borrower/detail/" ~ borrower.id ~"?page=" ~ page.next, '<i class="icon-step-forward"></i> 下一页', "class": "btn") }}
+							{{ link_to("borrower/detail/" ~ borrower.id ~"?page=" ~ page.last, '<i class="icon-fast-forward"></i> 尾页', "class": "btn") }}
 							<span class="help-inline">{{ page.current }}/{{ page.total_pages }}</span>
 						</div>
 					</td>
@@ -280,7 +284,7 @@ label font{
 		</table>
 		{% endif %}
 		{% else %}
-			没有债权信息
+			没有借款信息
 		{% endfor %}
 		
 	</div>

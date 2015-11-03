@@ -73,7 +73,7 @@ class BorrowerController extends ControllerBase
 			$borrower = Borrower::findFirst($searchParams);
 			$this->view->setVar("borrower", $borrower);
 			$loan = loan::find("bid = ".$id);
-			if (count($borrower) == 0) {
+			if (count($loan) == 0) {
 				$this->flash->notice("没有找到对应的债权信息");
 			}
 			
@@ -84,17 +84,19 @@ class BorrowerController extends ControllerBase
 			));
 			$page = $paginator->getPaginate();
 			$this->view->page = $page;
-			$cards = Bcards::find("user = ".$id);
-			$this->view->setVar("cards", $cards);
+			$bcards = Bcards::find("bid = ".$id);
+			$this->view->setVar("cards", $bcards);
 			$this->view->setVar("uid", $id);
+			/*
 			$account = Account::findFirst("cid = ".$id);
 			if(isset($account->id)){
 				$this->view->hasAccount = 1;
 			}else{
 				$this->view->hasAccount = 0;
 			}
+			*/
 		}else{
-			$this->flash->error("没有找到对应的客户");
+			$this->flash->error("没有找到对应的借款人");
 			return $this->forward("customer/index");
 		}	
 	}
@@ -193,8 +195,7 @@ class BorrowerController extends ControllerBase
 			$excel->type = '03';
 			//调用readExcel函数返回一个二维数组
 			
-			$data = $excel->getData();	
-			
+			$data = $excel->getData();
 			
 			//保存借款人信息和债权信息
 			foreach($data as $key=>$val){
@@ -217,7 +218,10 @@ class BorrowerController extends ControllerBase
 							}
 						}
 						if(!$borrower->save()){
-						
+							$this->flash->error("第".($key+1)."行借款人信息保存失败！");
+							foreach ($bcards->getMessages() as $message) {
+								$this->flash->error((string) $message);
+							}							
 						}
 					}
 				}
@@ -231,7 +235,7 @@ class BorrowerController extends ControllerBase
 						
 					}else{
 						$borrower = Borrower::findFirst("number = '".$val[4]."'");
-						$bcards = Bcards::findFirst("number = '".$val[17]."'");
+						$bcards = Bcards::findFirst("number = '".$val[17]."'"); 
 						if(!$bcards){
 							$bcards = new Bcards();
 							$bcards->number  = $val[17];
@@ -239,7 +243,7 @@ class BorrowerController extends ControllerBase
 							$bcards->bid = $borrower->id;
 							$bcards->name  = $val[16];
 							if(!$bcards->save()){
-								$this->flash->error("保存失败！");
+								$this->flash->error("第".($key+1)."行银行卡信息保存失败！");
 								foreach ($bcards->getMessages() as $message) {
 									$this->flash->error((string) $message);
 								}								
@@ -281,7 +285,10 @@ class BorrowerController extends ControllerBase
 						$loan->card_address  = $val[18];
 						$loan->card_num  = $val[17];
 						if(!$loan->save()){
-							
+							$this->flash->error("第".($key+1)."行债权信息保存失败！");
+							foreach ($loan->getMessages() as $message) {
+								$this->flash->error((string) $message);
+							}															
 						}
 					}
 				}

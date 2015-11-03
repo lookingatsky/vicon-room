@@ -26,11 +26,12 @@
     </li>
 </ul>
 
-		{% for loan in page.items %}
+		{% for index,loan in page.items %}
 		{% if loop.first %}
 		<table class="table table-bordered table-striped" align="center" style="width:100%;max-width:100%;">
 			<thead>
 				<tr>
+					<th>序号</th>
 					<th>合同编号</th>
 					<th>借款客户</th>
 					<th>身份证号码</th>
@@ -46,6 +47,7 @@
 		{% endif %}
 			<tbody>
 				<tr>
+					<td style="vertical-align:middle;">{{ index+1+(page.current-1)*10 }}</td>
 					<td style="vertical-align:middle;"><a href="/loan/detail/{{ loan.id }}">{{ loan.number }}</a></td>
 					<td style="vertical-align:middle;">{{ loan.name }}</td>
 					<td style="vertical-align:middle;"><?php echo substr($loan->borrower->number,0,5)?>********<?php echo substr($loan->borrower->number,14,4)?></td>	
