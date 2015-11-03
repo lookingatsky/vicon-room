@@ -39,7 +39,7 @@ class Security extends Plugin
 			
 			$marketResources = array(
 				"customer" => array("index","detail","new","save","account","sendemail","addcard","deletecard","edit","saveedit","upload","uploadsave"),
-				"debt" => array("index","add","","detail","new","edit","delete","upload","deletechild","create","save","saveedit","uploadmatch"),
+				"debt" => array("index","add","","detail","new","edit","delete","upload","deletechild","create","save","saveedit","uploadmatch","uploadmatchsave"),
 				"appointment" => array("index","detail","save"),
 				"borrower" => array("index","detail","new","save","account","sendemail","addcard","deletecard","edit","saveedit","upload","uploadsave"),
 				"loan" => array("index","add","","detail","new","edit","delete","upload","deletechild","create","save","saveedit"),

@@ -148,7 +148,7 @@ class Elements extends Phalcon\Mvc\User\Component
         echo '<div class="nav-collapse">';
         $controllerName = $this->view->getControllerName();
         foreach ($this->_headerMenu as $position => $menu) {
-			if($position == "pull-left"){
+			if($position == "pull-left" && $auth['type'] == "market"){
 
 				echo "<div class='btn-group ".$position."'>";
 				echo "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown'>";

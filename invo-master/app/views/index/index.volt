@@ -9,7 +9,11 @@
 	$auth = $this->session->get('auth');
 	if(isset($auth)){
 ?>	
+	<?php if($auth['type'] == 'market'){ ?>
+	<p>{{ link_to('customer/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+	<?php }else{ ?>
 	<p>{{ link_to('invoices/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+	<?php }?>
 <?php }else{ ?>
 	<p>{{ link_to('session/index', '登陆 &raquo;', 'class': 'btn btn-primary btn-large btn-success') }}</p>
 <?php	
