@@ -73,7 +73,7 @@ class BorrowerController extends ControllerBase
 			$searchParams = array("id = '".$id."'");
 			$borrower = Borrower::findFirst($searchParams);
 			$this->view->setVar("borrower", $borrower);
-			$loan = loan::find("bid = ".$id);
+			$loan = Loan::find("bid = ".$id);
 			if (count($loan) == 0) {
 				$this->flash->notice("没有找到对应的债权信息");
 			}
