@@ -50,11 +50,17 @@
 					<td style="vertical-align:middle;">{{ index+1+(page.current-1)*10 }}</td>
 					<td style="vertical-align:middle;"><a href="/loan/detail/{{ loan.id }}">{{ loan.number }}</a></td>
 					<td style="vertical-align:middle;">{{ loan.name }}</td>
-					<td style="vertical-align:middle;"><?php echo substr($loan->borrower->number,0,5)?>********<?php echo substr($loan->borrower->number,14,4)?></td>	
+					<td style="vertical-align:middle;">
+						{% if loan.borrower.number is defined %}
+							<?php echo substr($loan->borrower->number,0,5)?>********<?php echo substr($loan->borrower->number,14,4)?>
+						{% else %}
+							无
+						{% endif %}
+					</td>	
 					<td style="vertical-align:middle;">{{ loan.borrower.cellphone }}</td>
 					<td style="vertical-align:middle;">{{ loan.type }}</td>
 					<td style="vertical-align:middle;">{{ loan.assign_time }}</td>
-					<td style="vertical-align:middle;">{{ loan.allowed_money }}</td>
+					<td style="vertical-align:middle;"><?php echo round($loan->allowed_money,2)?></td>
 					<td style="vertical-align:middle;">{{ loan.cycle }}</td>
 					<td style="vertical-align:middle;">{{ loan.loan_status }}</td>
 					<td width="8%">{{ link_to("loan/edit/" ~ loan.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>

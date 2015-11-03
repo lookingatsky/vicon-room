@@ -88,7 +88,9 @@ label font{
 				{% if loan.borrower.source is defined %}
 				<label><div class="title pull-left"><b>客户来源：</b></div> <div class="content pull-left">{{ loan.borrower.source }}</div><div class="clear"></div></label>
 				{% endif %}
+				{% if borrower.sex != null %}
 				<label><div class="title pull-left"><b>性 别：</b></div> <div class="content pull-left">{% if loan.borrower.sex == 1 %}男{% else %}女{% endif %}</div><div class="clear"></div></label>
+				{% endif %}
 				<label><div class="title pull-left"><b>手机号码：</b></div> <div class="content pull-left">{{ loan.borrower.cellphone }}</div><div class="clear"></div></label>
 				{% if loan.borrower.email is defined %}
 				<label><div class="title pull-left"><b>邮 箱：</b></div> <div class="content pull-left">{{ loan.borrower.email }}</div><div class="clear"></div></label>

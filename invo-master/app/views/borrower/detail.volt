@@ -178,7 +178,9 @@ label font{
 		<li class="previous pull-left">
 			<div class="clearfix" style="float:left;">
 				<label><div class="title pull-left"><b>客户名称：</b></div> <div class="content pull-left">{{ borrower.name }}</div><div class="clear"></div></label>
+				{% if borrower.sex != null %}
 				<label><div class="title pull-left"><b>性别：</b></div> <div class="content pull-left">{% if borrower.sex == 1 %}男{% else %}女{% endif %}</div><div class="clear"></div></label>
+				{% endif %}
 				<label>
 					<div class="title pull-left"><b>证件号码：</b></div> <div class="content pull-left">
 					<?php if(strlen($borrower->number) > 30){?>
