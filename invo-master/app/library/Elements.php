@@ -32,10 +32,14 @@ class Elements extends Phalcon\Mvc\User\Component
                 'caption' => '登 录',
                 'action' => 'index'
             ),
+			'help' => array(
+				'caption' => '帮助中心',
+				'action' => 'index'
+			)			
         )
     );
 
-    private $_tabs = array(
+    private $fee_tabs = array(
         '行政费控' => array(
             'controller' => 'invoices',
             'action' => 'index',
@@ -55,13 +59,15 @@ class Elements extends Phalcon\Mvc\User\Component
             'controller' => 'producttypes',
             'action' => 'index',
             'any' => true
-        ),
-/*        '客户管理' => array(
-            'controller' => 'customer',
-            'action' => 'index',
-            'any' => true
-        ),
-*/		
+        ),	
+        '账户管理' => array(
+            'controller' => 'invoices',
+            'action' => 'profile',
+            'any' => false
+        )		
+    );
+	
+    private $service_tabs = array(		
         '客户管理' => array(
             'controller' => 'customer',
             'action' => 'index',
@@ -93,15 +99,12 @@ class Elements extends Phalcon\Mvc\User\Component
             'any' => false
         )		
     );
-
-    /**
-     */
+	
     public function getMenu()
     {
 
         $auth = $this->session->get('auth');
         if ($auth) {
-		
             $this->_headerMenu['pull-right']['session'] = array(
                 'caption' => '退 出',
                 'action' => 'end'
@@ -123,10 +126,6 @@ class Elements extends Phalcon\Mvc\User\Component
 					 'debt' => array(
 						'caption' => '债权管理',
 						'action' => 'index'
-					),	
-					 'appointment' => array(
-						'caption' => '预约管理',
-						'action' => 'index'
 					),							
 					 'borrower' => array(
 						'caption' => '借款人管理',
@@ -136,10 +135,10 @@ class Elements extends Phalcon\Mvc\User\Component
 						'caption' => '借款管理',
 						'action' => 'index'
 					),						
-					 'help' => array(
-						'caption' => '帮助中心',
+					 'appointment' => array(
+						'caption' => '预约管理',
 						'action' => 'index'
-					)
+					),	
 				);				
 			}	
         } else {
@@ -149,17 +148,38 @@ class Elements extends Phalcon\Mvc\User\Component
         echo '<div class="nav-collapse">';
         $controllerName = $this->view->getControllerName();
         foreach ($this->_headerMenu as $position => $menu) {
-            echo '<ul class="nav ', $position, '">';
-            foreach ($menu as $controller => $option) {
-                if ($controllerName == $controller) {
-                    echo '<li class="active">';
-                } else {
-                    echo '<li>';
-                }
-                echo Phalcon\Tag::linkTo($controller.'/'.$option['action'], $option['caption']);
-                echo '</li>';
-            }
-            echo '</ul>';
+			if($position == "pull-left"){
+
+				echo "<div class='btn-group ".$position."'>";
+				echo "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown'>";
+				echo "客户服务系统";
+				echo "<span class='caret'></span>";
+				echo "</button>";
+				echo "<ul class='dropdown-menu'>";
+				foreach ($menu as $controller => $option) {
+					if ($controllerName == $controller) {
+						echo '<li class="active">';
+					} else {
+						echo '<li>';
+					}
+					echo Phalcon\Tag::linkTo($controller.'/'.$option['action'], $option['caption']);
+					echo '</li>';					
+				}
+				echo "</ul>";
+				echo "</div>";	
+			}else{
+				echo '<ul class="nav ', $position, '">';
+				foreach ($menu as $controller => $option) {
+					if ($controllerName == $controller) {
+						echo '<li class="active">';
+					} else {
+						echo '<li>';
+					}
+					echo Phalcon\Tag::linkTo($controller.'/'.$option['action'], $option['caption']);
+					echo '</li>';
+				}
+				echo '</ul>';				
+			}
         }
         echo '</div>';
     }
@@ -169,7 +189,13 @@ class Elements extends Phalcon\Mvc\User\Component
         $controllerName = $this->view->getControllerName();
         $actionName = $this->view->getActionName();
         echo '<ul class="nav nav-tabs">';
-        foreach ($this->_tabs as $caption => $option) {
+		$auth = $this->session->get('auth');
+		if($auth['type'] == "market"){
+			$tabs = $this->service_tabs;
+		}else{
+			$tabs = $this->fee_tabs;
+		}	
+        foreach ($tabs as $caption => $option) {
             if ($option['controller'] == $controllerName && ($option['action'] == $actionName || $option['any'])) {
                 echo '<li class="active">';
             } else {
