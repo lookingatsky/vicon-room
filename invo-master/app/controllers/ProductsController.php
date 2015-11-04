@@ -65,7 +65,7 @@ class ProductsController extends ControllerBase
         $request = $this->request->getPost();	
 		$departments = Department::find();
 		$this->view->setVar("departments",$departments);
-      
+		
 		$typeArr;
 		$type = Type::find();
 		foreach($type as $k=>$v){
@@ -111,6 +111,18 @@ class ProductsController extends ControllerBase
 		
 		$listInfos = Finance::find($parameters);
 		
+		
+		//$parameterss = array(1 => "time",2 => "id");
+
+		
+		//$conditions = "FROM_UNIXTIME(time,'%Y%m') months,COUNT(id) COUNT";
+		//$query = new Phalcon\Mvc\Model\Query(" SELECT FROM_UNIXTIME(time,'%Y%m') months,id COUNT FROM finance GROUP BY months ", $this->getDI());
+		/*
+		$query = $this->modelsManager->createQuery("SELECT FROM_UNIXTIME(time,'%Y/%m') months,id COUNT FROM Finance GROUP BY months");
+		$type = $query->execute();
+		$queryData = $this->modelsManager->createQuery("SELECT FROM_UNIXTIME(time,'%Y/%m') as time,d_name,data FROM Finance");
+		$finance = $queryData->execute();
+		*/
 		$this->view->setVar('listInfos',$listInfos);
 		$this->view->setVar('did',$auth['did']);
 		

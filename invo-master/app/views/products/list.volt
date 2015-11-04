@@ -131,6 +131,115 @@
 	</div>
 	<div style="clear:both;"></div>
 </form>
+<!-- {{ javascript_include('js/highcharts.js') }}
+{{ javascript_include('js/exporting.js') }}
+{{ javascript_include('js/data.js') }}
+<script>
+$(function(){
+	Highcharts.setOptions({
+		lang:{
+		   contextButtonTitle:"图表导出菜单",
+		   decimalPoint:".",
+		   downloadJPEG:"下载JPEG图片",
+		   downloadPDF:"下载PDF文件",
+		   downloadPNG:"下载PNG文件",
+		   downloadSVG:"下载SVG文件",
+		   drillUpText:"返回 {series.name}",
+		   loading:"加载中",
+		   months:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+		   noData:"没有数据",
+		   numericSymbols: [ "千" , "兆" , "G" , "T" , "P" , "E"],
+		   printChart:"打印图表",
+		   resetZoom:"恢复缩放",
+		   resetZoomTitle:"恢复图表",
+		   shortMonths: [ "1月" , "2月" , "3月" , "4月" , "5月" , "6月" , "7月" , "8月" , "9月" , "10月" , "11月" , "12月"],
+		   thousandsSep:",",
+		   weekdays: ["星期一", "星期二", "星期三", "星期三", "星期四", "星期五", "星期六","星期天"]
+		}
+	}); 	
+	$('#highchartsFrame').highcharts({
+    
+        chart: {                                                          
+        },                                                                
+        title: {                                                          
+            text: 'Combination chart'                                     
+        },                                                                
+        xAxis: {                                                          
+            categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
+        },                                                                
+        tooltip: {                                                        
+            formatter: function() {                                       
+                var s;                                                    
+                if (this.point.name) { // the pie chart                   
+                    s = ''+                                               
+                        this.point.name +': '+ this.y +' fruits';         
+                } else {                                                  
+                    s = ''+                                               
+                        this.x  +': '+ this.y;                            
+                }                                                         
+                return s;                                                 
+            }                                                             
+        },                                                                
+        labels: {                                                         
+            items: [{                                                     
+                html: 'Total fruit consumption',                          
+                style: {                                                  
+                    left: '40px',                                         
+                    top: '8px',                                           
+                    color: 'black'                                        
+                }                                                         
+            }]                                                            
+        },                                                                
+        series: [{                                                        
+            type: 'column',                                               
+            name: 'Jane',                                                 
+            data: [3, 2, 1, 3, 4]                                         
+        }, {                                                              
+            type: 'column',                                               
+            name: 'John',                                                 
+            data: [2, 3, 5, 7, 6]                                         
+        }, {                                                              
+            type: 'column',                                               
+            name: 'Joe',                                                  
+            data: [4, 3, 3, 9, 0]                                         
+        }, {                                                              
+            type: 'spline',                                               
+            name: 'Average',                                              
+            data: [3, 2.67, 3, 6.33, 3.33],                               
+            marker: {                                                     
+            	lineWidth: 2,                                               
+            	lineColor: Highcharts.getOptions().colors[3],               
+            	fillColor: 'white'                                          
+            }                                                             
+        }, {                                                              
+            type: 'pie',                                                  
+            name: 'Total consumption',                                    
+            data: [{                                                      
+                name: 'Jane',                                             
+                y: 13,                                                    
+                color: Highcharts.getOptions().colors[0] // Jane's color  
+            }, {                                                          
+                name: 'John',                                             
+                y: 23,                                                    
+                color: Highcharts.getOptions().colors[1] // John's color  
+            }, {                                                          
+                name: 'Joe',                                              
+                y: 19,                                                    
+                color: Highcharts.getOptions().colors[2] // Joe's color   
+            }],                                                           
+            center: [100, 80],                                            
+            size: 100,                                                    
+            showInLegend: false,                                          
+            dataLabels: {                                                 
+                enabled: false                                            
+            }                                                             
+        }]   	
+	})
+}) 
+</script>
+<div id="highchartsFrame" style="height:500px;width:100%;"></div> -->
+
+
 <div style="clear:both;"></div>
 <style>
 .table th,
