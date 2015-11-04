@@ -77,7 +77,10 @@ class CustomerController extends ControllerBase
 			$customer = Customer::findFirst($searchParams);
 			$this->view->setVar("customer", $customer);
 			
-			$debts = Debts::find("cid = ".$id);
+			$debts = Debts::find(array(
+				"cid = ".$id,
+				"order" => "invest_time"
+			));
 			if (count($customer) == 0) {
 				$this->flash->notice("没有找到对应的债权信息");
 			}

@@ -1,4 +1,4 @@
-#counter {width: 500px; height: 420px; position: fixed; top:0; right:-350px;}
+#counter {width: 500px; height: 420px; position: fixed; top:0; right:-350px;z-index:9999;}
 #counter li{list-style: none;}
 #counter *{padding: 0; margin: 0;}
 #counter h2 { line-height: 42px; padding-left: 15px; font-size: 14px; font-family: arial; color:#FFF; }
