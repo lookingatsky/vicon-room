@@ -42,16 +42,16 @@ class RegisterController extends ControllerBase
 			if(isset($did)){
 				$time = time();		
 				$emailContent = "亲爱的".$email."： \r\n";
-				$emailContent .= "欢迎您来到中合万邦费控系统！ \r\n";
+				$emailContent .= "欢迎您来到万邦家族财富费控系统！ \r\n";
 				$emailContent .= "请马上点击以下链接完成注册 \r\n";
 				$emailContent .= "http://wap.zhwbchina.com/register/verifyemail/".md5($time."+".$email)."\r\n";
 				$emailContent .= "(如果该链接无法点击，请将它完成复制并粘贴至浏览器的地址栏中访问)\r\n\r\n\r\n";
 				$emailContent .= "这是一封系统自动发出的邮件，请不要直接回复。\r\n";
 				$emailContent .= "如有疑问可发送邮件至tech@zhwbchina.com。\r\n\r\n";
-				$emailContent .= "中合万邦\r\n";
+				$emailContent .= "万邦家族财富\r\n";
 				$emailContent .= "http://www.zhwbchina.com";
 				$mail = new Mail();
-				$result = $mail->smtp($email,'请验证您的邮箱（自：中合万邦——费控系统）',$emailContent);
+				$result = $mail->smtp($email,'请验证您的邮箱（自：万邦家族财富——费控系统）',$emailContent);
 				//$result = true;
 				$this->view->setVar("email", $email);
 				$results = VerifyEmail::Find("email = '".$email."'");

@@ -198,16 +198,16 @@ class CustomerController extends ControllerBase
 			if(isset($cid)){
 				$time = time();		
 				$emailContent = "亲爱的".$username."： \r\n";
-				$emailContent .= "欢迎您来到中合万邦债权系统！ \r\n";
+				$emailContent .= "欢迎您来到万邦家族财富债权系统！ \r\n";
 				$emailContent .= "请马上点击以下链接完成注册 \r\n";
 				$emailContent .= $webname."/account/verify/".md5($time."+".$email)."\r\n";
 				$emailContent .= "(如果该链接无法点击，请将它完成复制并粘贴至浏览器的地址栏中访问)\r\n\r\n\r\n";
 				$emailContent .= "这是一封系统自动发出的邮件，请不要直接回复。\r\n";
 				$emailContent .= "如有疑问可发送邮件至tech@zhwbchina.com。\r\n\r\n";
-				$emailContent .= "中合万邦\r\n";
+				$emailContent .= "万邦家族财富\r\n";
 				$emailContent .= "http://www.zhwbchina.com";
 				$mail = new Mail();
-				$result = $mail->smtp($email,'请验证您的邮箱（自：中合万邦——债权系统）',$emailContent);
+				$result = $mail->smtp($email,'请验证您的邮箱（自：万邦家族财富——债权系统）',$emailContent);
 				//$result = true;
 				$this->view->setVar("email", $email);
 				
