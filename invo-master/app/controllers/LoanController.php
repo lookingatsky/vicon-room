@@ -104,6 +104,20 @@ class LoanController extends ControllerBase
 		}
 	}
 
+	public function editfileAction($id){
+		if($id){
+			$searchParams = array("id = '".$id."'");
+			$pawn = Pawn::findFirst($searchParams);
+			$this->view->fid = $pawn->bid;
+			
+			Tag::setDefault("fileid",$pawn->id);
+			Tag::setDefault("title",$pawn->title);
+		}else{
+			$this->flash->error("没有找到对应的债权文件");
+			return $this->forward("loan/index");
+		}		
+	}	
+	
 	public function editAction($id){
 		if($id){
 			
@@ -148,41 +162,63 @@ class LoanController extends ControllerBase
 
 	
 	public function uploadAction(){
-        if ($this->request->hasFiles('fileDataFileName') == true) {
-			$fileName = $this->request->getPost("fileName");
-			$title = $this->request->getPost("title");
-			$fid = $this->request->getPost("fid");
-		
- 			if (!file_exists(APP_PATH.'/public/pawn/'.$fileName.'/')){ 
-				mkdir(APP_PATH.'/public/pawn/'.$fileName.'/'); 
-			}	 		
-            foreach ($this->request->getUploadedFiles() as $file) {
-				$getType = explode('.',$file->getName());
-				$uploadFile = date('YmdHis').rand(10000,99999).".".$getType[count($getType)-1];
-                $file->moveTo(APP_PATH.'/public/pawn/'.$fileName.'/'.$uploadFile);
-            }
-			$pawn = new Pawn();
-			$pawn->bid = $fid;
-			$pawn->src = '/pawn/'.$fileName.'/'.$uploadFile;
-			$pawn->title = $title;
-			$pawn->type = $getType[count($getType)-1];
-			
-			if($pawn->save()){
-				$this->response->redirect('loan/new/'.$fid);
-			}else{
-				$this->flash->error("保存失败！");
-				foreach ($pawn->getMessages() as $message) {
-					$this->flash->error((string) $message);
+		if($this->request->isPost()){
+			$request = $this->request->getPost();
+			if($request['fileid'] == ''){
+				if ($this->request->hasFiles('fileDataFileName') == true) {
+					$fileName = $this->request->getPost("fileName");
+					$title = $this->request->getPost("title");
+					$fid = $this->request->getPost("fid");
+				
+					if (!file_exists(APP_PATH.'/public/pawn/'.$fileName.'/')){ 
+						mkdir(APP_PATH.'/public/pawn/'.$fileName.'/'); 
+					}	 		
+					foreach ($this->request->getUploadedFiles() as $file) {
+						$getType = explode('.',$file->getName());
+						$uploadFile = date('YmdHis').rand(10000,99999).".".$getType[count($getType)-1];
+						$file->moveTo(APP_PATH.'/public/pawn/'.$fileName.'/'.$uploadFile);
+					}
+					$pawn = new Pawn();
+					$pawn->bid = $fid;
+					$pawn->src = '/pawn/'.$fileName.'/'.$uploadFile;
+					$pawn->title = $title;
+					$pawn->type = $getType[count($getType)-1];
+					
+					if($pawn->save()){
+						$this->response->redirect('loan/detail/'.$fid);
+					}else{
+						$this->flash->error("保存失败！");
+						foreach ($pawn->getMessages() as $message) {
+							$this->flash->error((string) $message);
+						}	
+						return $this->forward("loan/index");
+					}				
 				}	
-				return $this->forward("loan/index");
-			}				
-        }	
+			}else{
+				$pawn = Pawn::findFirst("id = ".$request['fileid']);
+				$pawn->title = $request['title'];
+				
+				if($pawn->save()){
+					$this->response->redirect('loan/detail/'.$pawn->bid);
+				}else{
+					$this->flash->error("保存失败！");
+					foreach ($pawn->getMessages() as $message) {
+						$this->flash->error((string) $message);
+					}	
+					return $this->forward("loan/index");
+				}	
+			}
+
+		}else{
+			$this->flash->error("没有找到对应的抵押物文件");
+			return $this->forward("debt/index");				
+		}					
 	}
 	
 	public function deletechildAction($id){
 		if($id){
 			$pawn = Pawn::findFirst("id = ".$id);
-			$fid = $pawn->fid;
+			$fid = $pawn->bid;
 			if(!$pawn){
 				$this->flash->error("没有找到对应的债权文件");
 				return $this->forward("loan/index");				

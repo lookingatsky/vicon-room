@@ -104,7 +104,21 @@ class DebtController extends ControllerBase
 			return $this->forward("debt/index");
 		}
 	}
-
+	
+	public function editfileAction($id){
+		if($id){
+			$searchParams = array("id = '".$id."'");
+			$debt = Debt::findFirst($searchParams);
+			$this->view->fid = $debt->fid;
+			
+			Tag::setDefault("fileid",$debt->id);
+			Tag::setDefault("title",$debt->title);
+		}else{
+			$this->flash->error("没有找到对应的债权文件");
+			return $this->forward("debt/index");
+		}		
+	}
+	
 	public function editAction($id){
 		if($id){
 			//$this->flash->error("债权暂时无法启用编辑功能，请先删除再创建新的债权");
@@ -150,35 +164,57 @@ class DebtController extends ControllerBase
 
 	
 	public function uploadAction(){
-        if ($this->request->hasFiles('fileDataFileName') == true) {
-			$fileName = $this->request->getPost("fileName");
-			$title = $this->request->getPost("title");
-			$fid = $this->request->getPost("fid");
-			
- 			if (!file_exists(APP_PATH.'/public/files/'.$fileName.'/')){ 
-				mkdir(APP_PATH.'/public/files/'.$fileName.'/'); 
-			}	 		
-            foreach ($this->request->getUploadedFiles() as $file) {
-				$getType = explode('.',$file->getName());
-				$uploadFile = date('YmdHis').rand(10000,99999).".".$getType[count($getType)-1];
-                $file->moveTo(APP_PATH.'/public/files/'.$fileName.'/'.$uploadFile);
-            }
-			$debt = new Debt();
-			$debt->fid = $fid;
-			$debt->src = '/files/'.$fileName.'/'.$uploadFile;
-			$debt->title = $title;
-			$debt->type = $getType[count($getType)-1];
-			
-			if($debt->save()){
-				$this->response->redirect('debt/new/'.$fid);
+		if($this->request->isPost()){
+			$request = $this->request->getPost();
+			if($request['fileid'] == ''){
+				if ($this->request->hasFiles('fileDataFileName') == true) {
+					$fileName = $this->request->getPost("fileName");
+					$title = $this->request->getPost("title");
+					$fid = $this->request->getPost("fid");
+					
+					if (!file_exists(APP_PATH.'/public/files/'.$fileName.'/')){ 
+						mkdir(APP_PATH.'/public/files/'.$fileName.'/'); 
+					}	 		
+					foreach ($this->request->getUploadedFiles() as $file) {
+						$getType = explode('.',$file->getName());
+						$uploadFile = date('YmdHis').rand(10000,99999).".".$getType[count($getType)-1];
+						$file->moveTo(APP_PATH.'/public/files/'.$fileName.'/'.$uploadFile);
+					}
+					$debt = new Debt();
+					$debt->fid = $fid;
+					$debt->src = '/files/'.$fileName.'/'.$uploadFile;
+					$debt->title = $title;
+					$debt->type = $getType[count($getType)-1];
+					
+					if($debt->save()){
+						$this->response->redirect('debt/detail/'.$fid);
+					}else{
+						$this->flash->error("保存失败！");
+						foreach ($debt->getMessages() as $message) {
+							$this->flash->error((string) $message);
+						}	
+						return $this->forward("debt/index");
+					}				
+				}				
 			}else{
-				$this->flash->error("保存失败！");
-				foreach ($debt->getMessages() as $message) {
-					$this->flash->error((string) $message);
+				$debt = Debt::findFirst("id = ".$request['fileid']);
+				$debt->title = $request['title'];
+				
+				if($debt->save()){
+					$this->response->redirect('debt/detail/'.$debt->fid);
+				}else{
+					$this->flash->error("保存失败！");
+					foreach ($debt->getMessages() as $message) {
+						$this->flash->error((string) $message);
+					}	
+					return $this->forward("debt/index");
 				}	
-				return $this->forward("debt/index");
-			}				
-        }	
+			}
+
+		}else{
+			$this->flash->error("没有找到对应的债权文件");
+			return $this->forward("debt/index");				
+		}		
 	}
 	
 	public function deletechildAction($id){

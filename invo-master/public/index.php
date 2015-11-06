@@ -4,7 +4,7 @@ error_reporting(E_ALL^E_NOTICE);
 
 
 try {
-	//require_once 'FirePHP/fb.php';
+	require_once 'FirePHP/fb.php';
 	/**
 	 * Read the configuration
 	 */
@@ -37,8 +37,8 @@ try {
 
 		$eventsManager = $di->getShared('eventsManager');
 			
-		//$security = new \Phalcon\Security($di);
-		$security = new Security($di);
+		$security = new \Phalcon\Security($di);
+		//$security = new Security($di);
 		
 		$eventsManager->attach('dispatch', $security);
 		

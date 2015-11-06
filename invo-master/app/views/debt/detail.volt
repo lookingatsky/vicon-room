@@ -193,7 +193,7 @@ label font{
 				<tr>
 					<td>{{ index+1 }}</td>
 					<td><a href="{{detail.src}}">{{ detail.title }}</a></td>
-					<td width="10%">{{ link_to("debt/edit/" ~ detail.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
+					<td width="10%">{{ link_to("debt/editfile/" ~ detail.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
 					<td width="10%">{{ link_to("debt/deletechild/" ~ detail.id, '<i class="icon-remove"></i> 删 除', "class": "btn btn-danger") }}</td>
 				</tr>
 				{% endfor %}
