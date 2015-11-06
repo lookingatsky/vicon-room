@@ -1,4 +1,4 @@
-
+<?php use Phalcon\Tag as Tag ?>
 <ul class="pager">
     <li class="previous pull-left">
         {{ link_to("loan/index/", "&larr; 返回") }}
