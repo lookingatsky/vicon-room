@@ -28,7 +28,7 @@ class LoanController extends ControllerBase
 					if(strlen($keyword) == 14){
 						$searchParams = "number = '".$keyword."'";
 					}else{
-						$ids = borrower::find("name = '".$keyword."'");
+						$ids = Borrower::find("name = '".$keyword."'");
 						$searchKeyword = '';
 						foreach($ids as $key=>$val){
 							if($key != 0){
