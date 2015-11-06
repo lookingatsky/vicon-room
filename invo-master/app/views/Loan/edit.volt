@@ -13,7 +13,7 @@
 </ul>
 
 <div class="center scaffold">
-    <h2>编辑债权</h2>
+    <h2>编辑借款信息</h2>
 	
 	<?php echo Tag::hiddenField(array("id","type" => "str")) ?>
 	
