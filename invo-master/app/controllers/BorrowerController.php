@@ -20,16 +20,16 @@ class BorrowerController extends ControllerBase
     public function indexAction()
     {
 		$numberPage = 1;
-		$searchParams = array();
+		//$searchParams = array();
 		if($this->request->isPost()){
 			$keyword = trim($this->request->getPost("keyword","striptags"));
 			
 			if(isset($keyword) && $keyword != ''){
 				
 				if(strlen($keyword) == 18){
-					$searchParams = array("number = '".$keyword."'");
+					$searchParams = "number = '".$keyword."'";
 				}else{
-					$searchParams = array("name = '".$keyword."'");
+					$searchParams = "name = '".$keyword."'";
 				}
 			}else{
 				$this->flash->notice("请重新输入搜索条件");
@@ -48,7 +48,10 @@ class BorrowerController extends ControllerBase
 			$parameters = $searchParams;
 		}	
 		
-		$customer = Borrower::find($parameters);
+		$customer = Borrower::find(array(
+			$parameters,
+			"order" => "id desc"
+		));
 		if (count($customer) == 0) {
 			$this->flash->notice("没有找到对应的借款人");
 		}

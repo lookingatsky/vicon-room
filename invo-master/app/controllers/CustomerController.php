@@ -20,7 +20,7 @@ class CustomerController extends ControllerBase
     public function indexAction()
     {
 		$numberPage = 1;
-		$searchParams = array();
+		//$searchParams = array();
 		if($this->request->isPost()){
 			//$query = Criteria::fromInput($this->di, "Customer", $_POST);
 			$keyword = trim($this->request->getPost("keyword","striptags"));
@@ -28,9 +28,9 @@ class CustomerController extends ControllerBase
 			if(isset($keyword) && $keyword != ''){
 				
 				if(strlen($keyword) == 18){
-					$searchParams = array("number = '".$keyword."'");
+					$searchParams = "number = '".$keyword."'";
 				}else{
-					$searchParams = array("name = '".$keyword."'");
+					$searchParams = "name = '".$keyword."'";
 				}
 				//$this->persistent->searchParams = $query->getParams();
 			}else{
@@ -50,7 +50,10 @@ class CustomerController extends ControllerBase
 			$parameters = $searchParams;
 		}	
 		
-		$customer = Customer::find($parameters);
+		$customer = Customer::find(array(
+			$parameters,
+			"order" => "id desc"
+		));
 		if (count($customer) == 0) {
 			$this->flash->notice("没有找到对应的客户");
 		}

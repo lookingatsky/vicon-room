@@ -19,12 +19,23 @@ class DebtController extends ControllerBase
 
     public function indexAction(){
 		$numberPage = 1;
-		$searchParams = array();
+		//$searchParams = array();
 		if($this->request->isPost()){
 			$keyword = trim($this->request->getPost("keyword","striptags"));
-			
 			if(isset($keyword) && $keyword != ''){
-					$searchParams = array("number = '".$keyword."'");
+					if(strlen($keyword) == 14){
+						$searchParams = "number = '".$keyword."'";
+					}else{
+						$ids = Customer::find("name = '".$keyword."'");
+						$searchKeyword = '';
+						foreach($ids as $key=>$val){
+							if($key != 0){
+								$searchKeyword .= " AND ";
+							}
+							$searchKeyword .= "cid = ".$val->id;
+						}
+						$searchParams = $searchKeyword;
+					}
 			}else{
 				$this->flash->notice("请重新输入搜索条件");
 			}		
@@ -39,7 +50,10 @@ class DebtController extends ControllerBase
 			$parameters = $searchParams;
 		}	
 		
-		$debts = Debts::find($parameters);
+		$debts = Debts::find(array(
+			$parameters,
+			"order" => "id desc"
+		));
 		if (count($debts) == 0) {
 			$this->flash->notice("没有任何债权信息");
 		}

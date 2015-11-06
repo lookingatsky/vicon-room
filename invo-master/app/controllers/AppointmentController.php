@@ -39,7 +39,10 @@ class AppointmentController extends ControllerBase
 			$parameters = $searchParams;
 		}	
 		
-		$Appointment = Appointment::find($parameters);
+		$Appointment = Appointment::find(array(
+			$parameters,
+			"order" => "id desc"
+		));
 		if (count($Appointment) == 0) {
 			$this->flash->notice("没有任何预约信息");
 		}

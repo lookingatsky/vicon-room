@@ -19,12 +19,25 @@ class LoanController extends ControllerBase
 
     public function indexAction(){
 		$numberPage = 1;
-		$searchParams = array();
+		//$searchParams = array();
 		if($this->request->isPost()){
 			$keyword = trim($this->request->getPost("keyword","striptags"));
 			
 			if(isset($keyword) && $keyword != ''){
-					$searchParams = array("number = '".$keyword."'");
+					//$searchParams = array("number = '".$keyword."'");
+					if(strlen($keyword) == 14){
+						$searchParams = "number = '".$keyword."'";
+					}else{
+						$ids = borrower::find("name = '".$keyword."'");
+						$searchKeyword = '';
+						foreach($ids as $key=>$val){
+							if($key != 0){
+								$searchKeyword .= " AND ";
+							}
+							$searchKeyword .= "bid = ".$val->id;
+						}
+						$searchParams = $searchKeyword;
+					}
 			}else{
 				$this->flash->notice("请重新输入搜索条件");
 			}		
@@ -39,7 +52,10 @@ class LoanController extends ControllerBase
 			$parameters = $searchParams;
 		}	
 		
-		$loan = Loan::find($parameters);
+		$loan = Loan::find(array(
+			$parameters,
+			"order" => "id desc"
+		));
 		if (count($loan) == 0) {
 			$this->flash->notice("没有任何借款信息");
 		}
