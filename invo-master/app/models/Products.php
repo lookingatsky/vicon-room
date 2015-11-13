@@ -31,7 +31,7 @@ class Products extends Phalcon\Mvc\Model
     {
         $this->belongsTo('product_types_id', 'ProductTypes', 'id', array(
 		'reusable' => true
-	));
+		));
     }
 
 }

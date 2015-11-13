@@ -76,7 +76,6 @@ label font{
 					<th>时间</th>
 					<th>操作</th>
 					<th>备注</th>
-					<!-- <th colspan="2"></th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -87,8 +86,6 @@ label font{
 					<td><?php echo date('Y年m月d日 H:i:s',$detail['time']);?></td>
 					<td><?php echo $detail['operate'];?></td>
 					<td><?php echo $detail['remark'];?></td>
-					<!-- <td width="10%">{{ link_to("debt/edit/" ~ detail.id, '<i class="icon-pencil"></i> 编 辑', "class": "btn") }}</td>
-					<td width="10%">{{ link_to("debt/deletechild/" ~ detail.id, '<i class="icon-remove"></i> 删 除', "class": "btn btn-danger") }}</td> -->
 				</tr>
 				{% endfor %}
 			</tbody>	

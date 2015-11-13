@@ -7,7 +7,13 @@ class Users extends model
 {
     public function initialize()
     {
-       // $this->setConnectionService('mongo1');
+       	$this->belongsTo('did', 'Department', 'id', array(
+			'reusable' => true
+		));
+
+       	$this->belongsTo('author', 'Draft', 'id', array(
+			'reusable' => true
+		));		
     }
     public function validation()
     {

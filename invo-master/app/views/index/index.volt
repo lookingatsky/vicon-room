@@ -11,6 +11,10 @@
 ?>	
 	<?php if($auth['type'] == 'market'){ ?>
 	<p>{{ link_to('customer/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+	<?php }elseif($auth['type'] == 'editor'){ ?>
+	<p>{{ link_to('news/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+	<?php }elseif($auth['type'] == 'author'){ ?>
+	<p>{{ link_to('news/draft', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
 	<?php }else{ ?>
 	<p>{{ link_to('invoices/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
 	<?php }?>

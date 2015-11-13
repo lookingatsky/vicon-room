@@ -15,7 +15,7 @@ class RegisterForm extends Form
     {
         //姓名
         $name = new Text('name');
-        $name->setLabel('使用者');
+        $name->setLabel('姓 名');
         $name->setFilters(array('striptags', 'string'));
         $name->addValidators(array(
             new PresenceOf(array(

@@ -99,6 +99,34 @@ class Elements extends Phalcon\Mvc\User\Component
             'any' => false
         )		
     );
+
+    private $news_tabs = array(		
+        '新闻列表' => array(
+            'controller' => 'news',
+            'action' => 'index',
+            'any' => false
+        ),
+        '新闻类型' => array(
+            'controller' => 'news',
+            'action' => 'types',
+            'any' => false
+        ),		
+        '初稿列表' => array(
+            'controller' => 'news',
+            'action' => 'draft',
+            'any' => false
+        ),
+		'管理员列表' => array(
+            'controller' => 'news',
+            'action' => 'members',
+            'any' => false
+        ),			
+        '账户管理' => array(
+            'controller' => 'news',
+            'action' => 'profile',
+            'any' => false
+        )		
+    );
 	
     public function getMenu()
     {
@@ -192,6 +220,10 @@ class Elements extends Phalcon\Mvc\User\Component
 		$auth = $this->session->get('auth');
 		if($auth['type'] == "market"){
 			$tabs = $this->service_tabs;
+		}elseif($auth['type'] == "editor"){
+			$tabs = $this->news_tabs;
+		}elseif($auth['type'] == "author"){
+			$tabs = $this->news_tabs;
 		}else{
 			$tabs = $this->fee_tabs;
 		}	

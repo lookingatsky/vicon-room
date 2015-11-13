@@ -11,6 +11,7 @@ class Department extends Model
 	public $name;
 	
 	public function initialize(){
+		$this->hasMany('id', 'Users', 'did');
 		$this->hasMany('id', 'Finance', 'did');
 	}
 	

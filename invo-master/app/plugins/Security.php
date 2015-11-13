@@ -31,12 +31,16 @@ class Security extends Plugin
 				'users' => new Phalcon\Acl\Role('Users'),
 				'guests' => new Phalcon\Acl\Role('Guests'),
 				'admin' => new Phalcon\Acl\Role('admin'),
-				'marketer' => new Phalcon\Acl\Role('marketer')
+				'marketer' => new Phalcon\Acl\Role('marketer'),
+				'author' => new Phalcon\Acl\Role('author'),
+				'editor' => new Phalcon\Acl\Role('editor')
 			);
 			foreach ($roles as $role) {
 				$acl->addRole($role);
 			}
 			
+			
+			//市场 访问权限
 			$marketResources = array(
 				"customer" => array("index","detail","new","save","account","sendemail","addcard","deletecard","edit","saveedit","upload","uploadsave"),
 				"debt" => array("index","add","","detail","new","edit","delete","upload","deletechild","create","save","saveedit","uploadmatch","uploadmatchsave","editfile"),
@@ -47,6 +51,22 @@ class Security extends Plugin
 			foreach ($marketResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
 			}		
+			
+			//新闻初稿上传人 权限
+			$authorResources = array(
+				"news" => array("index","draft","newdraft","editdraft","adddraft","deletedraft"),
+			);			
+			foreach ($authorResources as $resource => $actions) {
+				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
+			}
+
+			//新闻稿审核人  权限
+			$editorResources = array(
+				"news" => array("index","new","edit","delete","add","upload","draft","verifydraft","verifysave","types","newtype","edittype","deletetype","addtype","members","newmember","editmember","addmember","deletemember"),
+			);			
+			foreach ($editorResources as $resource => $actions) {
+				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
+			}			
 			
 			//////////
 			$privateResources = array(
@@ -107,7 +127,19 @@ class Security extends Plugin
 					$acl->allow('marketer', $resource, $action);
 				}
 			}
-	
+
+			foreach ($authorResources as $resource => $actions) {
+				foreach ($actions as $action){
+					$acl->allow('author', $resource, $action);
+				}
+			}
+
+			foreach ($editorResources as $resource => $actions) {
+				foreach ($actions as $action){
+					$acl->allow('editor', $resource, $action);
+				}
+			}			
+			
 			//The acl is stored in session, APC would be useful here too
 			$this->persistent->acl = $acl;
 		}
@@ -125,6 +157,10 @@ class Security extends Plugin
 		} else {
 			if(isset($auth['type']) && $auth['type'] == 'market'){
 				$role = 'marketer';
+			}elseif(isset($auth['type']) && $auth['type'] == 'author'){
+				$role = 'author';
+			}elseif(isset($auth['type']) && $auth['type'] == 'editor'){
+				$role = 'editor';
 			}else{
 				if($auth['did'] == 0){
 					$role = 'admin';

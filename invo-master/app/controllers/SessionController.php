@@ -87,6 +87,10 @@ class SessionController extends ControllerBase
                 $this->flash->success('欢迎！ ' . $user->name);
 				if($user->type == "market"){
 					return $this->forward('customer/index');
+				}elseif($user->type == "editor"){
+					return $this->forward('news/index');
+				}elseif($user->type == "author"){
+					return $this->forward('news/draft');
 				}else{
 					return $this->forward('invoices/index');
 				} 
