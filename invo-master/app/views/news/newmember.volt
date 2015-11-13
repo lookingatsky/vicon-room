@@ -66,7 +66,7 @@
         </div>
 
         <div class="control-group">
-            <label class="control-label" for="repeatPassword">Repeat Password</label>
+            <label class="control-label" for="repeatPassword">再次输入密码</label>
             <div class="controls">
                 {{ password_field('repeatPassword', 'class': 'input-xlarge') }}
             </div>
