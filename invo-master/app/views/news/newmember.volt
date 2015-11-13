@@ -22,7 +22,7 @@
        <div class="control-group">
             <label class="control-label" for="type">管理员类型</label>
             <div class="controls">
-                <?php echo Phalcon\Tag::select(array("type", array("editor" => "新闻管理员","author" => "初稿管理员"),'class'=>'submitSearch')) ?>
+                <?php echo Phalcon\Tag::select(array("type", array("author" => "初稿管理员","editor" => "新闻管理员"),'class'=>'submitSearch')) ?>
             </div>
         </div>	
 
