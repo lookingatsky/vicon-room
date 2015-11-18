@@ -16,7 +16,7 @@ try {
 	$loader = new \Phalcon\Loader();
 	
 	define('WEBNAME',$config->webservice->webname);
-	
+	define('ThisUrl',$config->webservice->ThisUrl);
 	/**
 	 * We're a registering a set of directories taken from the configuration file
 	 */

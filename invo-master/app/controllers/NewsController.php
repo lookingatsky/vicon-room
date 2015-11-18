@@ -92,7 +92,7 @@ class NewsController extends ControllerBase
 					
 					if($getType[count($getType)-1] != ''){
 						$file->moveTo(APP_PATH.'/public/files/'.$fileName.'/'.$imageName);
-						$news->thumb = '/files/'.$fileName.'/'.$imageName;
+						$news->thumb = ThisUrl .'/files/'.$fileName.'/'.$imageName;
 					}
 				}
 				
@@ -122,9 +122,9 @@ class NewsController extends ControllerBase
 					$imageName = date('YmdHis').".".$getType[count($getType)-1];
 					if($getType[count($getType)-1] != ''){
 						$file->moveTo(APP_PATH.'/public/files/'.$fileName.'/'.$imageName);
-						$news->thumb = '/files/'.$fileName.'/'.$imageName;
+						$news->thumb = ThisUrl .'/files/'.$fileName.'/'.$imageName;
 					}else{
-						$news->thumb = '/img/test.jpg';
+						$news->thumb = ThisUrl .'/img/test.jpg';
 					}
 				}
 			}
@@ -158,7 +158,7 @@ class NewsController extends ControllerBase
 				
 				$data['success'] = true;
 				$data['msg'] = '上传成功';
-				$data['file_path'] = '/../../files/'.$file->getName();
+				$data['file_path'] = ThisUrl .'/files/'.$file->getName();
 				$msg = json_encode($data);
             }
 			echo $msg;
@@ -443,9 +443,9 @@ class NewsController extends ControllerBase
 								$imageName = date('YmdHis').".".$getType[count($getType)-1];
 								if($getType[count($getType)-1] != ''){
 									$file->moveTo(APP_PATH.'/public/files/'.$fileName.'/'.$imageName);
-									$news->thumb = '/files/'.$fileName.'/'.$imageName;
+									$news->thumb = ThisUrl .'/files/'.$fileName.'/'.$imageName;
 								}else{
-									$news->thumb = '/img/test.jpg';
+									$news->thumb = ThisUrl .'/img/test.jpg';
 								}
 							}
 						}
