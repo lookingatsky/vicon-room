@@ -24,7 +24,7 @@ class AppointmentController extends ControllerBase
 			$keyword = trim($this->request->getPost("keyword","striptags"));
 			
 			if(isset($keyword) && $keyword != ''){
-					$searchParams = array("number = '".$keyword."'");
+				$searchParams = array("number = '".$keyword."'");
 			}else{
 				$this->flash->notice("请重新输入搜索条件");
 			}		

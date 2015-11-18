@@ -18,7 +18,7 @@ class IndexController extends ControllerBase
 			if(isset($auth)){
 					
 			}else{
-				$this->flash->notice('欢迎来到中合万邦费控系统！');
+				$this->flash->notice('欢迎来到中合万邦内部工作系统！');
 			}
         }
 /* 		else{
