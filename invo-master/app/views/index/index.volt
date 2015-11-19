@@ -1,29 +1,33 @@
 
 {{ content() }}
-<div class="hero-unit">
-	<p><img height="300" src="../img/bootstrap/index_3.jpg" /></p>
-	<br />
-    <p style="line-height:30px;">中合万邦内部工作系统是自用系统<br />如果没有账号，请先联系系统管理员。</p>
-
+<div class="hero-unit" style="height:430px;background:url('../img/bootstrap/bg.jpg');background-size:100% auto;">
+	
+<style>
+.hero-unit a{
+	position:relative;
+	top:350px;
+	left:22px;
+}
+</style>
 <?php 
 	$auth = $this->session->get('auth');
 	if(isset($auth)){
-?>	
+?>	<p>
 	<?php if($auth['type'] == 'market'){ ?>
-	<p>{{ link_to('customer/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+	<a href="/customer/index"><img src="../img/bootstrap/back.png" height="40" /></a>
 	<?php }elseif($auth['type'] == 'editor'){ ?>
-	<p>{{ link_to('news/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+	<a href="/news/index"><img src="../img/bootstrap/back.png" height="40" /></a>
 	<?php }elseif($auth['type'] == 'author'){ ?>
-	<p>{{ link_to('news/draft', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+	<a href="/news/draft"><img src="../img/bootstrap/back.png" height="40" /></a>
 	<?php }else{ ?>
-	<p>{{ link_to('invoices/index', '回到系统 &raquo;', 'class': 'btn btn-primary btn-large') }}</p>
+	<a href="/invoices/index"><img src="../img/bootstrap/back.png" height="40" /></a>
 	<?php }?>
 <?php }else{ ?>
-	<p>{{ link_to('session/index', '登陆 &raquo;', 'class': 'btn btn-primary btn-large btn-success') }}</p>
+	<a href="/session/index"><img src="../img/bootstrap/login.png" height="40" /></a>
 <?php	
 	}
 ?>
-    
+    </p>
 </div>
 
 

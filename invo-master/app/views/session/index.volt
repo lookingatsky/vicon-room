@@ -1,8 +1,8 @@
 
 {{ content() }}
 
-<div class="login-or-signup">
-    <div class="row">
+<div class="login-or-signup" style="height:520px;background:url('../img/bootstrap/bgLogin.jpg');background-size:100% auto;">
+    <div class="row" style="margin-top:100px;">
 
         <div class="span6">
             <div class="page-header">
@@ -28,23 +28,6 @@
                 </fieldset>
             </form>
         </div>
-
-<!--         <div class="span6">
-            <div class="page-header">
-                <h2>Don't have an account yet?</h2>
-            </div>
-
-            <p>Create an account offers the following advantages:</p>
-            <ul>
-                <li>Create, track and export your invoices online</li>
-                <li>Gain critical insights into how your business is doing</li>
-                <li>Stay informed about promotions and special packages</li>
-            </ul>
-
-            <div class="clearfix center">
-                {{ link_to('session/register', 'Sign Up', 'class': 'btn btn-primary btn-large btn-success') }}
-            </div>
-        </div>  -->
 
     </div>
 </div>
