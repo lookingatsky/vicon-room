@@ -790,7 +790,7 @@ class NewsController extends ControllerBase
 				$fproducts->description = $request->getPost("description");
 				if($fproducts->save()){
 					$this->flash->success("产品修改成功");
-					return $this->forward('news/types');
+					return $this->forward('news/product');
 				}else{
 					foreach ($fproducts->getMessages() as $message) {
 						$this->flash->error((string) $message);
@@ -798,7 +798,7 @@ class NewsController extends ControllerBase
 				}	
 			}else{
 				$this->flash->error("找不到该产品");
-				return $this->forward('news/types');
+				return $this->forward('news/product');
 			}
 		}else{
 			$auth = $this->session->get("auth");
@@ -817,7 +817,7 @@ class NewsController extends ControllerBase
 				$fproducts->register = $auth['name'];
 			if($fproducts->save()){
 				$this->flash->success("产品保存成功");
-				return $this->forward('news/types');
+				return $this->forward('news/product');
 			}else{
 				foreach ($fproducts->getMessages() as $message) {
 					$this->flash->error((string) $message);
