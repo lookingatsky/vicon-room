@@ -116,6 +116,11 @@ class Elements extends Phalcon\Mvc\User\Component
             'action' => 'draft',
             'any' => false
         ),
+        '产品列表' => array(
+            'controller' => 'news',
+            'action' => 'product',
+            'any' => false
+        ),		
 		'管理员列表' => array(
             'controller' => 'news',
             'action' => 'members',

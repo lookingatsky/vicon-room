@@ -62,8 +62,9 @@ class Security extends Plugin
 
 			//新闻稿审核人  权限
 			$editorResources = array(
-				"news" => array("index","new","edit","delete","add","upload","draft","verifydraft","verifysave","types","newtype","edittype","deletetype","addtype","members","newmember","editmember","addmember","deletemember"),
-			);			
+				"news" => array("index","new","edit","delete","add","upload","draft","verifydraft","verifysave","types","newtype","edittype","deletetype","addtype","members","newmember","editmember","addmember","deletemember","product","editproduct","newproduct","addproduct","deleteproduct"),
+			);		
+			
 			foreach ($editorResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
 			}			

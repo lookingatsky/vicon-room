@@ -584,6 +584,7 @@ class NewsController extends ControllerBase
 	/////////////////////////////////////////////////////////////////////////////////////
 	//新闻管理员
 	/////////////////////////////////////////////////////////////
+	
 	public function membersAction(){
 		$numberPage = 1;
 		//$searchParams = array();
@@ -707,4 +708,138 @@ class NewsController extends ControllerBase
 			$this->forward('news/members');			
 		}	
 	}	
+	
+	/////////////////////////////////////////////////////////////
+	///////////产品管理
+	////////////////////////////////////////////
+	
+	public function productAction(){
+		$numberPage = 1;
+		$numberPage = $this->request->getQuery("page", "int");
+		if ($numberPage <= 0) {
+			$numberPage = 1;
+		}
+
+		$fproducts = Fproducts::find();
+		
+		if (count($fproducts) == 0) {
+			$this->flash->notice("没有找到新闻");
+		}
+
+		$paginator = new Phalcon\Paginator\Adapter\Model(array(
+			"data" => $fproducts,
+			"limit" => 10,
+			"page" => $numberPage
+		));
+		$page = $paginator->getPaginate();
+
+		$this->view->setVar("page", $page);			
+		
+	}
+	
+	public function newproductAction(){
+		$productTypes = FproductTypes::find();
+		$this->view->productTypes = $productTypes;
+	}
+	
+	public function editproductAction($id){
+		if($id){
+			$productTypes = FproductTypes::find();
+			$this->view->productTypes = $productTypes;		
+			
+			$fproducts = Fproducts::findFirst("id = ".$id);
+			Tag::setDefault('pid',$fproducts->id);
+			Tag::setDefault('product_types_id',$fproducts->product_types_id);
+			Tag::setDefault('name',$fproducts->name);
+ 			Tag::setDefault('issuer',$fproducts->issuer);
+			Tag::setDefault('status',$fproducts->status); 
+			Tag::setDefault('cycle',$fproducts->cycle);
+			Tag::setDefault('min',$fproducts->min);
+			Tag::setDefault('expected',$fproducts->expected);
+			Tag::setDefault('issuetime',$fproducts->issuetime);
+			Tag::setDefault('telephone',$fproducts->telephone);
+			Tag::setDefault('control',$fproducts->control);
+			Tag::setDefault('description',$fproducts->description);
+		}else{
+			$this->flash->error("没有找到产品");
+			$this->forward('news/product');			
+		}	
+	}
+	
+	public function addproductAction(){
+		$request = $this->request;
+		if (!$request->isPost()) {
+			$this->flash->error("错误操作");
+			return false;
+		}
+		
+		//判断是编辑还是添加
+		if($request->getPost("pid") != ''){
+			$fproducts = Fproducts::findFirst("id = ".$request->getPost("pid"));
+			if($fproducts){
+				$fproducts->name = $request->getPost("name");
+				$fproducts->product_types_id = $request->getPost("product_types_id");
+				$fproducts->status = $request->getPost("status");
+				$fproducts->issuer = $request->getPost("issuer");
+				$fproducts->cycle = $request->getPost("cycle");
+				$fproducts->min = $request->getPost("min");
+				$fproducts->expected = $request->getPost("expected");
+				$fproducts->issuetime = $request->getPost("issuetime");
+				$fproducts->telephone = $request->getPost("telephone");
+				$fproducts->control = $request->getPost("control");
+				$fproducts->description = $request->getPost("description");
+				if($fproducts->save()){
+					$this->flash->success("产品修改成功");
+					return $this->forward('news/types');
+				}else{
+					foreach ($fproducts->getMessages() as $message) {
+						$this->flash->error((string) $message);
+					}
+				}	
+			}else{
+				$this->flash->error("找不到该产品");
+				return $this->forward('news/types');
+			}
+		}else{
+			$auth = $this->session->get("auth");
+			$fproducts = new Fproducts();
+				$fproducts->name = $request->getPost("name");
+				$fproducts->product_types_id = $request->getPost("product_types_id");
+				$fproducts->status = $request->getPost("status");
+				$fproducts->issuer = $request->getPost("issuer");
+				$fproducts->cycle = $request->getPost("cycle");
+				$fproducts->min = $request->getPost("min");
+				$fproducts->expected = $request->getPost("expected");
+				$fproducts->issuetime = $request->getPost("issuetime");
+				$fproducts->telephone = $request->getPost("telephone");
+				$fproducts->control = $request->getPost("control");
+				$fproducts->description = $request->getPost("description");
+				$fproducts->register = $auth['name'];
+			if($fproducts->save()){
+				$this->flash->success("产品保存成功");
+				return $this->forward('news/types');
+			}else{
+				foreach ($fproducts->getMessages() as $message) {
+					$this->flash->error((string) $message);
+				}
+			}			
+		}			
+	}
+	
+	public function deleteproductAction($id){
+		if($id){
+			$fproducts = Fproducts::findFirst("id = ".$id);
+			if (!$fproducts->delete()) {
+				foreach ($fproducts->getMessages() as $message) {
+					$this->flash->error((string) $message);
+				}
+			} else {
+				$this->flash->success("产品已删除");
+				return $this->forward("news/product");
+			}					
+		}else{
+			$this->flash->error("没有找到产品");
+			$this->forward('news/product');			
+		}				
+	}
 }
