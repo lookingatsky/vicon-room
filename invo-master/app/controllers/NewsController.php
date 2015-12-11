@@ -426,11 +426,9 @@ class NewsController extends ControllerBase
 				$remark[] = $insertInfo;
 				$infos->status = $request['status'];
 				$infos->remark = json_encode($remark);	
-				
-				if($infos->save()){
+				if($infos->save()){	
 					if($request['status'] == 2){
 						$news = new News();
-						
 						if ($this->request->hasFiles('fileDataFileName') == true) {
 							$fileName = date('Ymd');
 							if (!file_exists(APP_PATH.'/public/files/'.$fileName)){ 
@@ -438,7 +436,6 @@ class NewsController extends ControllerBase
 							}	 		
 							
 							foreach ($this->request->getUploadedFiles() as $file) {
-
 								$getType = explode('.',$file->getName());
 								$imageName = date('YmdHis').".".$getType[count($getType)-1];
 								if($getType[count($getType)-1] != ''){
@@ -450,14 +447,15 @@ class NewsController extends ControllerBase
 							}
 						}
 						
-						$news->typeid = $request->getPost("typeid");
-						$news->title = $request->getPost("title");
-						$news->description = $request->getPost("description");
-						$news->content = $request->getPost("content");
+						$news->typeid = $request["typeid"];
+						$news->title = $request["title"];
+						$news->description = $request["description"];
+						$news->content = $request["content"];
 						$news->username = $userInfo['name'];
 						$news->inputtime = time();
 						$news->updatetime = time();
 						$news->status = 0;
+						
 						if($news->save()){
 							$this->response->redirect('news/draft');
 						}else{
